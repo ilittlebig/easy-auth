@@ -49,13 +49,22 @@ EasyAuth.configure({
 To sign in a user, pass the username and password:
 ```ts
 import { signIn } from "easy-auth";
-await signIn({ username: "email@domain.com", password: "LongPassword123!!" });
+
+const result = await signIn({
+  username: "email@domain.com",
+  password: "LongPassword123!!"
+});
 ```
-If a challenge (like MFA or new password requirement) is returned, you must handle it by confirming the sign-in:
+The `signIn` function may return a `nextStep` if further action is needed (e.g., setting a new password or entering an MFA code). You can handle each step based on the `nextStep.signInStep` value:
 ```ts
 import { confirmSignIn } from "easy-auth";
-await confirmSignIn({ challengeResponse: "your-response" });
+
+if (result.nextStep.signInStep === "CONFIRM_SIGN_IN_WITH_NEW_PASSWORD_REQUIRED") {
+  // Handle new password requirement
+  await confirmSignIn({ challengeResponse: "newPassword123" });
+}
 ```
+When all steps are completed, `nextStep.signInStep` will return `DONE`, indicating a successful sign-in.
 
 #### Reset Password
 To start the password reset flow, provide the username:
