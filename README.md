@@ -31,6 +31,49 @@ npm link
 npm link easy-cognito-auth
 ```
 
+### Usage
+#### Configuration
+Before using the authentication functions, configure EasyAuth with your AWS Cognito credentials:
+```ts
+EasyAuth.configure({
+  Auth: {
+    Cognito: {
+      userPoolId: "your-user-pool-id",
+      userPoolClientId: "your-user-pool-client-id"
+    },
+  }
+});
+```
+
+#### Sign In
+To sign in a user, pass the username and password:
+```ts
+import { signIn } from "easy-auth";
+await signIn({ username: "email@domain.com", password: "LongPassword123!!" });
+```
+If a challenge (like MFA or new password requirement) is returned, you must handle it by confirming the sign-in:
+```ts
+import { confirmSignIn } from "easy-auth";
+await confirmSignIn({ challengeResponse: "your-response" });
+```
+
+#### Reset Password
+To start the password reset flow, provide the username:
+```ts
+import { resetPassword } from "easy-auth";
+await resetPassword({ username: "email@domain.com" });
+```
+If a confirmation code is required, confirm the password reset:
+```ts
+import { confirmResetPassword } from "easy-auth";
+
+await confirmResetPassword({
+  username: "email@domain.com",
+  confirmationCode: "123456",
+  newPassword: "LongPassword123!!",
+});
+```
+
 ## Running Tests
 To run the included unit tests:
 ```bash
