@@ -9,12 +9,12 @@ import {
   describe,
   test,
 } from "vitest";
-import { AuthBuddy } from "../../src/internal/classes";
+import { EasyAuth } from "../../src/internal/classes";
 import { signIn, confirmSignIn } from "../../src/api";
 
 describe("signInWithSRP", () => {
   test("test", async () => {
-    AuthBuddy.configure({
+    EasyAuth.configure({
       Auth: {
         Cognito: {
           userPoolId: "eu-central-1_p7kFFrIpB",

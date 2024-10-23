@@ -1,5 +1,5 @@
 /**
- * Handles the configuration of the AuthBuddy library, with built-in validation.
+ * Handles the configuration of the EasyAuth library, with built-in validation.
  *
  * Author: Elias Sjödin
  * Created: 2024-10-16
@@ -9,7 +9,7 @@ import { AuthError } from "../classes";
 import { authErrorStrings } from "../utils/errorUtils";
 import type { AuthConfig, CognitoConfig } from "../../types/authTypes";
 
-class AuthBuddyClass {
+class EasyAuthClass {
   private resourcesConfig: AuthConfig | {} = {};
 
   private validateConfig(config: AuthConfig): void {
@@ -37,7 +37,7 @@ class AuthBuddyClass {
   /**
    * Example usage:
    *
-   * AuthBuddy.configure({
+   * EasyAuth.configure({
    *   Auth: {
    *     Cognito: {
    *       userPoolId: "your_user_pool_id",
@@ -54,4 +54,4 @@ class AuthBuddyClass {
   };
 }
 
-export const AuthBuddy = new AuthBuddyClass();
+export const EasyAuth = new EasyAuthClass();

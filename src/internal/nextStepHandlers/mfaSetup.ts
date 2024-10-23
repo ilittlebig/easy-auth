@@ -9,7 +9,7 @@ import {
   CognitoIdentityProviderClient,
   AssociateSoftwareTokenCommand,
 } from "@aws-sdk/client-cognito-identity-provider";
-import { AuthBuddy, AuthError } from "../classes";
+import { EasyAuth, AuthError } from "../classes";
 import { signInStore } from "../stores/signInStore";
 import { getRegion } from "../utils/regionUtils";
 import { authErrorStrings } from "../utils/errorUtils";
@@ -55,7 +55,7 @@ const getTOTPSetupDetails = (secretCode: string, username: string) => {
 export default async (challengeParameters: CognitoResponse) => {
   const { signInSession, username } = signInStore.getState();
 
-  const cognitoConfig = AuthBuddy.getConfig().Auth?.Cognito;
+  const cognitoConfig = EasyAuth.getConfig().Auth?.Cognito;
   const { userPoolId } = cognitoConfig;
   const region = getRegion(userPoolId);
 

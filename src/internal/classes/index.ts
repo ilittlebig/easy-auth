@@ -5,12 +5,12 @@
  * Created: 2024-10-16
  */
 
-import { AuthBuddy } from "../classes/authBuddy";
+import { EasyAuth } from "../classes/easyAuth";
 import { AuthError } from "../classes/authError";
 import { Hub } from "../classes/hub";
 
 export {
-  AuthBuddy,
+  EasyAuth,
   AuthError,
   Hub,
 };

@@ -6,9 +6,9 @@ export default defineConfig({
   build: {
     lib: {
       entry: path.resolve(__dirname, "src/index.ts"),
-      name: "AuthBuddy",
+      name: "EasyAuth",
       formats: ["es", "cjs", "umd"],
-      fileName: format => `auth-buddy-ts.${format}.js`
+      fileName: format => `easy-auth.${format}.js`
     },
     rollupOptions: {
       external: [],

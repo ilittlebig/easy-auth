@@ -18,9 +18,9 @@ export const authErrorStrings = {
     Invalid or missing AWS Cognito configuration.
 
     This most likely occurred due to:
-      1. AuthBuddy.configure was not called before calling the method.
+      1. EasyAuth.configure was not called before calling the method.
 
-         AuthBuddy.configure({
+         EasyAuth.configure({
            Auth: {
              Cognito: {
                userPoolId: "your_user_pool_id",

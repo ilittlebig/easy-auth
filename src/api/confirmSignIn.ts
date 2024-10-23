@@ -5,7 +5,7 @@
  * Created: 2024-10-21
  */
 
-import { AuthBuddy, AuthError } from "../internal/classes";
+import { EasyAuth, AuthError } from "../internal/classes";
 import { assert, authErrorStrings } from "../internal/utils/errorUtils";
 import {
   signInStore,
@@ -41,7 +41,7 @@ export const confirmSignIn = async (input: ConfirmSignInInput) => {
   }
 
   try {
-    const cognitoConfig = AuthBuddy.getConfig().Auth.Cognito;
+    const cognitoConfig = EasyAuth.getConfig().Auth.Cognito;
     const {
       ChallengeName: nextChallengeName,
       ChallengeParameters: challengeParameters,

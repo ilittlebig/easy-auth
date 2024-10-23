@@ -5,7 +5,7 @@
  * Created: 2024-10-16
  */
 
-import { AuthBuddy, AuthError, Hub } from "../internal/classes";
+import { AuthError, EasyAuth, Hub } from "../internal/classes";
 import { assert, authErrorStrings } from "../internal/utils/errorUtils";
 import { handleUserSRPAuthFlow, getActiveSignInState } from "../internal/utils/signInUtils";
 import { getNewDeviceMetatada } from "../internal/utils/deviceMetadataUtils";
@@ -25,7 +25,7 @@ export const signInWithSRP = async (input: SignInInput) => {
   assert(!!password, "EmptyPasswordException", authErrorStrings.EmptyPasswordException);
 
   try {
-    const cognitoConfig = AuthBuddy.getConfig().Auth.Cognito;
+    const cognitoConfig = EasyAuth.getConfig().Auth.Cognito;
     const {
       ChallengeName: challengeName,
       ChallengeParameters: challengeParameters,

@@ -5,7 +5,7 @@
  * Created: 2024-10-23
  */
 
-import { AuthBuddy } from "../classes";
+import { EasyAuth } from "../classes";
 
 const STORAGE_NAME = "CognitoIdentityServiceProvider";
 
@@ -82,7 +82,7 @@ const getAuthStorageKeys = (authKeys: AuthKeys) => {
  */
 
 export const getLastAuthUserKey = () => {
-  const cognitoConfig = AuthBuddy.getConfig().Auth?.Cognito;
+  const cognitoConfig = EasyAuth.getConfig().Auth?.Cognito;
   const { userPoolClientId } = cognitoConfig;
   return `${STORAGE_NAME}.${userPoolClientId}.LastAuthUser`;
 }
@@ -105,7 +105,7 @@ export const getLastAuthUser = () => {
  */
 
 export const getAuthKeys = (username?: string) => {
-  const cognitoConfig = AuthBuddy.getConfig().Auth?.Cognito;
+  const cognitoConfig = EasyAuth.getConfig().Auth?.Cognito;
   const { userPoolClientId } = cognitoConfig;
 
   const lastAuthUser =

@@ -1,10 +1,10 @@
 {
-  "name": "auth-buddy-ts",
+  "name": "easy-auth",
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "main": "dist/auth-buddy-ts.cjs.js",
-  "module": "dist/auth-buddy-ts.es.js",
+  "main": "dist/easy-auth-ts.cjs.js",
+  "module": "dist/easy-auth-ts.es.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "vitest run --coverage",
