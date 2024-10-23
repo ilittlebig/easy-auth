@@ -8,11 +8,13 @@
 import { AuthError } from "../classes";
 import newPasswordRequired from "./newPasswordRequired";
 import mfaSetup from "./mfaSetup";
+import softwareTokenMfa from "./softwareTokenMfa";
 import type { ChallengeHandler, ChallengeInput } from "../../types/authTypes";
 
 const challengeHandlers: Record<string, ChallengeHandler> = {
   NEW_PASSWORD_REQUIRED: newPasswordRequired,
   MFA_SETUP: mfaSetup,
+  SOFTWARE_TOKEN_MFA: softwareTokenMfa,
 };
 
 export const handleChallenge = async ({
