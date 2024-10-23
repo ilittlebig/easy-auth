@@ -41,6 +41,7 @@ export const authErrorStrings = {
   MissingChallengeNameException: "Challenge name is missing from the authentication response.",
   MissingChallengeParametersException: "Challenge parameters are missing from the authentication response.",
   MissingSecretCodeException: "SecretCode is missing from the AssociateSoftwareTokenCommand.",
+  InvalidAuthTokensException: "Invalid authentication tokens.",
   InvalidChallengeResponseException: `
     You provided an invalid challenge response.
 
