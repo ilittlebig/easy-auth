@@ -47,13 +47,8 @@ describe("signInWithSRP", () => {
   });
 
   test("should sign in successfully with valid SRP credentials", async () => {
-    mocks.send.mockImplementationOnce(() => {
-      return authTestParams.handleUserSRPAuthFlow1;
-    });
-
-    mocks.send.mockImplementationOnce(() => {
-      return authTestParams.handleUserSRPAuthFlow2;
-    });
+    mocks.send.mockImplementationOnce(() => authTestParams.handleUserSRPAuthFlow1);
+    mocks.send.mockImplementationOnce(() => authTestParams.handleUserSRPAuthFlow2);
 
     const result = await signInWithSRP({
       username: authTestParams.user1.username,
