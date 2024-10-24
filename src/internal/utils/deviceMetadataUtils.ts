@@ -57,7 +57,8 @@ export const getNewDeviceMetatada = async (
       DeviceKey: deviceKey,
       DeviceSecretVerifierConfig: deviceSecretVerifierConfig,
     });
-    await client.send(confirmDeviceCommand);
+    const a = await client.send(confirmDeviceCommand);
+    console.log(a);
 
     return {
       deviceKey,
