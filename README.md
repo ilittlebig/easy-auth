@@ -1,5 +1,5 @@
 # AWS Cognito Authentication Library
-A simple AWS Cognito authentication library using AWS SDK with SRP-based login.
+A simple, no-fuss authentication library using AWS SDK with SRP-based login. Designed to make AWS Cognito integration straightforward and secure.
 
 ### Features
 -	🔒 Secure Authentication: Uses SRP (Secure Remote Password) for safe user logins.
@@ -12,12 +12,12 @@ A simple AWS Cognito authentication library using AWS SDK with SRP-based login.
 
 1. Clone the repo:
 ```bash
-git clone https://github.com/ilittlebig/easy-cognito-auth.git
+git clone https://github.com/ilittlebig/easy-auth.git
 ```
 
 2. Navigate into the project folder and build it:
 ```bash
-cd easy-cognito-auth
+cd easy-auth
 npm run build
 ```
 
@@ -28,7 +28,7 @@ npm link
 
 5. In your project, link to the library:
 ```bash
-npm link easy-cognito-auth
+npm link easy-auth
 ```
 
 ### Usage
