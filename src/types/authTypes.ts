@@ -62,7 +62,7 @@ export interface SignInInput {
 
 export interface SignInState {
   username: string;
-  challengeName: ChallengeNameType;
+  challengeName?: ChallengeNameType;
   signInSession?: string;
   signInDetails?: Record<string, string>;
 }

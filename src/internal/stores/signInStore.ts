@@ -11,7 +11,7 @@ import { SignInState, Action, Store } from "../../types/authTypes";
 
 const getDefaultState = (): SignInState => {
   return {
-    username: undefined,
+    username: "",
     challengeName: undefined,
     signInSession: undefined,
     signInDetails: undefined,

@@ -18,7 +18,9 @@
     "noFallthroughCasesInSwitch": true,
 
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+
+    "types": ["vitest", "node"]
   },
   "include": ["src", "vite.config.ts"]
 }

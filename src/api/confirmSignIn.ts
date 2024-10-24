@@ -7,6 +7,8 @@
 
 import { EasyAuth, AuthError } from "../internal/classes";
 import { assert, authErrorStrings } from "../internal/utils/errorUtils";
+import { getNewDeviceMetatada } from "../internal/utils/deviceMetadataUtils";
+import { cacheTokens } from "../internal/utils/tokenUtils";
 import {
   signInStore,
   setActiveSignInState,
@@ -65,7 +67,16 @@ export const confirmSignIn = async (input: ConfirmSignInInput) => {
 
     if (authenticationResult) {
       cleanActiveSignInState();
-      // TODO: cache tokens
+      cacheTokens({
+        username,
+        ...authenticationResult,
+        NewDeviceMetadata: await getNewDeviceMetatada(
+					cognitoConfig.userPoolId,
+					authenticationResult.NewDeviceMetadata,
+					authenticationResult.AccessToken,
+				),
+        signInDetails
+      });
 
       return {
         isSignedIn: true,

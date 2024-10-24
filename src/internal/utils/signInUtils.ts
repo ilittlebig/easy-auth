@@ -44,6 +44,19 @@ export const getActiveSignInState = (username: string): string => {
  *
  */
 
+export const getSignInResultFromError = (errorName: string) => {
+  if (errorName === "PasswordResetRequiredException") {
+    return {
+			isSignedIn: false,
+			nextStep: { signInStep: "RESET_PASSWORD" },
+		};
+  }
+}
+
+/**
+ *
+ */
+
 export const handleUserSRPAuthFlow = async ({
   username,
   password,

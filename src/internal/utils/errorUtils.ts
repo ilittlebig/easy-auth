@@ -66,10 +66,11 @@ export const authErrorStrings = {
  *
  */
 
-export const assert = (assertion: boolean, name: string, message: string) => {
-	if (assertion) return;
+export const assert = (value: any, name: string, message: string) => {
+  const isValid = !!value && (typeof value !== "string" || value.trim() !== "");
+  if (isValid) return;
   throw new AuthError({ name, message });
-}
+};
 
 /**
  * Throws an error if the user is already authenticated.

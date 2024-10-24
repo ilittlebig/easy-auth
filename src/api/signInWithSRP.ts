@@ -7,7 +7,11 @@
 
 import { AuthError, EasyAuth, Hub } from "../internal/classes";
 import { assert, authErrorStrings } from "../internal/utils/errorUtils";
-import { handleUserSRPAuthFlow, getActiveSignInState } from "../internal/utils/signInUtils";
+import {
+  getSignInResultFromError,
+  handleUserSRPAuthFlow,
+  getActiveSignInState,
+} from "../internal/utils/signInUtils";
 import { getNewDeviceMetatada } from "../internal/utils/deviceMetadataUtils";
 import { cacheTokens } from "../internal/utils/tokenUtils";
 import { setActiveSignInState, cleanActiveSignInState } from "../internal/stores/signInStore";
@@ -36,13 +40,6 @@ export const signInWithSRP = async (input: SignInInput) => {
       password,
       cognitoConfig
     });
-
-    if (!challengeName) {
-      throw new AuthError({
-        name: "MissingChallengeNameException",
-        message: authErrorStrings.MissingChallengeNameException
-      });
-    }
 
     const activeUsername = getActiveSignInState(username);
     setActiveSignInState({
@@ -78,12 +75,21 @@ export const signInWithSRP = async (input: SignInInput) => {
       };
     }
 
+    if (!challengeName) {
+      throw new AuthError({
+        name: "MissingChallengeNameException",
+        message: authErrorStrings.MissingChallengeNameException
+      });
+    }
+
     return getNextStepFromChallenge(
       challengeName,
       challengeParameters as unknown as CognitoResponse
     );
-  } catch (err) {
-    console.log("aaauth:", err);
+  } catch (err: any) {
+    const result = getSignInResultFromError(err.name);
+		if (result) return result;
+    throw err;
   }
 }
 
