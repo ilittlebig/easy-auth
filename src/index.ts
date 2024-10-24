@@ -16,3 +16,5 @@ export {
   confirmSignIn,
   getCurrentUser,
 };
+
+export * from "./types";
