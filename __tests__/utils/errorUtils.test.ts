@@ -15,14 +15,14 @@ import {
 import { AuthError } from "../../src/internal/classes";
 import { authErrorStrings } from "../../src/internal/utils/errorUtils";
 import { assert, validateUserNotAuthenticated } from "../../src/internal/utils/errorUtils";
-import { getCurrentUser } from "../../src/api";
+import { getCurrentUser } from "../../src/api/getCurrentUser";
 import type { AuthUser } from "../../src/types/authTypes";
 
 vi.mock("../../src/internal/classes", () => ({
   AuthError: vi.fn(),
 }));
 
-vi.mock("../../src/api", () => ({
+vi.mock("../../src/api/getCurrentUser", () => ({
   getCurrentUser: vi.fn(),
 }));
 
