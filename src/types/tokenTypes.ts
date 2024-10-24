@@ -6,10 +6,8 @@
  */
 
 import type { SignInDetails } from "./authTypes";
-import type {
-  AuthenticationResultType,
-  NewDeviceMetadataType
-} from "@aws-sdk/client-cognito-identity-provider";
+import type { AuthenticationResultType } from "@aws-sdk/client-cognito-identity-provider";
+import type { NewDeviceMetadataOutput } from "./deviceMetadataTypes";
 
 interface DecodedToken {
   toString: () => string;
@@ -21,7 +19,7 @@ export interface TokensType {
   idToken?: DecodedToken;
   refreshToken?: string;
   clockDrift: number;
-  deviceMetadata?: NewDeviceMetadataType;
+  deviceMetadata?: NewDeviceMetadataOutput;
   username: string;
   signInDetails: SignInDetails;
 }
@@ -29,6 +27,6 @@ export interface TokensType {
 export interface CacheTokensInput {
   username: string;
   authenticationResult: AuthenticationResultType;
-  NewDeviceMetadata?: NewDeviceMetadataType;
+  NewDeviceMetadata?: NewDeviceMetadataOutput;
   signInDetails: SignInDetails;
 }

@@ -6,6 +6,7 @@
  */
 
 import { EasyAuth } from "../classes";
+import type { NewDeviceMetadataOutput } from "../../types/deviceMetadataTypes";
 
 const STORAGE_NAME = "CognitoIdentityServiceProvider";
 
@@ -164,7 +165,7 @@ export const storeJSON = (key: string, item: any) => {
  *
  */
 
-export const storeDeviceMetadata = (deviceMetadata: any, authKeys: any) => {
+export const storeDeviceMetadata = (authKeys: any, deviceMetadata?: NewDeviceMetadataOutput) => {
   if (!deviceMetadata) return;
   const { deviceKey, deviceGroupKey, randomPassword } = deviceMetadata;
   storeItem(authKeys.deviceKey, deviceKey);

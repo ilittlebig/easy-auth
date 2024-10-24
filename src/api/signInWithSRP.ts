@@ -62,12 +62,10 @@ export const signInWithSRP = async (input: SignInInput) => {
         signInDetails
       });
 
-      /*
       Hub.dispatch("auth", {
         event: "signedIn",
-        data: await getCurrentSession(),
+        data: ""//await getCurrentSession(),
       });
-      */
 
       return {
         isSignedIn: true,

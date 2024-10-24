@@ -14,11 +14,9 @@ type HubCapsule = {
 };
 
 export class HubClass {
-  private name: string;
   private listeners: Map<string, Listener[]>;
 
-  constructor(name: string) {
-    this.name = name;
+  constructor() {
     this.listeners = new Map<string, Listener[]>();
   }
 
@@ -110,4 +108,4 @@ export class HubClass {
   }
 }
 
-export const Hub = new HubClass("__default__");
+export const Hub = new HubClass();

@@ -17,6 +17,7 @@ import {
   storeDeviceMetadata
 } from "./storageUtils";
 import type { CacheTokensInput, TokensType } from "../../types/tokenTypes";
+import type { NewDeviceMetadataOutput } from "../../types/deviceMetadataTypes";
 
 /**
  *
@@ -65,7 +66,7 @@ export const storeTokens = (tokens: TokensType) => {
   storeItem(authKeys.idToken, idToken);
   storeItem(authKeys.refreshToken, refreshToken);
 
-  storeDeviceMetadata(deviceMetadata, authKeys);
+  storeDeviceMetadata(authKeys, deviceMetadata);
   storeJSON(authKeys.signInDetails, signInDetails)
 
   storeItem(authKeys.clockDrift, `${clockDrift}`);
@@ -97,7 +98,7 @@ export const cacheTokens = ({
 
   let idToken;
   let refreshToken;
-  let deviceMetadata = authenticationResult.NewDeviceMetadata;
+  let deviceMetadata = authenticationResult.NewDeviceMetadata as NewDeviceMetadataOutput;
 
   if (authenticationResult.RefreshToken) {
     refreshToken = authenticationResult.RefreshToken;

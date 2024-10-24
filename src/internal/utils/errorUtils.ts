@@ -5,7 +5,7 @@
  * Created: 2024-10-16
  */
 
-import { getCurrentUser } from "../../api";
+import { getCurrentUser } from "../../api/getCurrentUser";
 import { AuthError } from "../classes";
 import type { AuthUser } from "../../types/authTypes";
 
