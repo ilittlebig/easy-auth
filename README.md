@@ -88,3 +88,7 @@ To run the included unit tests:
 ```bash
 npm test
 ```
+
+## References
+- [AWS Amplify](https://github.com/aws-amplify/amplify-js/tree/main)
+- [AWS Cognito](https://aws.amazon.com/pm/cognito/?gclid=Cj0KCQjw4Oe4BhCcARIsADQ0csmmQYKFkPMoXc-u8_XjXmrA8zBWbYHqGLd3a-bxTEeROm9PqxHGvWoaAtF1EALw_wcB&trk=d4ed1ec2-fa74-4450-ad36-bdbfda7b0575&sc_channel=ps&ef_id=Cj0KCQjw4Oe4BhCcARIsADQ0csmmQYKFkPMoXc-u8_XjXmrA8zBWbYHqGLd3a-bxTEeROm9PqxHGvWoaAtF1EALw_wcB:G:s&s_kwcid=AL!4422!3!689494568877!e!!g!!amazon%20cognito!20987280941!164069379011)
