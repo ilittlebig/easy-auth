@@ -14,13 +14,9 @@ import {
   getKeyValueStorage,
   getAuthKeys,
 } from "./storageUtils";
-/*
-import {
-  SRPClient,
-  convertHexToBase64,
-} from "../../lib/srp";
-import { getRegion } from "./regionUtils";
-*/
+import { SRPClient } from "./srp/srpClient";
+import { convertHexToBase64 } from "./srp/utils";
+import { getRegion, getUserPoolName } from "./regionUtils";
 
 /**
  *
@@ -31,23 +27,18 @@ export const getNewDeviceMetatada = async (
   newDeviceMetadata?: NewDeviceMetadataType,
   accessToken?: string
 ) => {
-  if (!newDeviceMetadata)
-    return undefined;
+  if (!newDeviceMetadata) return undefined;
 
-  /*
-	const userPoolName = userPoolId.split("_")[1] || "";
-	const deviceKey = newDeviceMetadata?.DeviceKey;
-	const deviceGroupKey = newDeviceMetadata?.DeviceGroupKey;
+  const userPoolName = getUserPoolName(userPoolId);
+	const deviceKey = newDeviceMetadata?.DeviceKey ?? "";
+	const deviceGroupKey = newDeviceMetadata?.DeviceGroupKey ?? "";
 
   const region = getRegion(userPoolId);
   const client = new CognitoIdentityProviderClient({ region });
   const srpClient = new SRPClient(userPoolName);
 
   try {
-    srpClient.generateHashDevice(
-      deviceGroupKey ?? "",
-      deviceKey ?? ""
-    );
+    srpClient.generateHashDevice(deviceGroupKey, deviceKey);
   } catch (err) {
     // TODO: log error
     return undefined;
@@ -76,8 +67,6 @@ export const getNewDeviceMetatada = async (
     // TODO: log error
     return undefined;
   }
-  */
-  return undefined;
 }
 
 /**

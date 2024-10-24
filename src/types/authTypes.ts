@@ -9,7 +9,6 @@ import {
   ChallengeNameType,
   CognitoIdentityProviderClient,
 } from "@aws-sdk/client-cognito-identity-provider";
-import SRP from "aws-cognito-srp-client";
 
 export interface AuthUser {
   userId: string;
@@ -44,7 +43,7 @@ export interface PasswordVerifierParams {
   challengeName: ChallengeNameType;
   cognitoConfig: CognitoConfig;
   client: CognitoIdentityProviderClient;
-  srp: InstanceType<typeof SRP>;
+  srp: any;
   password: string;
   challengeParameters: SRPChallengeParameters;
   session?: string;

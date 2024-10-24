@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-cognito-identity-provider": "^3.670.0",
-    "aws-cognito-srp-client": "^1.0.0"
+    "aws-cognito-srp-client": "^1.0.0",
+    "sjcl-aws": "^1.0.8"
   }
 }

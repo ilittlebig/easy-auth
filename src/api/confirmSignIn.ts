@@ -42,53 +42,49 @@ export const confirmSignIn = async (input: ConfirmSignInInput) => {
     });
   }
 
-  try {
-    const cognitoConfig = EasyAuth.getConfig().Auth.Cognito;
-    const {
-      ChallengeName: nextChallengeName,
-      ChallengeParameters: challengeParameters,
-      AuthenticationResult: authenticationResult,
-      Session: session,
-		} = await handleChallenge({
-			username,
-			challengeName,
-			signInSession,
-			challengeResponse,
-      cognitoConfig,
-			options
+  const cognitoConfig = EasyAuth.getConfig().Auth.Cognito;
+  const {
+    ChallengeName: nextChallengeName,
+    ChallengeParameters: challengeParameters,
+    AuthenticationResult: authenticationResult,
+    Session: session,
+  } = await handleChallenge({
+    username,
+    challengeName,
+    signInSession,
+    challengeResponse,
+    cognitoConfig,
+    options
+  });
+
+  setActiveSignInState({
+    username,
+    challengeName: nextChallengeName,
+    signInSession: session,
+    signInDetails,
+  });
+
+  if (authenticationResult) {
+    cleanActiveSignInState();
+    cacheTokens({
+      username,
+      ...authenticationResult,
+      NewDeviceMetadata: await getNewDeviceMetatada(
+        cognitoConfig.userPoolId,
+        authenticationResult.NewDeviceMetadata,
+        authenticationResult.AccessToken,
+      ),
+      signInDetails
     });
 
-    setActiveSignInState({
-			username,
-      challengeName: nextChallengeName,
-			signInSession: session,
-			signInDetails,
-		});
-
-    if (authenticationResult) {
-      cleanActiveSignInState();
-      cacheTokens({
-        username,
-        ...authenticationResult,
-        NewDeviceMetadata: await getNewDeviceMetatada(
-					cognitoConfig.userPoolId,
-					authenticationResult.NewDeviceMetadata,
-					authenticationResult.AccessToken,
-				),
-        signInDetails
-      });
-
-      return {
-        isSignedIn: true,
-        nextStep: { signInStep: "DONE" }
-      };
-    }
-
-    return getNextStepFromChallenge(
-      nextChallengeName,
-      challengeParameters as unknown as CognitoResponse
-    );
-  } catch (err) {
-    console.log(err);
+    return {
+      isSignedIn: true,
+      nextStep: { signInStep: "DONE" }
+    };
   }
+
+  return getNextStepFromChallenge(
+    nextChallengeName,
+    challengeParameters as unknown as CognitoResponse
+  );
 }

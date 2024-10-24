@@ -11,9 +11,11 @@ import {
   RespondToAuthChallengeCommand,
   RespondToAuthChallengeCommandOutput,
 } from "@aws-sdk/client-cognito-identity-provider";
-import SRP from "aws-cognito-srp-client";
 import { AuthError } from "../classes";
-import { getRegion } from "./regionUtils";
+import { getRegion, getUserPoolName } from "./regionUtils";
+import { getDeviceMetadata } from "./deviceMetadataUtils";
+import { getNowString, calculateSignature } from "./srp/utils";
+import { SRPClient } from "./srp/srpClient";
 import { authErrorStrings } from "./errorUtils";
 import { signInStore } from "../stores/signInStore";
 import type {
@@ -63,11 +65,12 @@ export const handleUserSRPAuthFlow = async ({
   cognitoConfig,
 }: UserSRPAuthParams): Promise<RespondToAuthChallengeCommandOutput> => {
   const { userPoolId, userPoolClientId } = cognitoConfig;
+  const userPoolName = getUserPoolName(userPoolId);
   const region = getRegion(userPoolId);
 
   const client = new CognitoIdentityProviderClient({ region });
-  const srp = new SRP(userPoolId);
-  const srpA = srp.getA();
+  const srp = new SRPClient(userPoolName);
+  const srpA = srp.calculateA();
 
   const authCommand = new InitiateAuthCommand({
     AuthFlow: "USER_SRP_AUTH",
@@ -143,7 +146,9 @@ export const handlePasswordVerifier = async ({
   challengeParameters,
   session
 }: PasswordVerifierParams): Promise<RespondToAuthChallengeCommandOutput> => {
-  const { userPoolClientId } = cognitoConfig;
+  const { userPoolId, userPoolClientId } = cognitoConfig;
+  const userPoolName = getUserPoolName(userPoolId);
+
   const {
     SRP_B: serverBValue,
     SALT: salt,
@@ -158,27 +163,21 @@ export const handlePasswordVerifier = async ({
     });
   }
 
-  const { signature, timestamp } = srp.getSignature(
-    username,
-    serverBValue,
-    salt,
-    secretBlock,
-    password
-  );
+  const dateNow = getNowString();
+  const hkdf = srp.getPasswordAuthenticationKey(username, password, serverBValue, salt);
+  const signatureString = calculateSignature(hkdf, userPoolName, username, secretBlock, dateNow);
 
-  const challengeResponses = {
+  const challengeResponses: { [key: string]: string } = {
     USERNAME: username,
     PASSWORD_CLAIM_SECRET_BLOCK: secretBlock,
-    TIMESTAMP: timestamp,
-    PASSWORD_CLAIM_SIGNATURE: signature,
+    TIMESTAMP: dateNow,
+    PASSWORD_CLAIM_SIGNATURE: signatureString,
   };
 
-  /*
   const deviceMetadata = getDeviceMetadata(username);
 	if (deviceMetadata && deviceMetadata.deviceKey) {
 		challengeResponses["DEVICE_KEY"] = deviceMetadata.deviceKey;
 	}
-  */
 
   const respondToAuthCommand = new RespondToAuthChallengeCommand({
 		ChallengeName: challengeName,
