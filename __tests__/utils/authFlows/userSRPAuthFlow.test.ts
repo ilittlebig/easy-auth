@@ -40,29 +40,17 @@ vi.mock("@aws-sdk/client-cognito-identity-provider", async () => {
   };
 });
 
-vi.mock("../../../src/internal/utils/signInUtils", async () => {
-  const originalModule = await vi.importActual("../../../src/internal/utils/signInUtils");
-  return {
-    ...originalModule,
-    setActiveSignInUsername: vi.fn()
-  };
-});
+vi.mock("../../../src/internal/utils/signInUtils", async () => ({
+  setActiveSignInUsername: vi.fn()
+}));
 
-vi.mock("../../../src/internal/utils/deviceMetadataUtils", async () => {
-  const originalModule = await vi.importActual("../../../src/internal/utils/deviceMetadataUtils");
-  return {
-    ...originalModule,
-    getDeviceMetadata: vi.fn()
-  };
-});
+vi.mock("../../../src/internal/utils/deviceMetadataUtils", async () => ({
+  getDeviceMetadata: vi.fn()
+}));
 
-vi.mock("../../../src/internal/utils/authFlows/deviceSRPAuthFlow", async () => {
-  const originalModule = await vi.importActual("../../../src/internal/utils/authFlows/deviceSRPAuthFlow");
-  return {
-    ...originalModule,
-    handleDeviceSRPAuthFlow: vi.fn()
-  };
-});
+vi.mock("../../../src/internal/utils/authFlows/deviceSRPAuthFlow", async () => ({
+  handleDeviceSRPAuthFlow: vi.fn()
+}));
 
 vi.mock("../../../src/internal/utils/authFlows/userSRPAuthFlow", async () => {
   const originalModule = await vi.importActual("../../../src/internal/utils/authFlows/userSRPAuthFlow");
@@ -339,34 +327,4 @@ describe("handleUserSRPAuthFlow", () => {
     const result = await handleUserSRPAuthFlow(userSRPAuthParams);
     expect(result).toEqual(passwordVerifierResponse);
   });
-
-  /*
-  test("should call handlePasswordVerifier with correct parameters", async () => {
-    const authResponse = {
-      ChallengeName: "PASSWORD_VERIFIER",
-      ChallengeParameters: challengeParameters,
-      Session: "mockSession",
-    };
-
-    const passwordVerifierResponse = {
-      AuthenticationResult: {
-        AccessToken: "mockAccessToken",
-      },
-    };
-
-    mocks.send.mockResolvedValueOnce(authResponse);
-    mocks.send.mockResolvedValueOnce(passwordVerifierResponse);
-    await handleUserSRPAuthFlow(userSRPAuthParams);
-
-    expect(handlePasswordVerifier).toHaveBeenCalledWith({
-      challengeName: authResponse.ChallengeName,
-      cognitoConfig: authTestParams.cognitoConfig,
-      client: expect.any(Object),
-      srp: expect.any(Object),
-      password: userSRPAuthParams.password,
-      challengeParameters: authResponse.ChallengeParameters,
-      session: authResponse.Session,
-    });
-  });
-  */
 });
