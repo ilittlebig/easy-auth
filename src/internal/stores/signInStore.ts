@@ -7,9 +7,9 @@
  * Created: 2024-10-21
  */
 
-import { SignInState, Action, Store } from "../../types/authTypes";
+import type { SignInState, Action, Store } from "../../types/authTypes";
 
-const getDefaultState = (): SignInState => {
+export const getDefaultState = (): SignInState => {
   return {
     username: "",
     challengeName: undefined,
@@ -18,7 +18,7 @@ const getDefaultState = (): SignInState => {
   };
 };
 
-const signInReducer = (state: SignInState, action: Action): SignInState => {
+export const signInReducer = (state: SignInState, action: Action): SignInState => {
   switch (action.type) {
     case "SET_CHALLENGE_NAME":
       return {
@@ -44,7 +44,7 @@ const signInReducer = (state: SignInState, action: Action): SignInState => {
   }
 };
 
-const createStore = (reducer: (state: SignInState, action: Action) => SignInState): Store => {
+export const createStore = (reducer: (state: SignInState, action: Action) => SignInState): Store => {
   const defaultState = getDefaultState();
   let currentState = reducer(defaultState, { type: "SET_INITIAL_STATE" });
 
