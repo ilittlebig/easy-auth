@@ -9,7 +9,7 @@ import { AuthError, EasyAuth, Hub } from "../internal/classes";
 import { assert, authErrorStrings } from "../internal/utils/errorUtils";
 import { getSignInResultFromError, getActiveSignInState } from "../internal/utils/signInUtils";
 import { getNewDeviceMetatada } from "../internal/utils/deviceMetadataUtils";
-import { handleUserSRPAuthFlow } from "../internal/utils/authFlows/userSRPAuthFlow";
+import { handleUserSRPAuthFlow } from "../internal/utils/authFlowUtils";
 import { cacheTokens } from "../internal/utils/tokenUtils";
 import { setActiveSignInState, cleanActiveSignInState } from "../internal/stores/signInStore";
 import { getNextStepFromChallenge } from "../internal/nextStepHandlers";
@@ -51,7 +51,7 @@ export const signInWithSRP = async (input: SignInInput) => {
       cacheTokens({
         username: activeUsername,
         authenticationResult,
-        NewDeviceMetadata: await getNewDeviceMetatada(
+        newDeviceMetadata: await getNewDeviceMetatada(
 					cognitoConfig.userPoolId,
 					authenticationResult.NewDeviceMetadata,
 					authenticationResult.AccessToken,

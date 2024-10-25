@@ -16,9 +16,11 @@ import {
   type Mock,
 } from "vitest";
 import { EasyAuth } from "../../../src/internal/classes";
-import { handleUserSRPAuthFlow } from "../../../src/internal/utils/authFlows/userSRPAuthFlow";
+import {
+  handleUserSRPAuthFlow,
+  handleDeviceSRPAuthFlow
+} from "../../../src/internal/utils/authFlowUtils";
 import { getDeviceMetadata } from "../../../src/internal/utils/deviceMetadataUtils";
-import { handleDeviceSRPAuthFlow } from "../../../src/internal/utils/authFlows/deviceSRPAuthFlow";
 import { setActiveSignInUsername } from "../../../src/internal/utils/signInUtils";
 import { AuthError } from "../../../src/internal/classes";
 import { authErrorStrings } from "../../../src/internal/utils/errorUtils";
@@ -48,7 +50,7 @@ vi.mock("../../../src/internal/utils/deviceMetadataUtils", async () => ({
   getDeviceMetadata: vi.fn()
 }));
 
-vi.mock("../../../src/internal/utils/authFlows/deviceSRPAuthFlow", async () => ({
+vi.mock("../../../src/internal/utils/authFlowUtils/deviceSRPAuthFlow", async () => ({
   handleDeviceSRPAuthFlow: vi.fn()
 }));
 

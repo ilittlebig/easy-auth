@@ -19,7 +19,7 @@ import { EasyAuth } from "../../src/internal/classes";
 import { signInWithSRP } from "../../src/api/signInWithSRP";
 import { authTestParams } from "../testUtils/authTestParams";
 import { authErrorStrings } from "../../src/internal/utils/errorUtils";
-import * as userSRPAuthUtils from "../../src/internal/utils/authFlows/userSRPAuthFlow";
+import * as userSRPAuthUtils from "../../src/internal/utils/authFlowUtils/userSRPAuthFlow";
 
 const mocks = vi.hoisted(() => ({
   send: vi.fn()

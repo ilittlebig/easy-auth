@@ -27,6 +27,6 @@ export interface TokensType {
 export interface CacheTokensInput {
   username: string;
   authenticationResult: AuthenticationResultType;
-  NewDeviceMetadata?: NewDeviceMetadataOutput;
+  newDeviceMetadata?: NewDeviceMetadataOutput;
   signInDetails: SignInDetails;
 }

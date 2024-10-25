@@ -69,7 +69,7 @@ export const confirmSignIn = async (input: ConfirmSignInInput) => {
     cacheTokens({
       username,
       ...authenticationResult,
-      NewDeviceMetadata: await getNewDeviceMetatada(
+      newDeviceMetadata: await getNewDeviceMetatada(
         cognitoConfig.userPoolId,
         authenticationResult.NewDeviceMetadata,
         authenticationResult.AccessToken,

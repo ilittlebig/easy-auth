@@ -14,6 +14,9 @@ const authenticationResult = {
   IdToken: VALID_ID_TOKEN,
   RefreshToken: "xxxxxxxxxxxxxxxx",
   NewDeviceMetadata: {
+    deviceKey: "validDeviceKey",
+    deviceGroupKey: "validDeviceGroupKey",
+    randomPassword: "validRandomPassword",
   },
 };
 

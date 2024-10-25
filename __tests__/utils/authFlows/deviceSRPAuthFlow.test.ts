@@ -15,7 +15,7 @@ import {
 } from "vitest";
 import { RespondToAuthChallengeCommand } from "@aws-sdk/client-cognito-identity-provider";
 import { EasyAuth } from "../../../src/internal/classes";
-import { handleDeviceSRPAuthFlow } from "../../../src/internal/utils/authFlows/deviceSRPAuthFlow";
+import { handleDeviceSRPAuthFlow } from "../../../src/internal/utils/authFlowUtils";
 import { getDeviceMetadata } from "../../../src/internal/utils/deviceMetadataUtils";
 import { validateDeviceMetadata } from "../../../src/internal/utils/errorUtils";
 import { SRPClient } from "../../../src/internal/utils/srp/srpClient";
