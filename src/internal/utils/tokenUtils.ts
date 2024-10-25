@@ -23,12 +23,12 @@ import type { NewDeviceMetadataOutput } from "../../types/deviceMetadataTypes";
  *
  */
 
-export const clearTokens = () => {
+export const clearTokens = async () => {
   const authKeys = getAuthKeys();
   const lastAuthUserKey = getLastAuthUserKey();
   const storage = getKeyValueStorage();
 
-  Promise.all([
+  await Promise.all([
     storage.removeItem(authKeys.accessToken),
     storage.removeItem(authKeys.idToken),
     storage.removeItem(authKeys.clockDrift),
@@ -62,11 +62,11 @@ export const storeTokens = (tokens: TokensType) => {
   } = tokens;
 
   const authKeys = getAuthKeys();
-  storeItem(authKeys.accessToken, accessToken);
-  storeItem(authKeys.idToken, idToken);
-  storeItem(authKeys.refreshToken, refreshToken);
+  storeItem(authKeys.accessToken, accessToken.toString());
+  storeItem(authKeys.idToken, idToken?.toString());
+  storeItem(authKeys.refreshToken, refreshToken?.toString());
 
-  storeDeviceMetadata(authKeys, deviceMetadata);
+  storeDeviceMetadata(authKeys, deviceMetadata, storeItem);
   storeJSON(authKeys.signInDetails, signInDetails)
 
   storeItem(authKeys.clockDrift, `${clockDrift}`);

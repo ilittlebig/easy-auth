@@ -8,12 +8,17 @@
 import { getCurrentUser } from "../../api/getCurrentUser";
 import { AuthError } from "../classes";
 import type { AuthUser } from "../../types/authTypes";
+import type { NewDeviceMetadataOutput } from "../../types/deviceMetadataTypes";
+
+const isNonEmptyString = (value: any): value is string => {
+  return typeof value === "string" && value.trim().length > 0;
+}
 
 /**
  *
  */
 
-export const authErrorStrings = {
+export const authErrorStrings: { [key: string]: string } = {
   InvalidConfigException: `
     Invalid or missing AWS Cognito configuration.
 
@@ -60,6 +65,7 @@ export const authErrorStrings = {
   NoAccessTokenException: "No access token was found in the authentication result.",
   InvalidJWTTokenException: "Invalid JWT token provided, could not decode token.",
   InvalidJWTTokenPayloadException: "Invalid JWT payload",
+  DeviceMetadataException: "'deviceKey', 'deviceGroupKey' or 'randomPassword' not found in local storage during the sign-in process..",
 }
 
 /**
@@ -93,4 +99,25 @@ export const validateUserNotAuthenticated = async () => {
     name: "UserAlreadyAuthenticatedException",
     message: authErrorStrings.UserAlreadyAuthenticatedException,
   });
+}
+
+/**
+ * Throws an error if the device metadata is invalid.
+ */
+
+export function validateDeviceMetadata(
+  deviceMetadata: any
+): asserts deviceMetadata is NewDeviceMetadataOutput {
+  const validDeviceMetadata: boolean =
+    !!deviceMetadata &&
+    isNonEmptyString(deviceMetadata.deviceKey) &&
+    isNonEmptyString(deviceMetadata.deviceGroupKey) &&
+    isNonEmptyString(deviceMetadata.randomPassword);
+
+  if (!validDeviceMetadata) {
+    throw new AuthError({
+      name: "DeviceMetadataException",
+      message: authErrorStrings.DeviceMetadataException,
+    });
+  }
 }

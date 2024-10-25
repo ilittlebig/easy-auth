@@ -5,11 +5,11 @@
  * Created: 2024-10-22
  */
 
-import type { SignInDetails } from "./authTypes";
 import type { AuthenticationResultType } from "@aws-sdk/client-cognito-identity-provider";
+import type { SignInDetails } from "./authTypes";
 import type { NewDeviceMetadataOutput } from "./deviceMetadataTypes";
 
-interface DecodedToken {
+export interface DecodedToken {
   toString: () => string;
   payload: Record<string, any>;
 }

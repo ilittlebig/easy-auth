@@ -57,8 +57,7 @@ export const getNewDeviceMetatada = async (
       DeviceKey: deviceKey,
       DeviceSecretVerifierConfig: deviceSecretVerifierConfig,
     });
-    const a = await client.send(confirmDeviceCommand);
-    console.log(a);
+    await client.send(confirmDeviceCommand);
 
     return {
       deviceKey,
@@ -87,7 +86,7 @@ export const getDeviceMetadata = (username: string) => {
     deviceKey,
     deviceGroupKey,
     randomPassword,
-  } : null;
+  } : undefined;
 }
 
 /**

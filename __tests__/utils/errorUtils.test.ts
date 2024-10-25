@@ -13,10 +13,15 @@ import {
   type Mock,
 } from "vitest";
 import { AuthError } from "../../src/internal/classes";
-import { authErrorStrings } from "../../src/internal/utils/errorUtils";
-import { assert, validateUserNotAuthenticated } from "../../src/internal/utils/errorUtils";
+import {
+  authErrorStrings,
+  validateDeviceMetadata,
+  assert,
+  validateUserNotAuthenticated
+} from "../../src/internal/utils/errorUtils";
 import { getCurrentUser } from "../../src/api/getCurrentUser";
 import type { AuthUser } from "../../src/types/authTypes";
+import type { NewDeviceMetadataOutput } from "../../src/types/deviceMetadataTypes";
 
 vi.mock("../../src/internal/classes", () => ({
   AuthError: vi.fn(),
@@ -83,5 +88,75 @@ describe("validateUserNotAuthenticated", () => {
       .resolves
       .not
       .toThrow();
+  });
+});
+
+describe("validateDeviceMetadata", () => {
+  test("does not throw error if device metadata is valid", async () => {
+    const deviceMetadata = {
+      deviceKey: "validDeviceKey",
+      deviceGroupKey: "validDeviceGroupKey",
+      randomPassword: "validRandomPassword",
+    } as NewDeviceMetadataOutput;
+
+    expect(() => validateDeviceMetadata(deviceMetadata))
+      .not
+      .toThrow();
+  });
+
+  test("throws error if device metadata is undefined", async () => {
+    expect(() => validateDeviceMetadata(undefined))
+      .toThrowError(AuthError);
+
+    expect(AuthError).toHaveBeenCalledWith({
+      name: "DeviceMetadataException",
+      message: authErrorStrings.DeviceMetadataException,
+    });
+  });
+
+  test("throws error if device metadata has invalid field types", async () => {
+    const deviceMetadata = {
+      deviceKey: 1234,
+      deviceGroupKey: 1122,
+      randomPassword: "validRandomPassword",
+    } as unknown as NewDeviceMetadataOutput;
+
+    expect(() => validateDeviceMetadata(deviceMetadata))
+      .toThrowError(AuthError);
+
+    expect(AuthError).toHaveBeenCalledWith({
+      name: "DeviceMetadataException",
+      message: authErrorStrings.DeviceMetadataException,
+    });
+  });
+
+  test("throws error if device metadata is missing fields", async () => {
+    const deviceMetadata = {
+      randomPassword: "validRandomPassword",
+    } as NewDeviceMetadataOutput;
+
+    expect(() => validateDeviceMetadata(deviceMetadata))
+      .toThrowError(AuthError);
+
+    expect(AuthError).toHaveBeenCalledWith({
+      name: "DeviceMetadataException",
+      message: authErrorStrings.DeviceMetadataException,
+    });
+  });
+
+  test("throws error if device metadata has empty fields", async () => {
+    const deviceMetadata = {
+      deviceKey: "",
+      deviceGroupKey: "",
+      randomPassword: "",
+    } as NewDeviceMetadataOutput;
+
+    expect(() => validateDeviceMetadata(deviceMetadata))
+      .toThrowError(AuthError);
+
+    expect(AuthError).toHaveBeenCalledWith({
+      name: "DeviceMetadataException",
+      message: authErrorStrings.DeviceMetadataException,
+    });
   });
 });

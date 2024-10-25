@@ -9,6 +9,7 @@ import {
   ChallengeNameType,
   CognitoIdentityProviderClient,
 } from "@aws-sdk/client-cognito-identity-provider";
+import { SRPClient } from "../internal/utils/srp/srpClient";
 
 export interface AuthUser {
   userId: string;
@@ -32,21 +33,23 @@ export interface UserSRPAuthParams {
   cognitoConfig: CognitoConfig;
 }
 
-export interface SRPChallengeParameters {
-  SRP_B: string;
-  SALT: string;
-  SECRET_BLOCK: string;
-  USER_ID_FOR_SRP: string;
-}
-
 export interface PasswordVerifierParams {
   challengeName: ChallengeNameType;
   cognitoConfig: CognitoConfig;
   client: CognitoIdentityProviderClient;
-  srp: any;
+  srp: SRPClient;
   password: string;
-  challengeParameters: SRPChallengeParameters;
+  challengeParameters: Record<string, string>;
   session?: string;
+}
+
+export interface DevicePasswordVerifierParams {
+  username: string;
+  client: CognitoIdentityProviderClient;
+  srp: SRPClient;
+  challengeParameters: Record<string, string>;
+  session?: string;
+  cognitoConfig: CognitoConfig;
 }
 
 export interface SignInDetails {

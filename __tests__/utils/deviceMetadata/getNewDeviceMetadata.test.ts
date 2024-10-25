@@ -12,6 +12,7 @@ import {
   test,
   expect,
   beforeEach,
+  afterEach,
   type Mock,
 } from "vitest";
 import { getNewDeviceMetatada } from "../../../src/internal/utils/deviceMetadataUtils";
@@ -50,6 +51,10 @@ vi.mock("../../../src/internal/utils/regionUtils", () => ({
 describe("getNewDeviceMetadata", () => {
   beforeEach(() => {
     mocks.send.mockClear();
+  });
+
+  afterEach(() => {
+    vi.clearAllMocks();
   });
 
   test("should return undefined if newDeviceMetadata is not provided", async () => {

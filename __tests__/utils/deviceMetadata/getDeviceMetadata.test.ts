@@ -45,10 +45,10 @@ describe("getDeviceMetadata", () => {
 
   test("should return null if randomPassword does not exist", () => {
     (vi.mocked(getKeyValueStorage) as Mock).mockReturnValueOnce({
-      getItem: vi.fn(() => null),
+      getItem: vi.fn(() => undefined),
     });
 
     const result = getDeviceMetadata("mocked-username");
-    expect(result).toBeNull();
+    expect(result).toBeUndefined();
   });
 });

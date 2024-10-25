@@ -16,12 +16,13 @@ import { getRegion, getUserPoolName } from "./regionUtils";
 import { getDeviceMetadata } from "./deviceMetadataUtils";
 import { getNowString, calculateSignature } from "./srp/utils";
 import { SRPClient } from "./srp/srpClient";
-import { authErrorStrings } from "./errorUtils";
+import { authErrorStrings, validateDeviceMetadata } from "./errorUtils";
 import { signInStore } from "../stores/signInStore";
 import type {
   UserSRPAuthParams,
   PasswordVerifierParams,
-  SRPChallengeParameters,
+  CognitoConfig,
+  DevicePasswordVerifierParams,
 } from "../../types/authTypes";
 
 /**
@@ -87,9 +88,6 @@ export const handleUserSRPAuthFlow = async ({
     Session: session
   } = await client.send(authCommand);
 
-  const activeUsername = challengeParameters?.USERNAME ?? username;
-	setActiveSignInUsername(activeUsername);
-
   const validChallengeParameters =
     challengeParameters &&
     challengeParameters.SRP_B &&
@@ -102,6 +100,9 @@ export const handleUserSRPAuthFlow = async ({
       message: authErrorStrings.MissingChallengeParametersException
     });
   }
+
+  const activeUsername = challengeParameters.USERNAME ?? username;
+	setActiveSignInUsername(activeUsername);
 
   if (!challengeName) {
     throw new AuthError({
@@ -116,20 +117,13 @@ export const handleUserSRPAuthFlow = async ({
     client,
     srp,
     password,
-    challengeParameters: challengeParameters as unknown as SRPChallengeParameters,
+    challengeParameters,
     session,
   });
 
   if (response.ChallengeName === "DEVICE_SRP_AUTH") {
-    /*
-    return handleDeviceSRPAuthFlow({
-      username: activeUsername,
-      cognitoConfig,
-      session: response.Session,
-    });
-    */
+    return handleDeviceSRPAuthFlow(activeUsername, cognitoConfig);
   }
-
   return response;
 }
 
@@ -186,4 +180,103 @@ export const handlePasswordVerifier = async ({
 		Session: session,
   });
   return await client.send(respondToAuthCommand);
+}
+
+/**
+ *
+ */
+
+const handleDevicePasswordVerifier = async ({
+  username,
+  client,
+  srp,
+  challengeParameters,
+  session,
+  cognitoConfig
+}: DevicePasswordVerifierParams) => {
+  const { userPoolClientId } = cognitoConfig;
+  const deviceMetadata = getDeviceMetadata(username);
+  validateDeviceMetadata(deviceMetadata);
+
+  const {
+    deviceKey,
+    deviceGroupKey,
+    randomPassword
+  } = deviceMetadata;
+
+  const {
+    SRP_B: serverBValue,
+    SALT: salt,
+    SECRET_BLOCK: secretBlock
+  } = challengeParameters;
+
+  const dateNow = getNowString();
+  const hkdf = srp.getPasswordAuthenticationKey(deviceKey, randomPassword, serverBValue, salt);
+  const signatureString = calculateSignature(hkdf, deviceGroupKey, deviceKey, secretBlock, dateNow);
+
+  const challengeResponses = {
+    USERNAME: challengeParameters?.USERNAME ?? username,
+    PASSWORD_CLAIM_SECRET_BLOCK: secretBlock,
+    TIMESTAMP: dateNow,
+    PASSWORD_CLAIM_SIGNATURE: signatureString,
+    DEVICE_KEY: deviceKey,
+  };
+
+  const respondToAuthCommand = new RespondToAuthChallengeCommand({
+		ChallengeName: "DEVICE_PASSWORD_VERIFIER",
+		ChallengeResponses: challengeResponses,
+		ClientId: userPoolClientId,
+		Session: session,
+  });
+  return await client.send(respondToAuthCommand);
+}
+
+/**
+ *
+ */
+
+const handleDeviceSRPAuthFlow = async (
+  username: string,
+  cognitoConfig: CognitoConfig
+) => {
+  const deviceMetadata = getDeviceMetadata(username);
+  validateDeviceMetadata(deviceMetadata);
+
+  const { userPoolId, userPoolClientId } = cognitoConfig;
+  const region = getRegion(userPoolId);
+  const client = new CognitoIdentityProviderClient({ region });
+
+  const srp = new SRPClient(deviceMetadata.deviceGroupKey!);
+  const srpA = srp.calculateA();
+
+  const responseChallengeCommand = new RespondToAuthChallengeCommand({
+    ChallengeName: "DEVICE_SRP_AUTH",
+    ChallengeResponses: {
+      USERNAME: username,
+      SRP_A: srpA,
+      DEVICE_KEY: deviceMetadata.deviceKey,
+    },
+    ClientId: userPoolClientId,
+  });
+
+  const {
+    ChallengeParameters: challengeParameters,
+    Session: newSession
+  } = await client.send(responseChallengeCommand);
+
+  if (!challengeParameters) {
+    throw new AuthError({
+      name: "MissingChallengeParametersException",
+      message: authErrorStrings.MissingChallengeParametersException
+    });
+  }
+
+  return await handleDevicePasswordVerifier({
+    username,
+    client,
+    srp,
+    challengeParameters,
+    session: newSession,
+    cognitoConfig
+  });
 }

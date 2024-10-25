@@ -72,7 +72,7 @@ const getAuthStorageKeys = (authKeys: AuthKeys) => {
     keys.reduce(
       (acc, authKey) => ({
         ...acc,
-        [authKey]: `${prefix}.${identifier}.${authKey}`,
+        [authKey]: `${prefix}${identifier ? `.${identifier}` : ""}.${authKey}`,
       }),
       {} as AuthKeys
     );
@@ -165,10 +165,14 @@ export const storeJSON = (key: string, item: any) => {
  *
  */
 
-export const storeDeviceMetadata = (authKeys: any, deviceMetadata?: NewDeviceMetadataOutput) => {
+export const storeDeviceMetadata = (
+  authKeys: any,
+  deviceMetadata?: NewDeviceMetadataOutput,
+  storeFunction = storeItem,
+) => {
   if (!deviceMetadata) return;
   const { deviceKey, deviceGroupKey, randomPassword } = deviceMetadata;
-  storeItem(authKeys.deviceKey, deviceKey);
-  storeItem(authKeys.deviceGroupKey, deviceGroupKey);
-  storeItem(authKeys.randomPassword, randomPassword);
+  storeFunction(authKeys.deviceKey, deviceKey);
+  storeFunction(authKeys.deviceGroupKey, deviceGroupKey);
+  storeFunction(authKeys.randomPassword, randomPassword);
 }

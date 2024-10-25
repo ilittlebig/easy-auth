@@ -13,6 +13,7 @@ import {
   test,
   expect,
   beforeEach,
+  afterEach,
 } from "vitest";
 import { EasyAuth } from "../../src/internal/classes";
 import { signInWithSRP } from "../../src/api/signInWithSRP";
@@ -46,6 +47,10 @@ describe("signInWithSRP", () => {
     mocks.send.mockClear();
   });
 
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
+
   test("should sign in successfully with valid SRP credentials", async () => {
     mocks.send.mockImplementationOnce(() => authTestParams.handleUserSRPAuthFlow1);
     mocks.send.mockImplementationOnce(() => authTestParams.handleUserSRPAuthFlow2);
@@ -56,7 +61,7 @@ describe("signInWithSRP", () => {
     });
 
     expect(result).toEqual(authTestParams.signInResult);
-    expect(mocks.send).toHaveBeenCalledTimes(2);
+    expect(mocks.send).toHaveBeenCalledTimes(3);
   });
 
   test("should handle login with valid SRP credentials and return the next step/challenge", async () => {
