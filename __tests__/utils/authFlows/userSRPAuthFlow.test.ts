@@ -52,14 +52,6 @@ vi.mock("../../../src/internal/utils/authFlows/deviceSRPAuthFlow", async () => (
   handleDeviceSRPAuthFlow: vi.fn()
 }));
 
-vi.mock("../../../src/internal/utils/authFlows/userSRPAuthFlow", async () => {
-  const originalModule = await vi.importActual("../../../src/internal/utils/authFlows/userSRPAuthFlow");
-  return {
-    ...originalModule,
-    handlePasswordVerifier: vi.fn()
-  };
-});
-
 vi.mock("../../../src/internal/utils/regionUtils", () => ({
   getUserPoolName: vi.fn(),
   getRegion: vi.fn(),
@@ -71,7 +63,7 @@ EasyAuth.configure({
   },
 });
 
-describe("handleUserSRPAuthFlow", () => {
+describe("userSRPAuthFlow", () => {
   const userSRPAuthParams: UserSRPAuthParams = {
     username: authTestParams.user1.username,
     password: authTestParams.user1.password,
