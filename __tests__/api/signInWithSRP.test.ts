@@ -19,7 +19,7 @@ import { EasyAuth } from "../../src/internal/classes";
 import { signInWithSRP } from "../../src/api/signInWithSRP";
 import { authTestParams } from "../testUtils/authTestParams";
 import { authErrorStrings } from "../../src/internal/utils/errorUtils";
-import * as signInUtils from "../../src/internal/utils/signInUtils";
+import * as userSRPAuthUtils from "../../src/internal/utils/authFlows/userSRPAuthFlow";
 
 const mocks = vi.hoisted(() => ({
   send: vi.fn()
@@ -65,7 +65,7 @@ describe("signInWithSRP", () => {
   });
 
   test("should handle login with valid SRP credentials and return the next step/challenge", async () => {
-    const spy = vi.spyOn(signInUtils, "handleUserSRPAuthFlow");
+    const spy = vi.spyOn(userSRPAuthUtils, "handleUserSRPAuthFlow");
     spy.mockImplementationOnce(async () => {
       const mockResponse: Partial<RespondToAuthChallengeCommandOutput> = {
         ChallengeName: "NEW_PASSWORD_REQUIRED",
@@ -87,11 +87,11 @@ describe("signInWithSRP", () => {
       }
     });
 
-    expect(signInUtils.handleUserSRPAuthFlow).toHaveBeenCalledTimes(1);
+    expect(userSRPAuthUtils.handleUserSRPAuthFlow).toHaveBeenCalledTimes(1);
   });
 
   test("should throw an error if successful login but challenge name is missing in result", async () => {
-    const spy = vi.spyOn(signInUtils, "handleUserSRPAuthFlow");
+    const spy = vi.spyOn(userSRPAuthUtils, "handleUserSRPAuthFlow");
     spy.mockImplementationOnce(async () => {
       const mockResponse: Partial<RespondToAuthChallengeCommandOutput> = {
         // ChallengeName is missing
@@ -110,7 +110,7 @@ describe("signInWithSRP", () => {
   });
 
   test("should throw PasswordResetRequiredException and handle it successfully", async () => {
-    const spy = vi.spyOn(signInUtils, "handleUserSRPAuthFlow");
+    const spy = vi.spyOn(userSRPAuthUtils, "handleUserSRPAuthFlow");
     spy.mockImplementationOnce(() => {
       const error = new Error("Password reset is required");
       error.name = "PasswordResetRequiredException";

@@ -49,7 +49,7 @@ export const calculateSignature = (hkdf: string, userPoolId: string, username: s
     mac.update(sjcl.codec.base64.toBits(secretBlock));
     mac.update(sjcl.codec.utf8String.toBits(dateNow));
     return sjcl.codec.base64.fromBits(mac.digest());
-  } catch (err) {
+  } catch (err: any) {
     throw new Error("Failed to calculate signature due to invalid input.");
   }
 };

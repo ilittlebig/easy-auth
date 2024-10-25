@@ -7,12 +7,9 @@
 
 import { AuthError, EasyAuth, Hub } from "../internal/classes";
 import { assert, authErrorStrings } from "../internal/utils/errorUtils";
-import {
-  getSignInResultFromError,
-  handleUserSRPAuthFlow,
-  getActiveSignInState,
-} from "../internal/utils/signInUtils";
+import { getSignInResultFromError, getActiveSignInState } from "../internal/utils/signInUtils";
 import { getNewDeviceMetatada } from "../internal/utils/deviceMetadataUtils";
+import { handleUserSRPAuthFlow } from "../internal/utils/authFlows/userSRPAuthFlow";
 import { cacheTokens } from "../internal/utils/tokenUtils";
 import { setActiveSignInState, cleanActiveSignInState } from "../internal/stores/signInStore";
 import { getNextStepFromChallenge } from "../internal/nextStepHandlers";
