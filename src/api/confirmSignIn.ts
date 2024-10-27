@@ -30,7 +30,7 @@ export const confirmSignIn = async (input: ConfirmSignInInput) => {
   );
 
   assert(
-    !!username && !!challengeName && !!signInSession,
+    !!username && !!signInSession,
     "SignInException",
     authErrorStrings.SignInException
   );
