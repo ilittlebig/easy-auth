@@ -21,7 +21,6 @@ const getMFAType = (type: string) => {
 }
 
 const getMFATypes = (types: string[]) => {
-	if (!types) return [];
 	return types.map(getMFAType).filter(Boolean);
 }
 

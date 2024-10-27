@@ -22,10 +22,14 @@ const parseAttributes = (attributes: string): string[] => {
     return [];
   }
 
+  if (!Array.isArray(parsedAttributes)) {
+    return [];
+  }
+
   return parsedAttributes.map((attribute: string) =>
-    attribute.startsWith(attributePrefix) ?
-    attribute.replace(attributePrefix, "") :
-    attribute
+    attribute.startsWith(attributePrefix)
+      ? attribute.replace(attributePrefix, "")
+      : attribute
   );
 };
 
