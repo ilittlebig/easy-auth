@@ -11,12 +11,12 @@ import {
   test,
   expect,
 } from "vitest";
-import { EasyAuth } from "../../../src/internal/classes";
-import { authTestParams } from "../../testUtils/authTestParams";
-import { clearDeviceMetadata } from "../../../src/internal/utils/deviceMetadataUtils";
-import { getKeyValueStorage } from "../../../src/internal/utils/storageUtils";
+import { EasyAuth } from "../../../../src/internal/classes";
+import { authTestParams } from "../../../testUtils/authTestParams";
+import { clearDeviceMetadata } from "../../../../src/internal/utils/deviceMetadataUtils";
+import { getKeyValueStorage } from "../../../../src/internal/utils/storageUtils";
 
-vi.mock("../../../src/internal/utils/storageUtils", () => ({
+vi.mock("../../../../src/internal/utils/storageUtils", () => ({
   getKeyValueStorage: vi.fn().mockReturnValue({
     removeItem: vi.fn(),
   }),

@@ -12,22 +12,22 @@ import {
   expect,
   type Mock,
 } from "vitest";
-import { AuthError } from "../../src/internal/classes";
+import { AuthError } from "../../../src/internal/classes";
 import {
   authErrorStrings,
   validateDeviceMetadata,
   assert,
   validateUserNotAuthenticated
-} from "../../src/internal/utils/errorUtils";
-import { getCurrentUser } from "../../src/api/getCurrentUser";
-import type { AuthUser } from "../../src/types/authTypes";
-import type { NewDeviceMetadataOutput } from "../../src/types/deviceMetadataTypes";
+} from "../../../src/internal/utils/errorUtils";
+import { getCurrentUser } from "../../../src/api/getCurrentUser";
+import type { AuthUser } from "../../../src/types/authTypes";
+import type { NewDeviceMetadataOutput } from "../../../src/types/deviceMetadataTypes";
 
-vi.mock("../../src/internal/classes", () => ({
+vi.mock("../../../src/internal/classes", () => ({
   AuthError: vi.fn(),
 }));
 
-vi.mock("../../src/api/getCurrentUser", () => ({
+vi.mock("../../../src/api/getCurrentUser", () => ({
   getCurrentUser: vi.fn(),
 }));
 

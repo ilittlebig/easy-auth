@@ -12,10 +12,10 @@ import {
   expect,
   type Mock,
 } from "vitest";
-import { getDeviceMetadata } from "../../../src/internal/utils/deviceMetadataUtils";
-import { getKeyValueStorage } from "../../../src/internal/utils/storageUtils";
+import { getDeviceMetadata } from "../../../../src/internal/utils/deviceMetadataUtils";
+import { getKeyValueStorage } from "../../../../src/internal/utils/storageUtils";
 
-vi.mock("../../../src/internal/utils/storageUtils", () => ({
+vi.mock("../../../../src/internal/utils/storageUtils", () => ({
   getKeyValueStorage: vi.fn().mockReturnValue({
     getItem: vi.fn((key) => {
       const storage = {

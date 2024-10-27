@@ -6,13 +6,14 @@
  */
 
 import {
-  vi,
   describe,
   test,
   expect,
+  vi,
   beforeEach,
+  afterEach,
 } from "vitest";
-import { getKeyValueStorage } from "../../../src/internal/utils/storageUtils";
+import { getKeyValueStorage } from "../../../../src/internal/utils/storageUtils";
 
 const mockLocalStorage = (() => {
   let store: Record<string, string> = {};
@@ -24,7 +25,7 @@ const mockLocalStorage = (() => {
   };
 })();
 
-describe("isLocalStorageAvailable", () => {
+describe("getKeyValueStorage", () => {
   beforeEach(() => {
     Object.defineProperty(global, "localStorage", {
       value: mockLocalStorage,
@@ -33,30 +34,31 @@ describe("isLocalStorageAvailable", () => {
     mockLocalStorage.clear();
   });
 
-  test("should return true if localStorage is available", () => {
-    expect(getKeyValueStorage().getItem).toBeDefined();
-    expect(localStorage.setItem).toBeDefined();
+  afterEach(() => {
+    vi.restoreAllMocks();
   });
 
-  test("should return false and use inMemoryStorage if localStorage is unavailable", () => {
+  test("should use localStorage if it is available", () => {
+    const storage = getKeyValueStorage();
+
+    storage.setItem("testKey", "testValue");
+    expect(storage.getItem("testKey")).toBe("testValue");
+    storage.removeItem("testKey");
+    expect(storage.getItem("testKey")).toBeNull();
+  });
+
+  test("should use inMemoryStorage if localStorage is unavailable", () => {
     Object.defineProperty(global, "localStorage", {
-      value: {
-        getItem: () => {
-          new Error("localStorage is unavailable");
-        },
-        setItem: () => {
-          throw new Error("localStorage is unavailable");
-        },
-        removeItem: () => {
-          throw new Error("localStorage is unavailable");
-        },
-      },
+      value: undefined,
       configurable: true,
     });
 
     const storage = getKeyValueStorage();
-    expect(storage.getItem).toBeDefined();
-    expect(storage.setItem).toBeDefined();
+
+    storage.setItem("testKey", "testValue");
+    expect(storage.getItem("testKey")).toBe("testValue");
+    storage.removeItem("testKey");
+    expect(storage.getItem("testKey")).toBeNull();
   });
 
   test("should handle errors in localStorage gracefully", () => {
@@ -72,7 +74,5 @@ describe("isLocalStorageAvailable", () => {
     expect(storage.getItem("testKey")).toBeNull();
     storage.setItem("testKey", "testValue");
     expect(storage.getItem("testKey")).toBe("testValue");
-
-    vi.restoreAllMocks();
   });
 });

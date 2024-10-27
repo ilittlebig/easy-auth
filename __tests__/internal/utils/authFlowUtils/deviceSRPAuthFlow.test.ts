@@ -14,15 +14,15 @@ import {
   type Mock,
 } from "vitest";
 import { RespondToAuthChallengeCommand } from "@aws-sdk/client-cognito-identity-provider";
-import { EasyAuth } from "../../../src/internal/classes";
-import { handleDeviceSRPAuthFlow } from "../../../src/internal/utils/authFlowUtils";
-import { getDeviceMetadata } from "../../../src/internal/utils/deviceMetadataUtils";
-import { validateDeviceMetadata } from "../../../src/internal/utils/errorUtils";
-import { SRPClient } from "../../../src/internal/utils/srp/srpClient";
-import { getRegion } from "../../../src/internal/utils/regionUtils";
-import { AuthError } from "../../../src/internal/classes";
-import { authErrorStrings } from "../../../src/internal/utils/errorUtils";
-import { authTestParams } from "../../testUtils/authTestParams";
+import { EasyAuth } from "../../../../src/internal/classes";
+import { handleDeviceSRPAuthFlow } from "../../../../src/internal/utils/authFlowUtils";
+import { getDeviceMetadata } from "../../../../src/internal/utils/deviceMetadataUtils";
+import { validateDeviceMetadata } from "../../../../src/internal/utils/errorUtils";
+import { SRPClient } from "../../../../src/internal/utils/srp/srpClient";
+import { getRegion } from "../../../../src/internal/utils/regionUtils";
+import { AuthError } from "../../../../src/internal/classes";
+import { authErrorStrings } from "../../../../src/internal/utils/errorUtils";
+import { authTestParams } from "../../../testUtils/authTestParams";
 
 const mocks = vi.hoisted(() => ({
   send: vi.fn(),
@@ -40,23 +40,23 @@ vi.mock("@aws-sdk/client-cognito-identity-provider", async () => {
   };
 });
 
-vi.mock("../../../src/internal/utils/deviceMetadataUtils", () => ({
+vi.mock("../../../../src/internal/utils/deviceMetadataUtils", () => ({
   getDeviceMetadata: vi.fn(),
 }));
 
-vi.mock("../../../src/internal/utils/errorUtils", async () => {
-  const originalModule = await import("../../../src/internal/utils/errorUtils");
+vi.mock("../../../../src/internal/utils/errorUtils", async () => {
+  const originalModule = await import("../../../../src/internal/utils/errorUtils");
   return {
     ...originalModule,
     validateDeviceMetadata: vi.fn(),
   };
 });
 
-vi.mock("../../../src/internal/utils/srp/srpClient", () => ({
+vi.mock("../../../../src/internal/utils/srp/srpClient", () => ({
   SRPClient: vi.fn(),
 }));
 
-vi.mock("../../../src/internal/utils/regionUtils", () => ({
+vi.mock("../../../../src/internal/utils/regionUtils", () => ({
   getRegion: vi.fn(),
 }));
 

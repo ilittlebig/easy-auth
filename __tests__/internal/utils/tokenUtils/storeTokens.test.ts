@@ -13,29 +13,29 @@ import {
   beforeEach,
   type Mock
 } from "vitest";
-import { EasyAuth } from "../../../src/internal/classes";
-import { storeTokens } from "../../../src/internal/utils/tokenUtils";
+import { EasyAuth } from "../../../../src/internal/classes";
+import { storeTokens } from "../../../../src/internal/utils/tokenUtils";
 import {
   storeItem,
   storeJSON,
   storeDeviceMetadata,
   getAuthKeys
-} from "../../../src/internal/utils/storageUtils";
-import { AuthError } from "../../../src/internal/classes";
-import { authErrorStrings } from "../../../src/internal/utils/errorUtils";
-import { authTestParams } from "../../testUtils/authTestParams";
-import type { TokensType } from "../../../src/types/tokenTypes";
+} from "../../../../src/internal/utils/storageUtils";
+import { AuthError } from "../../../../src/internal/classes";
+import { authErrorStrings } from "../../../../src/internal/utils/errorUtils";
+import { authTestParams } from "../../../testUtils/authTestParams";
+import type { TokensType } from "../../../../src/types/tokenTypes";
 
-vi.mock("../../../src/internal/utils/tokenUtils", async () => {
-  const actual = await import("../../../src/internal/utils/tokenUtils");
+vi.mock("../../../../src/internal/utils/tokenUtils", async () => {
+  const actual = await import("../../../../src/internal/utils/tokenUtils");
   return {
     ...actual,
     clearTokens: vi.fn(),
   };
 });
 
-vi.mock("../../../src/internal/utils/storageUtils", async () => {
-  const actual = await import("../../../src/internal/utils/storageUtils");
+vi.mock("../../../../src/internal/utils/storageUtils", async () => {
+  const actual = await import("../../../../src/internal/utils/storageUtils");
   return {
     ...actual,
     storeItem: vi.fn(),

@@ -17,10 +17,10 @@ import {
   setActiveSignInUsername,
   getActiveSignInState,
   getSignInResultFromError,
-} from "../../src/internal/utils/signInUtils";
-import { signInStore } from "../../src/internal/stores/signInStore";
+} from "../../../src/internal/utils/signInUtils";
+import { signInStore } from "../../../src/internal/stores/signInStore";
 
-vi.mock("../../src/internal/stores/signInStore", () => ({
+vi.mock("../../../src/internal/stores/signInStore", () => ({
   signInStore: {
     dispatch: vi.fn(),
     getState: vi.fn(),

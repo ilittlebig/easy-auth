@@ -14,11 +14,13 @@ import {
   expect,
   beforeEach,
   afterEach,
+  type Mock,
 } from "vitest";
 import { EasyAuth } from "../../src/internal/classes";
 import { signInWithSRP } from "../../src/api/signInWithSRP";
 import { authTestParams } from "../testUtils/authTestParams";
 import { authErrorStrings } from "../../src/internal/utils/errorUtils";
+import { getNextStepFromChallenge } from "../../src/internal/nextStepHandlers";
 import * as userSRPAuthUtils from "../../src/internal/utils/authFlowUtils/userSRPAuthFlow";
 
 const mocks = vi.hoisted(() => ({
@@ -35,6 +37,10 @@ vi.mock("@aws-sdk/client-cognito-identity-provider", async () => {
     })
   };
 });
+
+vi.mock("../../src/internal/nextStepHandlers", () => ({
+  getNextStepFromChallenge: vi.fn(),
+}));
 
 EasyAuth.configure({
   Auth: {
@@ -65,6 +71,14 @@ describe("signInWithSRP", () => {
   });
 
   test("should handle login with valid SRP credentials and return the next step/challenge", async () => {
+    const nextStep = {
+      isSignedIn: false,
+      nextStep: {
+        signInStep: "CONFIRM_SIGN_IN_WITH_NEW_PASSWORD_REQUIRED",
+        missingAttributes: [],
+      }
+    };
+
     const spy = vi.spyOn(userSRPAuthUtils, "handleUserSRPAuthFlow");
     spy.mockImplementationOnce(async () => {
       const mockResponse: Partial<RespondToAuthChallengeCommandOutput> = {
@@ -74,20 +88,16 @@ describe("signInWithSRP", () => {
       return mockResponse as RespondToAuthChallengeCommandOutput;
     });
 
+    (getNextStepFromChallenge as Mock).mockReturnValue(nextStep)
+
     const result = await signInWithSRP({
       username: authTestParams.user1.username,
       password: authTestParams.user1.password
     });
 
-    expect(result).toEqual({
-      isSignedIn: false,
-      nextStep: {
-        signInStep: "CONFIRM_SIGN_IN_WITH_NEW_PASSWORD_REQUIRED",
-        missingAttributes: [],
-      }
-    });
-
-    expect(userSRPAuthUtils.handleUserSRPAuthFlow).toHaveBeenCalledTimes(1);
+    expect(result).toEqual(nextStep);
+    expect(userSRPAuthUtils.handleUserSRPAuthFlow).toHaveBeenCalledOnce();
+    expect(getNextStepFromChallenge).toHaveBeenCalledOnce();
   });
 
   test("should throw an error if successful login but challenge name is missing in result", async () => {

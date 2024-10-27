@@ -10,7 +10,7 @@ import {
   test,
   expect,
 } from "vitest";
-import { createKeysForAuthStorage } from "../../../src/internal/utils/storageUtils";
+import { createKeysForAuthStorage } from "../../../../src/internal/utils/storageUtils";
 
 describe("createKeysForAuthStorage", () => {
   test("should create keys with specified provider and identifier", () => {

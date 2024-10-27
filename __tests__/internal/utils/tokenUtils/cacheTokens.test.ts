@@ -14,19 +14,19 @@ import {
   afterEach,
   type Mock,
 } from "vitest";
-import { EasyAuth, AuthError } from "../../../src/internal/classes";
-import { cacheTokens, storeTokens } from "../../../src/internal/utils/tokenUtils";
-import { decodeJWT } from "../../../src/internal/utils/decodeUtils";
-import { authErrorStrings } from "../../../src/internal/utils/errorUtils";
-import { authTestParams } from "../../testUtils/authTestParams";
-import type { TokensType } from "../../../src/types/tokenTypes";
+import { EasyAuth, AuthError } from "../../../../src/internal/classes";
+import { cacheTokens, storeTokens } from "../../../../src/internal/utils/tokenUtils";
+import { decodeJWT } from "../../../../src/internal/utils/decodeUtils";
+import { authErrorStrings } from "../../../../src/internal/utils/errorUtils";
+import { authTestParams } from "../../../testUtils/authTestParams";
+import type { TokensType } from "../../../../src/types/tokenTypes";
 
 // Mock dependencies
-vi.mock("../../../src/internal/utils/decodeUtils", () => ({
+vi.mock("../../../../src/internal/utils/decodeUtils", () => ({
   decodeJWT: vi.fn(),
 }));
 
-vi.mock("../../../src/internal/utils/tokenUtils/storeTokens", async () => ({
+vi.mock("../../../../src/internal/utils/tokenUtils/storeTokens", async () => ({
   storeTokens: vi.fn(),
 }));
 

@@ -17,11 +17,11 @@ import {
   getAuthKeys,
   getLastAuthUserKey,
   getKeyValueStorage
-} from "../../../src/internal/utils/storageUtils";
-import { clearTokens } from "../../../src/internal/utils/tokenUtils";
+} from "../../../../src/internal/utils/storageUtils";
+import { clearTokens } from "../../../../src/internal/utils/tokenUtils";
 
-vi.mock("../../../src/internal/utils/storageUtils", async () => {
-  const originalModule = await import("../../../src/internal/utils/storageUtils");
+vi.mock("../../../../src/internal/utils/storageUtils", async () => {
+  const originalModule = await import("../../../../src/internal/utils/storageUtils");
   return {
     ...originalModule,
     getAuthKeys: vi.fn(),

@@ -13,10 +13,10 @@ import {
   beforeEach,
   type Mock
 } from "vitest";
-import { EasyAuth } from "../../../src/internal/classes";
-import { getLastAuthUserKey } from "../../../src/internal/utils/storageUtils";
+import { EasyAuth } from "../../../../src/internal/classes";
+import { getLastAuthUserKey } from "../../../../src/internal/utils/storageUtils";
 
-vi.mock("../../../src/internal/classes", () => ({
+vi.mock("../../../../src/internal/classes", () => ({
   EasyAuth: {
     getConfig: vi.fn(),
   },

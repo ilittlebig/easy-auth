@@ -11,11 +11,11 @@ import {
   test,
   expect,
 } from "vitest";
-import { AuthError } from "../../src/internal/classes";
-import { authErrorStrings } from "../../src/internal/utils/errorUtils";
-import { decodeJWT } from "../../src/internal/utils/decodeUtils";
+import { AuthError } from "../../../src/internal/classes";
+import { authErrorStrings } from "../../../src/internal/utils/errorUtils";
+import { decodeJWT } from "../../../src/internal/utils/decodeUtils";
 
-vi.mock("../../src/internal/classes", () => ({
+vi.mock("../../../src/internal/classes", () => ({
   AuthError: vi.fn(),
 }));
 

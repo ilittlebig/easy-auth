@@ -11,7 +11,7 @@ import {
   expect,
   beforeEach,
 } from "vitest";
-import { storeItem } from "../../../src/internal/utils/storageUtils";
+import { storeItem } from "../../../../src/internal/utils/storageUtils";
 
 const mockLocalStorage = (() => {
   let store: Record<string, string> = {};

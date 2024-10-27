@@ -15,8 +15,8 @@ import {
   afterEach,
   type Mock,
 } from "vitest";
-import { getNewDeviceMetatada } from "../../../src/internal/utils/deviceMetadataUtils";
-import { SRPClient } from "../../../src/internal/utils/srp/srpClient";
+import { getNewDeviceMetatada } from "../../../../src/internal/utils/deviceMetadataUtils";
+import { SRPClient } from "../../../../src/internal/utils/srp/srpClient";
 
 const mocks = vi.hoisted(() => ({
   send: vi.fn()
@@ -34,7 +34,7 @@ vi.mock("@aws-sdk/client-cognito-identity-provider", async () => {
   };
 });
 
-vi.mock("../../../src/internal/utils/srp/srpClient", () => ({
+vi.mock("../../../../src/internal/utils/srp/srpClient", () => ({
   SRPClient: vi.fn().mockImplementation(() => ({
     generateHashDevice: vi.fn(),
     saltToHashDevices: "mocked-salt",
@@ -43,7 +43,7 @@ vi.mock("../../../src/internal/utils/srp/srpClient", () => ({
   })),
 }));
 
-vi.mock("../../../src/internal/utils/regionUtils", () => ({
+vi.mock("../../../../src/internal/utils/regionUtils", () => ({
   getRegion: vi.fn().mockReturnValue("mocked-region"),
   getUserPoolName: vi.fn().mockReturnValue("mocked-user-pool"),
 }));

@@ -15,18 +15,18 @@ import {
   afterEach,
   type Mock,
 } from "vitest";
-import { EasyAuth } from "../../../src/internal/classes";
+import { EasyAuth } from "../../../../src/internal/classes";
 import {
   handleUserSRPAuthFlow,
   handleDeviceSRPAuthFlow
-} from "../../../src/internal/utils/authFlowUtils";
-import { getDeviceMetadata } from "../../../src/internal/utils/deviceMetadataUtils";
-import { setActiveSignInUsername } from "../../../src/internal/utils/signInUtils";
-import { AuthError } from "../../../src/internal/classes";
-import { authErrorStrings } from "../../../src/internal/utils/errorUtils";
-import { getUserPoolName, getRegion } from "../../../src/internal/utils/regionUtils";
-import { authTestParams } from "../../testUtils/authTestParams";
-import type { UserSRPAuthParams } from "../../../src/types/authTypes";
+} from "../../../../src/internal/utils/authFlowUtils";
+import { getDeviceMetadata } from "../../../../src/internal/utils/deviceMetadataUtils";
+import { setActiveSignInUsername } from "../../../../src/internal/utils/signInUtils";
+import { AuthError } from "../../../../src/internal/classes";
+import { authErrorStrings } from "../../../../src/internal/utils/errorUtils";
+import { getUserPoolName, getRegion } from "../../../../src/internal/utils/regionUtils";
+import { authTestParams } from "../../../testUtils/authTestParams";
+import type { UserSRPAuthParams } from "../../../../src/types/authTypes";
 
 const mocks = vi.hoisted(() => ({
   send: vi.fn()
@@ -42,19 +42,19 @@ vi.mock("@aws-sdk/client-cognito-identity-provider", async () => {
   };
 });
 
-vi.mock("../../../src/internal/utils/signInUtils", async () => ({
+vi.mock("../../../../src/internal/utils/signInUtils", async () => ({
   setActiveSignInUsername: vi.fn()
 }));
 
-vi.mock("../../../src/internal/utils/deviceMetadataUtils", async () => ({
+vi.mock("../../../../src/internal/utils/deviceMetadataUtils", async () => ({
   getDeviceMetadata: vi.fn()
 }));
 
-vi.mock("../../../src/internal/utils/authFlowUtils/deviceSRPAuthFlow", async () => ({
+vi.mock("../../../../src/internal/utils/authFlowUtils/deviceSRPAuthFlow", async () => ({
   handleDeviceSRPAuthFlow: vi.fn()
 }));
 
-vi.mock("../../../src/internal/utils/regionUtils", () => ({
+vi.mock("../../../../src/internal/utils/regionUtils", () => ({
   getUserPoolName: vi.fn(),
   getRegion: vi.fn(),
 }));
