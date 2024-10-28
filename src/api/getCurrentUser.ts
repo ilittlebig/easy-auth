@@ -1,6 +1,32 @@
+/**
+ *
+ *
+ * Author: Elias Sjödin
+ * Created: 2024-10-28
+ */
+
+import { validateAuthTokens } from "../internal/utils/errorUtils";
+import { getTokens } from "../internal/utils/tokenUtils";
 import type { AuthUser } from "../types/authTypes";
 
-// TODO: implement
 export const getCurrentUser = async (): Promise<AuthUser> => {
-  throw new Error("lol");
+  const tokens = await getTokens({ forceRefresh: false });
+	validateAuthTokens(tokens);
+
+	const {
+    "cognito:username": username,
+    sub
+  } = tokens.idToken?.payload ?? {};
+
+	const authUser: AuthUser = {
+		username: username,
+		userId: sub,
+	};
+
+  const signInDetails = tokens.signInDetails;
+	if (signInDetails) {
+		authUser.signInDetails = signInDetails;
+	}
+
+	return authUser;
 }

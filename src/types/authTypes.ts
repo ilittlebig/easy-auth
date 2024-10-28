@@ -26,6 +26,7 @@ export interface Options {
 export interface AuthUser {
   userId: string;
   username: string;
+  signInDetails?: SignInDetails;
 }
 
 export interface CognitoConfig {

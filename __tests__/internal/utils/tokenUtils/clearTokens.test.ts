@@ -13,12 +13,17 @@ import {
   beforeEach,
   type Mock
 } from "vitest";
+import { EasyAuth } from "../../../../src/internal/classes";
 import {
   getAuthKeys,
   getLastAuthUserKey,
   getKeyValueStorage
 } from "../../../../src/internal/utils/storageUtils";
 import { clearTokens } from "../../../../src/internal/utils/tokenUtils";
+
+vi.mock("../../../../src/internal/classes", () => ({
+  EasyAuth: { getConfig: vi.fn() },
+}));
 
 vi.mock("../../../../src/internal/utils/storageUtils", async () => {
   const originalModule = await import("../../../../src/internal/utils/storageUtils");
@@ -31,6 +36,7 @@ vi.mock("../../../../src/internal/utils/storageUtils", async () => {
 });
 
 describe("clearTokens", () => {
+  const cognitoConfig = { Auth: { Cognito: { userPoolId: "testPoolId" } } };
   const authKeys = {
     accessToken: "mockedAccessTokenKey",
     idToken: "mockedIdTokenKey",
@@ -52,6 +58,7 @@ describe("clearTokens", () => {
   });
 
   test("should remove all token-related keys from storage", async () => {
+    (EasyAuth.getConfig as Mock).mockReturnValue(cognitoConfig);
     await clearTokens();
 
     expect(mockStorage.removeItem).toHaveBeenCalledWith(authKeys.accessToken);
