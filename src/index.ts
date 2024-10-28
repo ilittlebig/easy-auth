@@ -5,7 +5,7 @@
  * Created: 2024-10-16
  */
 
-import { EasyAuth } from "./internal/classes";
+import { EasyAuth } from "./internal/classes/easyAuth";
 import { signIn } from "./api/signIn";
 import { confirmSignIn } from "./api/confirmSignIn";
 import { getCurrentUser } from "./api/getCurrentUser";

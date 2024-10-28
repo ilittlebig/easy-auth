@@ -96,10 +96,10 @@ export interface CognitoResponse {
 }
 
 export interface ChallengeInput {
-  username: string;
   challengeName: ChallengeNameType;
-  signInSession?: string;
   challengeResponse: string;
+  username: string;
+  signInSession?: string;
   cognitoConfig: CognitoConfig;
   options?: Record<string, any>;
 }
