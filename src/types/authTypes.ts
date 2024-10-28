@@ -11,6 +11,14 @@ import {
 } from "@aws-sdk/client-cognito-identity-provider";
 import { SRPClient } from "../internal/utils/srp/srpClient";
 
+export interface ConfirmResetPasswordInput {
+  username: string;
+  newPassword: string;
+  confirmationCode: string;
+}
+
+//////
+
 export interface Options {
   forceRefresh?: boolean;
 }
@@ -70,7 +78,7 @@ export interface SignInState {
   username: string;
   challengeName?: ChallengeNameType;
   signInSession?: string;
-  signInDetails?: Record<string, string>;
+  signInDetails?: SignInDetails;
 }
 
 export interface ConfirmSignInInput {

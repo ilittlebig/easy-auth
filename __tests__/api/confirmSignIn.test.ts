@@ -110,7 +110,12 @@ describe("confirmSignIn", () => {
     expect(cleanActiveSignInState).toHaveBeenCalled();
     expect(cacheTokens).toHaveBeenCalledWith(expect.objectContaining({
       username,
-      AccessToken: "testAccessToken",
+      authenticationResult: {
+        AccessToken: "testAccessToken",
+        NewDeviceMetadata: {}
+      },
+      newDeviceMetadata: {},
+      signInDetails: undefined,
     }));
 
     expect(result).toEqual({

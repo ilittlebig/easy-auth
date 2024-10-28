@@ -8,6 +8,7 @@
 import { EasyAuth } from "./internal/classes/easyAuth";
 import { signIn } from "./api/signIn";
 import { confirmSignIn } from "./api/confirmSignIn";
+import { confirmResetPassword } from "./api/confirmResetPassword";
 import { getCurrentUser } from "./api/getCurrentUser";
 import { getCurrentSession } from "./api/getCurrentSession";
 
@@ -18,6 +19,7 @@ export {
   // api
   signIn,
   confirmSignIn,
+  confirmResetPassword,
   getCurrentUser,
   getCurrentSession,
 };

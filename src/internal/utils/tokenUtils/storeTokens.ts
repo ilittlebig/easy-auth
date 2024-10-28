@@ -11,7 +11,8 @@ import {
   getAuthKeys,
   storeItem,
   storeJSON,
-  storeDeviceMetadata
+  storeDeviceMetadata,
+  getLastAuthUserKey,
 } from "../storageUtils";
 import { clearTokens } from "./clearTokens";
 import type { TokensType } from "../../../types/tokenTypes";
@@ -34,6 +35,9 @@ export const storeTokens = (tokens: TokensType) => {
     clockDrift,
     signInDetails
   } = tokens;
+
+  const lastAuthUser = tokens.username;
+  storeItem(getLastAuthUserKey(), lastAuthUser);
 
   const authKeys = getAuthKeys();
   storeItem(authKeys.accessToken, accessToken.toString());
