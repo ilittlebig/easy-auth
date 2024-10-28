@@ -6,6 +6,7 @@
  */
 
 import { AuthError, EasyAuth, Hub } from "../internal/classes";
+import { getCurrentSession } from "./getCurrentSession";
 import { assert, authErrorStrings } from "../internal/utils/errorUtils";
 import { getSignInResultFromError, getActiveSignInState } from "../internal/utils/signInUtils";
 import { getNewDeviceMetatada } from "../internal/utils/deviceMetadataUtils";
@@ -61,7 +62,7 @@ export const signInWithSRP = async (input: SignInInput) => {
 
       Hub.dispatch("auth", {
         event: "signedIn",
-        data: ""//await getCurrentSession(),
+        data: await getCurrentSession(),
       });
 
       return {

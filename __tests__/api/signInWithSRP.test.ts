@@ -18,6 +18,7 @@ import {
 } from "vitest";
 import { EasyAuth } from "../../src/internal/classes";
 import { signInWithSRP } from "../../src/api/signInWithSRP";
+import { getCurrentSession } from "../../src/api/getCurrentSession";
 import { authTestParams } from "../testUtils/authTestParams";
 import { authErrorStrings } from "../../src/internal/utils/errorUtils";
 import { getNextStepFromChallenge } from "../../src/internal/nextStepHandlers";
@@ -37,6 +38,10 @@ vi.mock("@aws-sdk/client-cognito-identity-provider", async () => {
     })
   };
 });
+
+vi.mock("../../src/api/getCurrentSession", () => ({
+  getCurrentSession: vi.fn(),
+}));
 
 vi.mock("../../src/internal/nextStepHandlers", () => ({
   getNextStepFromChallenge: vi.fn(),
@@ -68,6 +73,7 @@ describe("signInWithSRP", () => {
 
     expect(result).toEqual(authTestParams.signInResult);
     expect(mocks.send).toHaveBeenCalledTimes(3);
+    expect(getCurrentSession).toHaveBeenCalledOnce();
   });
 
   test("should handle login with valid SRP credentials and return the next step/challenge", async () => {

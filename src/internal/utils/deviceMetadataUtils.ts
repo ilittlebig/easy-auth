@@ -74,7 +74,7 @@ export const getNewDeviceMetatada = async (
  *
  */
 
-export const getDeviceMetadata = (username: string) => {
+export const getDeviceMetadata = (username?: string) => {
   const storage = getKeyValueStorage();
   const authKeys = getAuthKeys(username);
 

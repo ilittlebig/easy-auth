@@ -8,6 +8,7 @@
 import { getCurrentUser } from "../../api/getCurrentUser";
 import { AuthError } from "../classes";
 import type { AuthUser } from "../../types/authTypes";
+import type { TokensOutput, TokensType } from "../../types/tokenTypes";
 import type { NewDeviceMetadataOutput } from "../../types/deviceMetadataTypes";
 
 const isNonEmptyString = (value: any): value is string => {
@@ -66,6 +67,10 @@ export const authErrorStrings: { [key: string]: string } = {
   InvalidJWTTokenException: "Invalid JWT token provided, could not decode token.",
   InvalidJWTTokenPayloadException: "Invalid JWT payload",
   DeviceMetadataException: "'deviceKey', 'deviceGroupKey' or 'randomPassword' not found in local storage during the sign-in process..",
+  UserUnauthenticatedException: "User needs to be authenticated to call this API.",
+  iatNotFoundException: "iat not found in access token.",
+  MissingRefreshTokenException: "Unable to refresh tokens: refresh token not provided.",
+  MissingDeviceMetadataException: "Unable to refresh tokens: device metadata not provided.",
 }
 
 /**
@@ -120,4 +125,22 @@ export function validateDeviceMetadata(
       message: authErrorStrings.DeviceMetadataException,
     });
   }
+}
+
+/**
+ *
+ */
+
+export function validateAuthTokens(tokens: any): asserts tokens is TokensType {
+  const accessToken = tokens.accessToken;
+  const validAccessToken =
+    accessToken &&
+    accessToken.payload &&
+    !!accessToken.toString();
+  if (validAccessToken) return;
+
+  throw new AuthError({
+    name: "UserUnauthenticatedException",
+    message: authErrorStrings.UserUnauthenticatedException
+  });
 }

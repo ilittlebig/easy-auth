@@ -10,6 +10,7 @@ import {
   describe,
   test,
   expect,
+  afterEach,
   type Mock,
 } from "vitest";
 import { AuthError } from "../../../src/internal/classes";
@@ -17,10 +18,12 @@ import {
   authErrorStrings,
   validateDeviceMetadata,
   assert,
-  validateUserNotAuthenticated
+  validateUserNotAuthenticated,
+  validateAuthTokens,
 } from "../../../src/internal/utils/errorUtils";
 import { getCurrentUser } from "../../../src/api/getCurrentUser";
 import type { AuthUser } from "../../../src/types/authTypes";
+import type { TokensType } from "../../../src/types/tokenTypes";
 import type { NewDeviceMetadataOutput } from "../../../src/types/deviceMetadataTypes";
 
 vi.mock("../../../src/internal/classes", () => ({
@@ -157,6 +160,61 @@ describe("validateDeviceMetadata", () => {
     expect(AuthError).toHaveBeenCalledWith({
       name: "DeviceMetadataException",
       message: authErrorStrings.DeviceMetadataException,
+    });
+  });
+});
+
+describe("validateAuthTokens", () => {
+  const validAccessToken = {
+    toString: () => "validAccessToken",
+    payload: { sub: "1234567" },
+  };
+  const emptyAccessToken = { toString: () => "" };
+
+  const validTokens: Partial<TokensType> = { accessToken: validAccessToken };
+  // @ts-expect-error AccessToken is missing payload
+  const tokensWithEmptyAccessToken: Partial<TokensType> = { accessToken: emptyAccessToken };
+  const tokensWithUndefinedAccessToken: Partial<TokensType> = { accessToken: undefined };
+  const emptyTokens = {};
+
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
+
+  test("should validate successfully when tokens contain an accessToken with a non-empty toString result", () => {
+    expect(() => validateAuthTokens(validTokens)).not.toThrow();
+  });
+
+  test("should throw UserUnauthenticatedException if accessToken has an empty toString result", () => {
+    expect(() => validateAuthTokens(tokensWithEmptyAccessToken)).toThrowError(AuthError);
+    expect(AuthError).toHaveBeenCalledWith({
+      name: "UserUnauthenticatedException",
+      message: authErrorStrings.UserUnauthenticatedException,
+    });
+  });
+
+  test("should throw UserUnauthenticatedException if accessToken is undefined", () => {
+    expect(() => validateAuthTokens(tokensWithUndefinedAccessToken)).toThrowError(AuthError);
+    expect(AuthError).toHaveBeenCalledWith({
+      name: "UserUnauthenticatedException",
+      message: authErrorStrings.UserUnauthenticatedException,
+    });
+  });
+
+  test("should throw UserUnauthenticatedException if accessToken is missing entirely", () => {
+    expect(() => validateAuthTokens(emptyTokens)).toThrowError(AuthError);
+    expect(AuthError).toHaveBeenCalledWith({
+      name: "UserUnauthenticatedException",
+      message: authErrorStrings.UserUnauthenticatedException,
+    });
+  });
+
+  test("should throw UserUnauthenticatedException if accessToken is not an object with a toString method", () => {
+    const tokensWithInvalidType = { accessToken: 12345 };
+    expect(() => validateAuthTokens(tokensWithInvalidType)).toThrowError(AuthError);
+    expect(AuthError).toHaveBeenCalledWith({
+      name: "UserUnauthenticatedException",
+      message: authErrorStrings.UserUnauthenticatedException,
     });
   });
 });

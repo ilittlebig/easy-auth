@@ -21,7 +21,7 @@ export interface TokensType {
   clockDrift: number;
   deviceMetadata?: NewDeviceMetadataOutput;
   username: string;
-  signInDetails: SignInDetails;
+  signInDetails?: SignInDetails;
 }
 
 export interface CacheTokensInput {

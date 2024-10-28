@@ -11,6 +11,10 @@ import {
 } from "@aws-sdk/client-cognito-identity-provider";
 import { SRPClient } from "../internal/utils/srp/srpClient";
 
+export interface Options {
+  forceRefresh?: boolean;
+}
+
 export interface AuthUser {
   userId: string;
   username: string;
