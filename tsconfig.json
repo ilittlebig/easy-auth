@@ -10,7 +10,12 @@
     "allowImportingTsExtensions": true,
     "isolatedModules": true,
     "moduleDetection": "force",
-    "noEmit": true,
+
+    "noEmit": false,
+
+    "declaration": true,
+    "outDir": "./dist",
+    "emitDeclarationOnly": true,
 
     "strict": true,
     "noUnusedLocals": true,
@@ -22,5 +27,5 @@
 
     "types": ["vitest", "node"]
   },
-  "include": ["src", "vite.config.ts"]
+  "include": ["src"]
 }

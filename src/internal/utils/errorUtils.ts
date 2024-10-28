@@ -8,7 +8,7 @@
 import { getCurrentUser } from "../../api/getCurrentUser";
 import { AuthError } from "../classes";
 import type { AuthUser } from "../../types/authTypes";
-import type { TokensOutput, TokensType } from "../../types/tokenTypes";
+import type { TokensType } from "../../types/tokenTypes";
 import type { NewDeviceMetadataOutput } from "../../types/deviceMetadataTypes";
 
 const isNonEmptyString = (value: any): value is string => {
