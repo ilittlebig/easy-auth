@@ -17,6 +17,10 @@ export interface ConfirmResetPasswordInput {
   confirmationCode: string;
 }
 
+export interface ResetPasswordInput {
+  username: string;
+}
+
 //////
 
 export interface Options {
