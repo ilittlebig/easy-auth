@@ -6,8 +6,7 @@
  */
 
 import type { AuthenticationResultType } from "@aws-sdk/client-cognito-identity-provider";
-import type { SignInDetails } from "./authTypes";
-import type { NewDeviceMetadataOutput } from "./deviceMetadataTypes";
+import type { SignInDetails, NewDeviceMetadataOutput } from "../../auth";
 
 export interface DecodedToken {
   toString: () => string;

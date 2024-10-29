@@ -7,9 +7,9 @@
 
 import { validateAuthTokens } from "../internal/utils/errorUtils";
 import { getTokens } from "../internal/utils/tokenUtils";
-import type { Options } from "../types/authTypes";
+import type { GetCurrentSessionInput } from "../types/auth/inputs";
 
-export const getCurrentSession = async (options?: Options) => {
+export const getCurrentSession = async (options?: GetCurrentSessionInput) => {
   const tokens = await getTokens(options);
 	validateAuthTokens(tokens);
   const sub = tokens.accessToken.payload.sub;

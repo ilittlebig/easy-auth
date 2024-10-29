@@ -20,7 +20,7 @@ import {
 } from "@aws-sdk/client-cognito-identity-provider";
 import softwareTokenMfaHandler from "../../../src/internal/challengeHandlers/softwareTokenMfa";
 import { getRegion } from "../../../src/internal/utils/regionUtils";
-import type { ChallengeParams } from "../../../src/types/authTypes";
+import type { ChallengeRequestInput } from "../../../src/internal/challengeHandlers";
 
 vi.mock("@aws-sdk/client-cognito-identity-provider", () => ({
   CognitoIdentityProviderClient: vi.fn(),
@@ -44,7 +44,7 @@ describe("softwareTokenMfaHandler", () => {
   };
   const region = "us-east-1";
 
-  const challengeParams: ChallengeParams = {
+  const challengeParams: ChallengeRequestInput = {
     username,
     signInSession,
     challengeResponse,

@@ -22,7 +22,7 @@ import {
 import mfaSetupHandler from "../../../src/internal/challengeHandlers/mfaSetup";
 import { getRegion } from "../../../src/internal/utils/regionUtils";
 import { signInStore } from "../../../src/internal/stores/signInStore";
-import type { ChallengeParams } from "../../../src/types/authTypes";
+import type { ChallengeRequestInput } from "../../../src/internal/challengeHandlers";
 
 vi.mock("@aws-sdk/client-cognito-identity-provider", () => {
   return {
@@ -60,7 +60,7 @@ describe("mfaSetupHandler", () => {
   };
   const region = "us-east-1";
 
-  const challengeParams: ChallengeParams = {
+  const challengeParams: ChallengeRequestInput = {
     username,
     signInSession,
     challengeResponse,

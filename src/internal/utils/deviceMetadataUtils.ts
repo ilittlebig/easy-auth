@@ -17,7 +17,7 @@ import {
 import { SRPClient } from "./srp/srpClient";
 import { convertHexToBase64 } from "./srp/utils";
 import { getRegion, getUserPoolName } from "./regionUtils";
-import type { NewDeviceMetadataOutput } from "../../types/deviceMetadataTypes";
+import type { NewDeviceMetadataOutput } from "../../types/auth";
 
 /**
  *

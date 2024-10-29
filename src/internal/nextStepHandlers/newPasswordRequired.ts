@@ -5,7 +5,7 @@
  * Created: 2024-10-17
  */
 
-import type { CognitoResponse } from "../../types/authTypes";
+import type { CognitoResponse } from "../../types/auth";
 
 /**
  *

@@ -26,7 +26,7 @@ import { AuthError } from "../../../../src/internal/classes";
 import { authErrorStrings } from "../../../../src/internal/utils/errorUtils";
 import { getUserPoolName, getRegion } from "../../../../src/internal/utils/regionUtils";
 import { authTestParams } from "../../../testUtils/authTestParams";
-import type { UserSRPAuthParams } from "../../../../src/types/authTypes";
+import type { UserSRPAuthParams } from "../../../../src/types/auth/internal";
 
 const mocks = vi.hoisted(() => ({
   send: vi.fn()

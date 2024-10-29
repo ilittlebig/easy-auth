@@ -19,7 +19,7 @@ import { AuthError } from "../../../src/internal/classes";
 import newPasswordRequired from "../../../src/internal/nextStepHandlers/newPasswordRequired";
 import mfaSetup from "../../../src/internal/nextStepHandlers/mfaSetup";
 import softwareTokenMfa from "../../../src/internal/nextStepHandlers/softwareTokenMfa";
-import type { CognitoResponse } from "../../../src/types/authTypes";
+import type { CognitoResponse } from "../../../src/types/auth";
 
 vi.mock("../../../src/internal/nextStepHandlers/newPasswordRequired", () => ({
   default: vi.fn(),

@@ -5,7 +5,14 @@
  * Created: 2024-10-26
  */
 
-import { describe, test, expect, vi, beforeEach, afterEach, type Mock } from "vitest";
+import {
+  describe,
+  test,
+  expect,
+  vi,
+  beforeEach,
+  afterEach
+} from "vitest";
 import { HubClass } from "../../../src/internal/classes/hub";
 // @ts-expect-error
 import type { HubPayload, Listener } from "../../../src/internal/classes/hub";

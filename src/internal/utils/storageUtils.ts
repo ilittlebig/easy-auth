@@ -6,7 +6,7 @@
  */
 
 import { EasyAuth } from "../classes";
-import type { NewDeviceMetadataOutput } from "../../types/deviceMetadataTypes";
+import type { NewDeviceMetadataOutput } from "../../types/auth";
 
 const STORAGE_NAME = "CognitoIdentityServiceProvider";
 

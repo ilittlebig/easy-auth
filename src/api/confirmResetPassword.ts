@@ -12,7 +12,7 @@ import {
 import { EasyAuth } from "../internal/classes";
 import { assert, authErrorStrings } from "../internal/utils/errorUtils";
 import { getRegion } from "../internal/utils/regionUtils";
-import type { ConfirmResetPasswordInput } from "../types/authTypes";
+import type { ConfirmResetPasswordInput } from "../types/auth";
 
 export const confirmResetPassword = async (input: ConfirmResetPasswordInput) => {
   const cognitoConfig = EasyAuth.getConfig().Auth?.Cognito;

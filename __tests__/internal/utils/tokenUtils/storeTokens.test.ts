@@ -24,7 +24,7 @@ import {
 import { AuthError } from "../../../../src/internal/classes";
 import { authErrorStrings } from "../../../../src/internal/utils/errorUtils";
 import { authTestParams } from "../../../testUtils/authTestParams";
-import type { TokensType } from "../../../../src/types/tokenTypes";
+import type { TokensType } from "../../../../src/types/auth/internal";
 
 vi.mock("../../../../src/internal/utils/tokenUtils", async () => {
   const actual = await import("../../../../src/internal/utils/tokenUtils");

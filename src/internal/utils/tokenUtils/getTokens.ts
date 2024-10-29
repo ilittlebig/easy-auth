@@ -8,15 +8,15 @@
 import { loadTokens } from "./loadTokens";
 import { refreshTokens } from "./refreshTokens";
 import { getLastAuthUser } from "../storageUtils";
-import type { Options } from "../../../types/authTypes"
-import type { TokensType } from "../../../types/tokenTypes";
+import type { TokensType } from "../../../types/auth/internal";
+import type { GetCurrentSessionInput } from "../../../types/auth"
 
 const isTokenExpired = (expiresAt: number, clockDrift: number) => {
 	const currentTime = Date.now();
 	return currentTime + clockDrift > expiresAt;
 }
 
-export const getTokens = async (options?: Options): Promise<TokensType | null> => {
+export const getTokens = async (options?: GetCurrentSessionInput): Promise<TokensType | null> => {
   let tokens = loadTokens();
   const username = getLastAuthUser();
 

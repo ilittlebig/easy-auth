@@ -19,7 +19,7 @@ import { handleDeviceSRPAuthFlow } from "./deviceSRPAuthFlow";
 import { getNowString, calculateSignature } from "../srp/utils";
 import { SRPClient } from "../srp/srpClient";
 import { authErrorStrings } from "../errorUtils";
-import type { UserSRPAuthParams, PasswordVerifierParams } from "../../../types/authTypes";
+import type { UserSRPAuthParams, PasswordVerifierParams } from "../../../types/auth/internal";
 
 /**
  *

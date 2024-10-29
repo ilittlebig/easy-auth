@@ -19,7 +19,7 @@ import { AuthError } from "../../../src/internal/classes";
 import newPasswordRequiredHandler from "../../../src/internal/challengeHandlers/newPasswordRequired";
 import mfaSetupHandler from "../../../src/internal/challengeHandlers/mfaSetup";
 import softwareTokenMfaHandler from "../../../src/internal/challengeHandlers/softwareTokenMfa";
-import type { ChallengeInput } from "../../../src/types/authTypes";
+import type { ChallengeRequestInput } from "../../../src/internal/challengeHandlers";
 
 vi.mock("../../../src/internal/challengeHandlers/newPasswordRequired", () => ({
   default: vi.fn(),
@@ -51,7 +51,7 @@ describe("handleChallenge", () => {
   };
   const options = { someOption: "someValue" };
 
-  const commonChallengeInput: Omit<ChallengeInput, "challengeName"> = {
+  const commonChallengeInput: ChallengeRequestInput = {
     username,
     signInSession,
     challengeResponse,

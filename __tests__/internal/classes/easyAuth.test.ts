@@ -8,7 +8,7 @@
 import { describe, test, expect, beforeEach } from "vitest";
 import { EasyAuth, AuthError } from "../../../src/internal/classes";
 import { authErrorStrings } from "../../../src/internal/utils/errorUtils";
-import type { AuthConfig, CognitoConfig } from "../../../src/types/authTypes";
+import type { AuthConfig, CognitoConfig } from "../../../src/types/auth";
 
 describe("EasyAuthClass", () => {
   let easyAuthInstance: typeof EasyAuth;

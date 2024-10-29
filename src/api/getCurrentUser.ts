@@ -7,9 +7,9 @@
 
 import { validateAuthTokens } from "../internal/utils/errorUtils";
 import { getTokens } from "../internal/utils/tokenUtils";
-import type { AuthUser } from "../types/authTypes";
+import type { AuthUserOutput } from "../types/auth";
 
-export const getCurrentUser = async (): Promise<AuthUser> => {
+export const getCurrentUser = async (): Promise<AuthUserOutput> => {
   const tokens = await getTokens({ forceRefresh: false });
 	validateAuthTokens(tokens);
 
@@ -18,7 +18,7 @@ export const getCurrentUser = async (): Promise<AuthUser> => {
     sub
   } = tokens.idToken?.payload ?? {};
 
-	const authUser: AuthUser = {
+	const authUser: AuthUserOutput = {
 		username: username,
 		userId: sub,
 	};

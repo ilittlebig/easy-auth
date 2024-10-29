@@ -15,7 +15,8 @@ import { getDeviceMetadata } from "../deviceMetadataUtils";
 import { AuthError } from "../../classes";
 import { getRegion } from "../regionUtils";
 import { authErrorStrings, validateDeviceMetadata } from "../errorUtils";
-import type { CognitoConfig, DevicePasswordVerifierParams } from "../../../types/authTypes";
+import type { DevicePasswordVerifierParams } from "../../../types/auth/internal";
+import type { CognitoConfig } from "../../../types/auth";
 
 /**
  *

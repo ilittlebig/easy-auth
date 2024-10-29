@@ -14,7 +14,7 @@ import { authErrorStrings } from "../errorUtils";
 import { decodeJWT } from "../decodeUtils";
 import { getRegion } from "../regionUtils";
 import { clearTokens } from "./clearTokens";
-import type { TokensType } from "../../../types/tokenTypes";
+import type { TokensType } from "../../../types/auth/internal";
 
 const handleErrors = (err: any) => {
   const isNetworkError =

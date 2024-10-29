@@ -9,7 +9,23 @@ import { AuthError } from "../classes";
 import newPasswordRequired from "./newPasswordRequired";
 import mfaSetup from "./mfaSetup";
 import softwareTokenMfa from "./softwareTokenMfa";
-import type { ChallengeHandler, ChallengeInput } from "../../types/authTypes";
+import type { CognitoConfig } from "../../types/auth";
+import type {
+  ChallengeNameType,
+  RespondToAuthChallengeCommandOutput
+} from "@aws-sdk/client-cognito-identity-provider";
+
+export type ChallengeRequestInput = Omit<HandleAuthChallengeRequest, "challengeName">;
+type ChallengeHandler = (challengeParameters: ChallengeRequestInput) => Promise<RespondToAuthChallengeCommandOutput>;
+
+interface HandleAuthChallengeRequest {
+  username: string;
+  signInSession?: string;
+  challengeResponse: string;
+  cognitoConfig: CognitoConfig;
+  options?: Record<string, any>;
+  challengeName: ChallengeNameType;
+}
 
 const challengeHandlers: Record<string, ChallengeHandler> = {
   NEW_PASSWORD_REQUIRED: newPasswordRequired,
@@ -24,7 +40,7 @@ export const handleChallenge = async ({
   challengeResponse,
   cognitoConfig,
   options
-}: ChallengeInput) => {
+}: HandleAuthChallengeRequest) => {
   const handler = challengeHandlers[challengeName];
   if (!handler) {
     throw new AuthError({

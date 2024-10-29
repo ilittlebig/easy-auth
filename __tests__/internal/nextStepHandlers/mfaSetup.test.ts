@@ -23,7 +23,7 @@ import { EasyAuth, AuthError } from "../../../src/internal/classes";
 import { signInStore } from "../../../src/internal/stores/signInStore";
 import { getRegion } from "../../../src/internal/utils/regionUtils";
 import { authErrorStrings } from "../../../src/internal/utils/errorUtils";
-import type { CognitoResponse } from "../../../src/types/authTypes";
+import type { CognitoResponse } from "../../../src/types/auth";
 
 vi.mock("@aws-sdk/client-cognito-identity-provider", () => {
   return {

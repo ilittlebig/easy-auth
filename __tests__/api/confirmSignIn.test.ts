@@ -26,7 +26,7 @@ import {
 } from "../../src/internal/stores/signInStore";
 import { handleChallenge } from "../../src/internal/challengeHandlers";
 import { getNextStepFromChallenge } from "../../src/internal/nextStepHandlers";
-import type { ConfirmSignInInput } from "../../src/types/authTypes";
+import type { ConfirmSignInInput } from "../../src/types/auth";
 
 vi.mock("../../src/internal/classes", () => ({
   EasyAuth: { getConfig: vi.fn() },

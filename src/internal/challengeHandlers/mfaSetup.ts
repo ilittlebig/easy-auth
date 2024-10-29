@@ -13,7 +13,7 @@ import {
 } from "@aws-sdk/client-cognito-identity-provider";
 import { getRegion } from "../utils/regionUtils";
 import { signInStore } from "../stores/signInStore";
-import type { ChallengeParams } from "../../types/authTypes";
+import type { ChallengeRequestInput } from "./index";
 
 /**
  * Handler
@@ -24,7 +24,7 @@ export default async ({
   signInSession,
   challengeResponse,
   cognitoConfig,
-}: ChallengeParams): Promise<RespondToAuthChallengeCommandOutput> => {
+}: ChallengeRequestInput): Promise<RespondToAuthChallengeCommandOutput> => {
   const { userPoolId, userPoolClientId } = cognitoConfig;
   const region = getRegion(userPoolId);
 

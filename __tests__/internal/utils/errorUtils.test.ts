@@ -22,9 +22,8 @@ import {
   validateAuthTokens,
 } from "../../../src/internal/utils/errorUtils";
 import { getCurrentUser } from "../../../src/api/getCurrentUser";
-import type { AuthUser } from "../../../src/types/authTypes";
-import type { TokensType } from "../../../src/types/tokenTypes";
-import type { NewDeviceMetadataOutput } from "../../../src/types/deviceMetadataTypes";
+import type { TokensType } from "../../../src/types/auth/internal";
+import type { AuthUserOutput, NewDeviceMetadataOutput } from "../../../src/types/auth";
 
 vi.mock("../../../src/internal/classes", () => ({
   AuthError: vi.fn(),
@@ -63,7 +62,7 @@ describe("validateUserNotAuthenticated", () => {
   });
 
   test("throws error if user is authenticated", async () => {
-    const mockAuthUser: AuthUser = { userId: "123", username: "testUser" };
+    const mockAuthUser: AuthUserOutput = { userId: "123", username: "testUser" };
     (getCurrentUser as Mock).mockResolvedValue(mockAuthUser);
 
     await expect(validateUserNotAuthenticated())
@@ -85,7 +84,7 @@ describe("validateUserNotAuthenticated", () => {
   });
 
   test("does not throw error if user has incomplete information", async () => {
-    const incompleteAuthUser: Partial<AuthUser> = { userId: undefined, username: undefined };
+    const incompleteAuthUser: Partial<AuthUserOutput> = { userId: undefined, username: undefined };
     (getCurrentUser as Mock).mockResolvedValue(incompleteAuthUser);
     await expect(validateUserNotAuthenticated())
       .resolves

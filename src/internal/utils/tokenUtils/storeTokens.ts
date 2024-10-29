@@ -15,7 +15,7 @@ import {
   getLastAuthUserKey,
 } from "../storageUtils";
 import { clearTokens } from "./clearTokens";
-import type { TokensType } from "../../../types/tokenTypes";
+import type { TokensType } from "../../../types/auth/internal";
 
 export const storeTokens = (tokens: TokensType) => {
   if (!tokens) {

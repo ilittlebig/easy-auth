@@ -14,7 +14,7 @@ import {
   setActiveSignInState,
   cleanActiveSignInState,
 } from "../../../src/internal/stores/signInStore";
-import type { SignInState, Action } from "../../../src/types/authTypes";
+import type { SignInState, Action } from "../../../src/types/store";
 
 describe("signInStore Module", () => {
   describe("getDefaultState", () => {

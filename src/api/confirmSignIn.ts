@@ -16,9 +16,9 @@ import {
 } from "../internal/stores/signInStore";
 import { handleChallenge } from "../internal/challengeHandlers";
 import { getNextStepFromChallenge } from "../internal/nextStepHandlers";
-import type { CognitoResponse, ConfirmSignInInput } from "../types/authTypes";
+import type { ConfirmSignInInput, CognitoResponse, ConfirmSignInOutput } from "../types/auth";
 
-export const confirmSignIn = async (input: ConfirmSignInInput) => {
+export const confirmSignIn = async (input: ConfirmSignInInput): Promise<ConfirmSignInOutput> => {
   const { challengeResponse, options } = input;
   const { username, challengeName, signInSession, signInDetails } =
 		signInStore.getState();

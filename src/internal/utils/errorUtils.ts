@@ -7,9 +7,8 @@
 
 import { getCurrentUser } from "../../api/getCurrentUser";
 import { AuthError } from "../classes";
-import type { AuthUser } from "../../types/authTypes";
-import type { TokensType } from "../../types/tokenTypes";
-import type { NewDeviceMetadataOutput } from "../../types/deviceMetadataTypes";
+import type { TokensType } from "../../types/auth/internal/tokens";
+import type { NewDeviceMetadataOutput, AuthUserOutput } from "../../types/auth";
 
 const isNonEmptyString = (value: any): value is string => {
   return typeof value === "string" && value.trim().length > 0;
@@ -87,7 +86,7 @@ export const assert = (assertion: boolean, name: string, message: string) => {
  */
 
 export const validateUserNotAuthenticated = async () => {
-	let authUser: AuthUser | null = null;
+	let authUser: AuthUserOutput | null = null;
 	try {
 		authUser = await getCurrentUser();
 	} catch (err) {

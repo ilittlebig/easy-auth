@@ -7,7 +7,7 @@
 
 import { AuthError } from "../classes";
 import { authErrorStrings } from "../utils/errorUtils";
-import type { AuthConfig, CognitoConfig } from "../../types/authTypes";
+import type { AuthConfig, CognitoConfig } from "../../types/auth";
 
 class EasyAuthClass {
   private resourcesConfig: AuthConfig | {} = {};

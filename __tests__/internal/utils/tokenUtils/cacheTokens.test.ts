@@ -19,7 +19,7 @@ import { cacheTokens, storeTokens } from "../../../../src/internal/utils/tokenUt
 import { decodeJWT } from "../../../../src/internal/utils/decodeUtils";
 import { authErrorStrings } from "../../../../src/internal/utils/errorUtils";
 import { authTestParams } from "../../../testUtils/authTestParams";
-import type { TokensType } from "../../../../src/types/tokenTypes";
+import type { TokensType } from "../../../../src/types/auth/internal";
 
 // Mock dependencies
 vi.mock("../../../../src/internal/utils/decodeUtils", () => ({

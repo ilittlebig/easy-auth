@@ -10,7 +10,7 @@ import { authErrorStrings } from "../errorUtils";
 import { decodeJWT } from "../decodeUtils";
 import { getKeyValueStorage, getAuthKeys, getLastAuthUser } from "../storageUtils";
 import { getDeviceMetadata } from "../deviceMetadataUtils";
-import type { TokensType } from "../../../types/tokenTypes";
+import type { TokensType } from "../../../types/auth/internal";
 
 export const loadTokens = (): TokensType | null => {
   const storage = getKeyValueStorage();

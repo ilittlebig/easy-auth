@@ -7,7 +7,7 @@
 
 import { describe, test, expect } from "vitest";
 import newPasswordRequiredHandler from "../../../src/internal/nextStepHandlers/newPasswordRequired";
-import type { CognitoResponse } from "../../../src/types/authTypes";
+import type { CognitoResponse } from "../../../src/types/auth";
 
 describe("newPasswordRequiredHandler", () => {
   test("should return nextStep with missingAttributes when requiredAttributes are provided", () => {

@@ -12,9 +12,14 @@ import {
 import { EasyAuth } from "../internal/classes";
 import { assert, authErrorStrings } from "../internal/utils/errorUtils";
 import { getRegion } from "../internal/utils/regionUtils";
-import type { ResetPasswordInput } from "../types/authTypes";
+import type {
+  AuthDeliveryMedium,
+  AuthAttributeName,
+  ResetPasswordInput,
+  ResetPasswordOutput
+} from "../types/auth";
 
-export const resetPassword = async (input: ResetPasswordInput) => {
+export const resetPassword = async (input: ResetPasswordInput): Promise<ResetPasswordOutput> => {
   const cognitoConfig = EasyAuth.getConfig().Auth?.Cognito;
   const { userPoolId, userPoolClientId } = cognitoConfig;
   const username = input.username;
@@ -41,9 +46,9 @@ export const resetPassword = async (input: ResetPasswordInput) => {
     nextStep: {
       resetPasswordStep: "CONFIRM_RESET_PASSWORD_WITH_CODE",
       codeDeliveryDetails: {
-        deliveryMedium: codeDeliveryDetails?.DeliveryMedium,
-        destination: codeDeliveryDetails?.Destination,
-        attributeName: codeDeliveryDetails?.AttributeName
+        deliveryMedium: codeDeliveryDetails?.DeliveryMedium as AuthDeliveryMedium,
+        destination: codeDeliveryDetails?.Destination as string,
+        attributeName: codeDeliveryDetails?.AttributeName as AuthAttributeName,
       },
     },
   }

@@ -13,7 +13,7 @@ import {
   beforeEach,
 } from "vitest";
 import { storeDeviceMetadata } from "../../../../src/internal/utils/storageUtils";
-import type { NewDeviceMetadataOutput } from "../../../../src/types/deviceMetadataTypes";
+import type { NewDeviceMetadataOutput } from "../../../../src/types/auth";
 
 const mockLocalStorage = (() => {
   let store: Record<string, string> = {};

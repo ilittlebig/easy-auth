@@ -13,7 +13,9 @@ import { EasyAuth, AuthError } from "../classes";
 import { signInStore } from "../stores/signInStore";
 import { getRegion } from "../utils/regionUtils";
 import { authErrorStrings } from "../utils/errorUtils";
-import type { CognitoResponse, MFAType } from "../../types/authTypes";
+import type { CognitoResponse } from "../../types/auth";
+
+type MFAType = "SMS" | "TOTP" | undefined;
 
 const getMFAType = (type: string) => {
 	if (type === "SMS_MFA") return "SMS";

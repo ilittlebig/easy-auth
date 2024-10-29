@@ -9,8 +9,8 @@ import { AuthError } from "../../classes";
 import { authErrorStrings } from "../errorUtils";
 import { decodeJWT } from "../decodeUtils";
 import { storeTokens } from "./storeTokens";
-import type { CacheTokensInput, TokensType } from "../../../types/tokenTypes";
-import type { NewDeviceMetadataOutput } from "../../../types/deviceMetadataTypes";
+import type { CacheTokensInput, TokensType } from "../../../types/auth/internal";
+import type { NewDeviceMetadataOutput } from "../../../types/auth";
 
 export const cacheTokens = ({
   username,

@@ -7,7 +7,7 @@
  * Created: 2024-10-21
  */
 
-import type { SignInState, Action, Store } from "../../types/authTypes";
+import type { SignInState, Action, Store } from "../../types/store";
 
 export const getDefaultState = (): SignInState => {
   return {
