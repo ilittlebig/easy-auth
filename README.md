@@ -83,6 +83,21 @@ await confirmResetPassword({
 });
 ```
 
+#### Get Current Session
+Retrieve the current session tokens, including the access and ID tokens, along with the user ID (sub). These tokens may contain user information, roles, and expiration details.
+```ts
+import { getCurrentSession } from "easy-auth";
+const { tokens, sub } = await getCurrentSession();
+```
+
+
+#### Get Current User
+Retrieve the current session tokens and user ID (sub) for ongoing authentication or session management needs.
+```ts
+import { getCurrentUser } from "easy-auth";
+const { username, userId } = await getCurrentUser();
+```
+
 ## Running Tests
 To run the included unit tests:
 ```bash
