@@ -70,6 +70,8 @@ export const authErrorStrings: { [key: string]: string } = {
   iatNotFoundException: "iat not found in access token.",
   MissingRefreshTokenException: "Unable to refresh tokens: refresh token not provided.",
   MissingDeviceMetadataException: "Unable to refresh tokens: device metadata not provided.",
+  ClientSignOutErrorException: "An error occurred during the client sign out process.",
+  GlobalSignOutErrorException: "An error occurred during the global sign out process.",
 }
 
 /**
@@ -102,6 +104,22 @@ export const validateUserNotAuthenticated = async () => {
   throw new AuthError({
     name: "UserAlreadyAuthenticatedException",
     message: authErrorStrings.UserAlreadyAuthenticatedException,
+  });
+}
+
+/**
+ * Throws an error if the user is not authenticated with a refresh token.
+ */
+
+export function validateAuthTokensWithRefreshToken(tokens: any): asserts tokens is TokensType {
+  const authenticated =
+    (tokens?.accessToken || tokens?.idToken) &&
+    tokens?.refreshToken;
+  if (authenticated) return;
+
+  throw new AuthError({
+    name: "UserUnauthenticatedException",
+    message: authErrorStrings.UserUnauthenticatedException
   });
 }
 

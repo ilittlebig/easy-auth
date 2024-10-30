@@ -30,3 +30,7 @@ export interface ConfirmSignInInput {
     [key: string]: any;
   };
 }
+
+export interface SignOutInput {
+  isGlobal?: boolean;
+}
