@@ -19,6 +19,7 @@ A simple, no-fuss authentication library using AWS SDK with SRP-based login. Des
   - [Update Password](#update-password)
   - [Update MFA Preference](#update-mfa-preference)
   - [Get MFA Preference](#get-mfa-preference)
+  - [Get Devices](#get-devices)
 - [Running Tests](#running-tests)
 - [References](#references)
 
@@ -164,6 +165,14 @@ The response object includes:
 ```ts
 import { getMFAPreference } from "easy-auth";
 const result = await getMFAPreference();
+```
+
+#### Get Devices
+Use the `getDevices` function to retrieve a list of remembered devices associated with the authenticated user. This list includes devices that the user has previously chosen to remember during the login process, which can be useful for security management and providing users with insights into their active sessions.
+
+```ts
+import { getDevices } from "easy-auth";
+const devices = await getDevices();
 ```
 
 ## Running Tests
