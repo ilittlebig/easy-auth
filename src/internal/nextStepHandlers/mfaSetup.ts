@@ -12,42 +12,9 @@ import {
 import { EasyAuth, AuthError } from "../classes";
 import { signInStore } from "../stores/signInStore";
 import { getRegion } from "../utils/regionUtils";
+import { isMFATypeEnabled, getTOTPSetupDetails } from "../utils/signInUtils";
 import { authErrorStrings } from "../utils/errorUtils";
 import type { CognitoResponse } from "../../types/auth";
-
-type MFAType = "SMS" | "TOTP" | undefined;
-
-const getMFAType = (type: string) => {
-	if (type === "SMS_MFA") return "SMS";
-	if (type === "SOFTWARE_TOKEN_MFA") return "TOTP";
-}
-
-const getMFATypes = (types: string[]) => {
-	return types.map(getMFAType).filter(Boolean);
-}
-
-const parseMFATypes = (mfa: string) => {
-	if (!mfa) return [];
-	return JSON.parse(mfa);
-}
-
-const isMFATypeEnabled = (challengeParameters: CognitoResponse, mfaType: MFAType) => {
-	const { MFAS_CAN_SETUP } = challengeParameters;
-  const parsedTypes = parseMFATypes(MFAS_CAN_SETUP);
-	const mfaTypes = getMFATypes(parsedTypes);
-	return mfaTypes?.includes(mfaType);
-}
-
-const getTOTPSetupDetails = (secretCode: string, username: string) => {
-	return {
-		sharedSecret: secretCode,
-		getSetupUri: (appName: string, accountName: string) => {
-			return `otpauth://totp/${appName}:${
-				accountName ?? username
-			}?secret=${secretCode}&issuer=${appName}`;
-		},
-	};
-}
 
 /**
  * Handler

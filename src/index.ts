@@ -14,6 +14,8 @@ import { resetPassword } from "./api/resetPassword";
 import { getCurrentUser } from "./api/getCurrentUser";
 import { getCurrentSession } from "./api/getCurrentSession";
 import { changePassword } from "./api/changePassword";
+import { getMFAPreference } from "./api/getMFAPreference";
+import { updateMFAPreference } from "./api/updateMFAPreference";
 
 export {
   // classes
@@ -28,6 +30,8 @@ export {
   getCurrentUser,
   getCurrentSession,
   changePassword,
+  getMFAPreference,
+  updateMFAPreference,
 };
 
 export * from "./types";

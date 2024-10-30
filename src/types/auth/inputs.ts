@@ -5,6 +5,17 @@
  * Created: 2024-10-28
  */
 
+export type AuthMFAPreference = "ENABLED" | "DISABLED" | "PREFERRED" | "NOT_PREFERRED";
+
+/**
+ * Inputs
+ */
+
+export interface UpdateMFAPreferenceInput {
+  sms?: AuthMFAPreference;
+  totp?: AuthMFAPreference;
+}
+
 export interface ConfirmResetPasswordInput {
   username: string;
   newPassword: string;

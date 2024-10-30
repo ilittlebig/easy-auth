@@ -18,6 +18,7 @@ type AuthNextSignInStep =
 export type AuthDeliveryMedium = "EMAIL" | "SMS" | "PHONE" | "UNKNOWN";
 export type AuthResetPasswordStep = "CONFIRM_RESET_PASSWORD_WITH_CODE" | "DONE";
 export type AuthAttributeName = "phone_number" | "email";
+export type AuthMFAType = "SMS" | "TOTP" | undefined;
 
 export interface AuthTOTPSetupDetails {
 	sharedSecret: string;
@@ -83,4 +84,9 @@ export interface NewDeviceMetadataOutput {
   deviceKey: string;
   deviceGroupKey: string;
   randomPassword: string;
+}
+
+export interface GetMFAPreferenceOutput {
+  preferredMFASetting?: AuthMFAType,
+  userMFASettingList?: AuthMFAType[],
 }

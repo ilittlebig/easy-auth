@@ -28,3 +28,8 @@ export interface CognitoResponse {
   ChallengeName: string;
   [key: string]: any;
 }
+
+export interface CognitoMFASettings {
+  Enabled: true | false;
+  PreferredMfa?: true | false;
+}
