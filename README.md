@@ -179,7 +179,6 @@ const devices = await getDevices();
 #### Get User Attributes
 Retrieves key profile details for the authenticated user from AWS Cognito. This data often includes information such as the user's email, verification status, and unique user identifier (sub), among other attributes configured in your Cognito setup.
 
-To get the user attributes, simply call the function as shown below:
 ```ts
 import { getUserAttributes } from "easy-auth";
 const attributes = await getUserAttributes();
