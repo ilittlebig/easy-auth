@@ -7,6 +7,21 @@ A simple, no-fuss authentication library using AWS SDK with SRP-based login. Des
 - 👤 User Management: Easily handle user registration, login, and password resets.
 -	✅ Unit Tests: Fully tested to ensure everything works smoothly.
 
+### Table of Contents
+- [Installation](#installation)
+- [Usage](#usage)
+  - [Configuration](#configuration)
+  - [Sign In](#sign-in)
+  - [Reset Password](#reset-password)
+  - [Get Current Session](#get-current-session)
+  - [Get Current User](#get-current-user)
+  - [Sign Out](#sign-out)
+  - [Update Password](#update-password)
+  - [Update MFA Preference](#update-mfa-preference)
+  - [Get MFA Preference](#get-mfa-preference)
+- [Running Tests](#running-tests)
+- [References](#references)
+
 ### Installation
 > **Note:** This library is not yet published to npm. You will need to clone the repository, build it, and link it locally to use it.
 
