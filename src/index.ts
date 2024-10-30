@@ -13,6 +13,7 @@ import { confirmResetPassword } from "./api/confirmResetPassword";
 import { resetPassword } from "./api/resetPassword";
 import { getCurrentUser } from "./api/getCurrentUser";
 import { getCurrentSession } from "./api/getCurrentSession";
+import { changePassword } from "./api/changePassword";
 
 export {
   // classes
@@ -26,6 +27,7 @@ export {
   resetPassword,
   getCurrentUser,
   getCurrentSession,
+  changePassword,
 };
 
 export * from "./types";

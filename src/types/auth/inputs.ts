@@ -31,6 +31,11 @@ export interface ConfirmSignInInput {
   };
 }
 
+export interface ChangePasswordCommandInput {
+  previousPassword: string;
+  proposedPassword: string;
+}
+
 export interface SignOutInput {
   isGlobal?: boolean;
 }

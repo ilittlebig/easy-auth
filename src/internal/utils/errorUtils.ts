@@ -39,6 +39,7 @@ export const authErrorStrings: { [key: string]: string } = {
       2. The configuration object is missing 'userPoolId' or 'userPoolClientId'.
       3. The configuration object is not an object.`,
   UserAlreadyAuthenticatedException: "User is already authenticated.",
+  EmptyChangePasswordException: "previousPassword and proposedPassword are required to change password.",
   EmptyUsernameException: "Username cannot be empty.",
   EmptyPasswordException: "Password cannot be empty.",
   EmptyUserIdForSRPException: "USER_ID_FOR_SRP was not found in challengeParameters.",
@@ -149,7 +150,7 @@ export function validateDeviceMetadata(
  */
 
 export function validateAuthTokens(tokens: any): asserts tokens is TokensType {
-  const accessToken = tokens.accessToken;
+  const accessToken = tokens?.accessToken;
   const validAccessToken =
     accessToken &&
     accessToken.payload &&
