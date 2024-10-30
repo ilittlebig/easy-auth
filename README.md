@@ -98,6 +98,13 @@ import { getCurrentUser } from "easy-auth";
 const { username, userId } = await getCurrentUser();
 ```
 
+#### Sign Out
+To sign out a user, use the `signOut` function. You can pass an optional parameter `{ isGlobal: true | false }` to determine whether the sign-out should be global (across all devices) or just on the current client.
+```ts
+import { signOut } from "easy-auth";
+await signOut({ isGlobal: false });
+```
+
 ## Running Tests
 To run the included unit tests:
 ```bash
