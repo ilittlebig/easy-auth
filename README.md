@@ -185,15 +185,6 @@ import { getUserAttributes } from "easy-auth";
 const attributes = await getUserAttributes();
 ```
 
-Example response:
-```json
-{
-  "email": "user@example.com",
-  "email_verified": "true",
-  "sub": "a1b2c3d4-5678-90ab-cdef-12345EXAMPLE"
-}
-```
-
 ## Running Tests
 To run the included unit tests:
 ```bash
