@@ -13,7 +13,7 @@ import { confirmResetPassword } from "./api/confirmResetPassword";
 import { resetPassword } from "./api/resetPassword";
 import { getCurrentUser } from "./api/getCurrentUser";
 import { getCurrentSession } from "./api/getCurrentSession";
-import { changePassword } from "./api/changePassword";
+import { updatePassword } from "./api/updatePassword";
 import { getMFAPreference } from "./api/getMFAPreference";
 import { updateMFAPreference } from "./api/updateMFAPreference";
 
@@ -29,7 +29,7 @@ export {
   resetPassword,
   getCurrentUser,
   getCurrentSession,
-  changePassword,
+  updatePassword,
   getMFAPreference,
   updateMFAPreference,
 };

@@ -42,7 +42,7 @@ export interface ConfirmSignInInput {
   };
 }
 
-export interface ChangePasswordCommandInput {
+export interface UpdatePasswordCommandInput {
   previousPassword: string;
   proposedPassword: string;
 }

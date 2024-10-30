@@ -110,15 +110,45 @@ await signOut({ isGlobal: true });
 await signOut({ isGlobal: false });
 ```
 
-#### Change Password
-Use the `changePassword` function to update the password for an authenticated user. This function requires the current (previous) password and the new (proposed) password.
+#### Update Password
+Use the `updatePassword` function to update the password for an authenticated user. This function requires the current (previous) password and the new (proposed) password.
 ```ts
-import { changePassword } from "easy-auth";
+import { updatePassword } from "easy-auth";
 
-await changePassword({
+await updatePassword({
   previousPassword: "oldPassword123",
   proposedPassword: "newPassword321"
 });
+```
+
+#### Update MFA Preference
+Use the `updateMFAPreference` function to configure the Multi-Factor Authentication (MFA) preferences for an authenticated user. You can set preferences for both `totp` (Time-based One-Time Password) and `sms` (SMS-based) MFA methods.
+
+Both `totp` and `sms` preferences are optional and can be set to the following values:
+- `"PREFERRED"`: Sets MFA as the preferred authentication method.
+- `"ENABLED"`: Enables MFA but does not make it preferred.
+- `"DISABLED"`: Disables MFA for this method.
+- `"NOT_PREFERRED"`: Sets MFA as non-preferred.
+
+```ts
+import { updateMFAPreference } from "easy-auth";
+
+await updateMFAPreference({
+  totp: "PREFERRED",
+  sms: "NOT_PREFERRED"
+});
+```
+
+#### Get MFA Preference
+Use the `getMFAPreference` function to retrieve the current Multi-Factor Authentication (MFA) preferences for an authenticated user. This function provides the user’s preferred MFA method and a list of all enabled MFA settings.
+
+The response object includes:
+- `preferredMFASetting`: The preferred MFA method, such as `"TOTP"`.
+- `userMFASettingList`: An array of enabled MFA methods, like `["TOTP","SMS"]`.
+
+```ts
+import { getMFAPreference } from "easy-auth";
+const result = await getMFAPreference();
 ```
 
 ## Running Tests

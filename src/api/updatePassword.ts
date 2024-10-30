@@ -17,9 +17,9 @@ import {
 } from "../internal/utils/errorUtils";
 import { getRegion } from "../internal/utils/regionUtils";
 import { getTokens } from "../internal/utils/tokenUtils";
-import type { ChangePasswordCommandInput } from "../types/auth";
+import type { UpdatePasswordCommandInput } from "../types/auth";
 
-export const changePassword = async (input: ChangePasswordCommandInput) => {
+export const updatePassword = async (input: UpdatePasswordCommandInput) => {
   const { previousPassword, proposedPassword } = input;
   const tokens = await getTokens();
 	validateAuthTokens(tokens);
