@@ -102,6 +102,11 @@ const { username, userId } = await getCurrentUser();
 To sign out a user, use the `signOut` function. You can pass an optional parameter `{ isGlobal: true | false }` to determine whether the sign-out should be global (across all devices) or just on the current client.
 ```ts
 import { signOut } from "easy-auth";
+
+// Sign out from all devices
+await signOut({ isGlobal: true });
+
+// Sign out only from the current device
 await signOut({ isGlobal: false });
 ```
 
