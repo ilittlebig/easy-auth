@@ -115,7 +115,7 @@ Use the `changePassword` function to update the password for an authenticated us
 ```ts
 import { changePassword } from "easy-auth";
 
-await getCurrentUser({
+await changePassword({
   previousPassword: "oldPassword123",
   proposedPassword: "newPassword321"
 });
