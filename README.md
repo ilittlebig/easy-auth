@@ -110,6 +110,17 @@ await signOut({ isGlobal: true });
 await signOut({ isGlobal: false });
 ```
 
+#### Change Password
+Use the `changePassword` function to update the password for an authenticated user. This function requires the current (previous) password and the new (proposed) password.
+```ts
+import { changePassword } from "easy-auth";
+
+await getCurrentUser({
+  previousPassword: "oldPassword123",
+  proposedPassword: "newPassword321"
+});
+```
+
 ## Running Tests
 To run the included unit tests:
 ```bash
