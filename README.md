@@ -20,6 +20,7 @@ A simple, no-fuss authentication library using AWS SDK with SRP-based login. Des
   - [Update MFA Preference](#update-mfa-preference)
   - [Get MFA Preference](#get-mfa-preference)
   - [Get Devices](#get-devices)
+  - [Get User Attributes](#get-user-attributes)
 - [Running Tests](#running-tests)
 - [References](#references)
 
@@ -173,6 +174,24 @@ Use the `getDevices` function to retrieve a list of remembered devices associate
 ```ts
 import { getDevices } from "easy-auth";
 const devices = await getDevices();
+```
+
+#### Get User Attributes
+Retrieves key profile details for the authenticated user from AWS Cognito. This data often includes information such as the user's email, verification status, and unique user identifier (sub), among other attributes configured in your Cognito setup.
+
+To get the user attributes, simply call the function as shown below:
+```ts
+import { getUserAttributes } from "easy-auth";
+const attributes = await getUserAttributes();
+```
+
+Example response:
+```json
+{
+  "email": "user@example.com",
+  "email_verified": "true",
+  "sub": "a1b2c3d4-5678-90ab-cdef-12345EXAMPLE"
+}
 ```
 
 ## Running Tests

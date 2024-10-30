@@ -17,6 +17,7 @@ import { updatePassword } from "./api/updatePassword";
 import { getMFAPreference } from "./api/getMFAPreference";
 import { updateMFAPreference } from "./api/updateMFAPreference";
 import { getDevices } from "./api/getDevices";
+import { getUserAttributes } from "./api/getUserAttributes";
 
 export {
   // classes
@@ -34,6 +35,7 @@ export {
   getMFAPreference,
   updateMFAPreference,
   getDevices,
+  getUserAttributes,
 };
 
 export * from "./types";
