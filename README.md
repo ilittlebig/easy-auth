@@ -242,10 +242,11 @@ After signing up, the user must confirm their account, typically by entering a c
 
 ```ts
 import { confirmSignUp } from "easy-auth";
+
 let signUpCode = "123456";
 
 const result = await confirmSignUp({
-  username: "elias@jamee.se",
+  username: "email@domain.com",
   confirmationCode: signUpCode
 });
 ```
