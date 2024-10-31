@@ -20,6 +20,7 @@ export type AuthResetPasswordStep = "CONFIRM_RESET_PASSWORD_WITH_CODE" | "DONE";
 export type AuthAttributeName = "phone_number" | "email";
 export type AuthMFAType = "SMS" | "TOTP" | undefined;
 export type AuthAttributesType = Record<string, string | undefined>;
+export type AuthTOTPStatus = "SUCCESS" | "ERROR";
 
 export interface AuthTOTPSetupDetails {
 	sharedSecret: string;
@@ -95,4 +96,9 @@ export interface NewDeviceMetadataOutput {
 export interface GetMFAPreferenceOutput {
   preferredMFASetting?: AuthMFAType,
   userMFASettingList?: AuthMFAType[],
+}
+
+export interface VerifyTOTPOutput {
+  status?: AuthTOTPStatus;
+  session?: string;
 }

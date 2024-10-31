@@ -73,6 +73,7 @@ export const authErrorStrings: { [key: string]: string } = {
   MissingDeviceMetadataException: "Unable to refresh tokens: device metadata not provided.",
   ClientSignOutErrorException: "An error occurred during the client sign out process.",
   GlobalSignOutErrorException: "An error occurred during the global sign out process.",
+  EmptyVerifyTOTPCodeException: "Code cannot be empty.",
 }
 
 /**

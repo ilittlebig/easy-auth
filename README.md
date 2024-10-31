@@ -184,6 +184,18 @@ import { getUserAttributes } from "easy-auth";
 const attributes = await getUserAttributes();
 ```
 
+#### Verify TOTP
+Verifies a Time-based One-Time Password (TOTP) code, typically used for Multi-Factor Authentication (MFA). This function checks the code provided by the user and returns a result indicating whether the verification was successful or not.
+
+The result object includes:
+- `status`: `"SUCCESS"` if the verification was successful, or `"ERROR"` if it failed.
+- `session`: An optional session token included if a session is available.
+
+```ts
+import { verifyTOTP } from "easy-auth";
+const result = await verifyTOTP();
+```
+
 ## Running Tests
 To run the included unit tests:
 ```bash

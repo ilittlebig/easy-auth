@@ -18,6 +18,7 @@ import { getMFAPreference } from "./api/getMFAPreference";
 import { updateMFAPreference } from "./api/updateMFAPreference";
 import { getDevices } from "./api/getDevices";
 import { getUserAttributes } from "./api/getUserAttributes";
+import { verifyTOTP } from "./api/verifyTOTP";
 
 export {
   // classes
@@ -36,6 +37,7 @@ export {
   updateMFAPreference,
   getDevices,
   getUserAttributes,
+  verifyTOTP,
 };
 
 export * from "./types";

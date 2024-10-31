@@ -50,3 +50,10 @@ export interface UpdatePasswordCommandInput {
 export interface SignOutInput {
   isGlobal?: boolean;
 }
+
+export interface VerifyTOTPInput {
+  code: string;
+  options?: {
+    deviceName?: string;
+  }
+}
