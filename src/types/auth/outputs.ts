@@ -15,6 +15,10 @@ type AuthNextSignInStep =
 	| ResetPasswordStep
 	| DoneSignInStep;
 
+type AuthNextSignUpStep =
+  | ConfirmSignUpStep
+  | DoneSignUpStep;
+
 export type AuthDeliveryMedium = "EMAIL" | "SMS" | "PHONE" | "UNKNOWN";
 export type AuthResetPasswordStep = "CONFIRM_RESET_PASSWORD_WITH_CODE" | "DONE";
 export type AuthAttributeName = "phone_number" | "email";
@@ -41,6 +45,15 @@ export interface AuthUserAttribute {
 /**
  * Steps
  */
+
+export interface ConfirmSignUpStep {
+  signUpStep: "CONFIRM_SIGN_UP";
+  codeDeliveryDetails: AuthCodeDeliveryDetails;
+}
+
+export interface DoneSignUpStep {
+	signUpStep: "DONE";
+}
 
 export interface ConfirmSignInWithTOTPCode {
 	signInStep: "CONFIRM_SIGN_IN_WITH_TOTP_CODE";
@@ -101,4 +114,15 @@ export interface GetMFAPreferenceOutput {
 export interface VerifyTOTPOutput {
   status?: AuthTOTPStatus;
   session?: string;
+}
+
+export interface SignUpOutput {
+  isSignUpComplete: boolean;
+  nextStep: AuthNextSignUpStep;
+  userId?: string;
+}
+
+export interface ConfirmSignUpOutput {
+  isSignUpComplete: boolean;
+  nextStep: AuthNextSignUpStep;
 }

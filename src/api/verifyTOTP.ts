@@ -31,13 +31,13 @@ export const verifyTOTP = async (input: VerifyTOTPInput): Promise<VerifyTOTPOutp
   const region = getRegion(userPoolId);
 
   const client = new CognitoIdentityProviderClient({ region });
-  const listDevicesCommand = new VerifySoftwareTokenCommand({
+  const verifyTOTPCommand = new VerifySoftwareTokenCommand({
     AccessToken: tokens.accessToken.toString(),
     UserCode: code,
     FriendlyDeviceName: options?.deviceName
   });
 
-  const result = await client.send(listDevicesCommand);
+  const result = await client.send(verifyTOTPCommand);
   return {
     status: result.Status,
     session: result.Session,

@@ -22,6 +22,8 @@ A simple, no-fuss authentication library using AWS SDK with SRP-based login. Des
   - [Get Devices](#get-devices)
   - [Get User Attributes](#get-user-attributes)
   - [Verify TOTP](#verify-totp)
+  - [Sign Up](sign-up)
+  - [Confirm Sign Up](confirm-sign-up)
 - [Running Tests](#running-tests)
 - [References](#references)
 
@@ -195,6 +197,57 @@ The result object includes:
 ```ts
 import { verifyTOTP } from "easy-auth";
 const result = await verifyTOTP();
+```
+
+#### Sign Up
+Registers a new user with AWS Cognito. To create a user, provide a `username` and `password`. You can also pass optional user attributes to customize the user's profile. AWS Cognito supports the following standard attributes:
+
+- `name`
+- `family_name`
+- `given_name`
+- `middle_name`
+- `nickname`
+- `preferred_username`
+- `profile`
+- `picture`
+- `website`
+- `gender`
+- `birthdate`
+- `zoneinfo`
+- `locale`
+- `updated_at`
+- `address`
+- `email`
+- `phone_number`
+- `sub`
+
+Example:
+```ts
+import { signUp } from "easy-auth";
+
+const result = await signUp({
+  username: "email@domain.com",
+  password: "LongPassword123!!",
+  options: {
+    userAttributes: {
+      gender: "Male",
+      nickname: "Olof"
+    }
+  }
+});
+```
+
+#### Confirm Sign Up
+After signing up, the user must confirm their account, typically by entering a confirmation code sent to their email. Use the confirmSignUp function to verify the code and complete the registration process.
+
+```ts
+import { confirmSignUp } from "easy-auth";
+let signUpCode = "123456";
+
+const result = await confirmSignUp({
+  username: "elias@jamee.se",
+  confirmationCode: signUpCode
+});
 ```
 
 ## Running Tests

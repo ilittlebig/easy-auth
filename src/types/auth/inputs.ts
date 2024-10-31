@@ -57,3 +57,19 @@ export interface VerifyTOTPInput {
     deviceName?: string;
   }
 }
+
+export interface SignUpInput {
+  username: string;
+  password: string;
+  options?: {
+    userAttributes: Record<string, string | undefined>;
+  }
+}
+
+export interface ConfirmSignUpInput {
+  username: string;
+  confirmationCode: string;
+  options?: {
+    forceAliasCreation: boolean;
+  };
+}

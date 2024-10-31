@@ -19,6 +19,8 @@ import { updateMFAPreference } from "./api/updateMFAPreference";
 import { getDevices } from "./api/getDevices";
 import { getUserAttributes } from "./api/getUserAttributes";
 import { verifyTOTP } from "./api/verifyTOTP";
+import { signUp } from "./api/signUp";
+import { confirmSignUp } from "./api/confirmSignUp";
 
 export {
   // classes
@@ -38,6 +40,8 @@ export {
   getDevices,
   getUserAttributes,
   verifyTOTP,
+  signUp,
+  confirmSignUp,
 };
 
 export * from "./types";
