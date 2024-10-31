@@ -22,8 +22,8 @@ A simple, no-fuss authentication library using AWS SDK with SRP-based login. Des
   - [Get Devices](#get-devices)
   - [Get User Attributes](#get-user-attributes)
   - [Verify TOTP](#verify-totp)
-  - [Sign Up](sign-up)
-  - [Confirm Sign Up](confirm-sign-up)
+  - [Sign Up](#sign-up)
+  - [Confirm Sign Up](#confirm-sign-up)
 - [Running Tests](#running-tests)
 - [References](#references)
 
