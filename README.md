@@ -21,6 +21,7 @@ A simple, no-fuss authentication library using AWS SDK with SRP-based login. Des
   - [Get MFA Preference](#get-mfa-preference)
   - [Get Devices](#get-devices)
   - [Get User Attributes](#get-user-attributes)
+  - [Verify TOTP](#verify-totp)
 - [Running Tests](#running-tests)
 - [References](#references)
 
@@ -185,7 +186,7 @@ const attributes = await getUserAttributes();
 ```
 
 #### Verify TOTP
-Verifies a Time-based One-Time Password (TOTP) code, typically used for Multi-Factor Authentication (MFA). This function checks the code provided by the user and returns a result indicating whether the verification was successful or not.
+Verifies a Time-based One-Time Password (TOTP) code, typically used for Multi-Factor Authentication (MFA). Checks the code provided by the user and returns a result indicating whether the verification was successful or not.
 
 The result object includes:
 - `status`: `"SUCCESS"` if the verification was successful, or `"ERROR"` if it failed.
