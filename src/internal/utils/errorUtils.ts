@@ -44,6 +44,7 @@ export const authErrorStrings: { [key: string]: string } = {
   EmptyPasswordException: "Password cannot be empty.",
   EmptySignUpUsernameException: "Username is required to sign up.",
   EmptySignUpPasswordException: "Password is required to sign up.",
+  EmptyResendSignUpCodeUsernameException: "Username is required to resend sign up code.",
   EmptyConfirmSignUpUsernameException: "Username is required to confirm sign up.",
   EmptyConfirmSignUpCodeException: "Code is required to confirm sign up.",
   EmptyUserIdForSRPException: "USER_ID_FOR_SRP was not found in challengeParameters.",

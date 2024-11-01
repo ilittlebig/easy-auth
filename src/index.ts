@@ -21,6 +21,7 @@ import { getUserAttributes } from "./api/getUserAttributes";
 import { verifyTOTP } from "./api/verifyTOTP";
 import { signUp } from "./api/signUp";
 import { confirmSignUp } from "./api/confirmSignUp";
+import { resendSignUpCode } from "./api/resendSignUpCode";
 
 export {
   // classes
@@ -42,6 +43,7 @@ export {
   verifyTOTP,
   signUp,
   confirmSignUp,
+  resendSignUpCode,
 };
 
 export * from "./types";

@@ -73,3 +73,7 @@ export interface ConfirmSignUpInput {
     forceAliasCreation: boolean;
   };
 }
+
+export interface ResendSignUpCodeInput {
+  username: string;
+}

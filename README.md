@@ -24,6 +24,7 @@ A simple, no-fuss authentication library using AWS SDK with SRP-based login. Des
   - [Verify TOTP](#verify-totp)
   - [Sign Up](#sign-up)
   - [Confirm Sign Up](#confirm-sign-up)
+  - [Resend Sign Up Code](#resend-sign-up-code)
 - [Running Tests](#running-tests)
 - [References](#references)
 
@@ -250,6 +251,18 @@ const result = await confirmSignUp({
   confirmationCode: signUpCode
 });
 ```
+
+#### Resend Sign Up Code
+Allows you to resend the confirmation code to a user who is in the process of signing up but hasn’t yet confirmed their account. This is useful if the user didn’t receive the original code or needs a new one.
+
+```ts
+import { resendSignUpCode } from "easy-auth";
+
+const codeDeliveryDetails = await resendSignUpCode({
+  username: "email@domain.com",
+});
+```
+
 
 ## Running Tests
 To run the included unit tests:
