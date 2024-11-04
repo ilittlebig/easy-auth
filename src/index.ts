@@ -22,6 +22,7 @@ import { verifyTOTP } from "./api/verifyTOTP";
 import { signUp } from "./api/signUp";
 import { confirmSignUp } from "./api/confirmSignUp";
 import { resendSignUpCode } from "./api/resendSignUpCode";
+import { deleteUser } from "./api/deleteUser";
 
 export {
   // classes
@@ -44,6 +45,7 @@ export {
   signUp,
   confirmSignUp,
   resendSignUpCode,
+  deleteUser,
 };
 
 export * from "./types";

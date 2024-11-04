@@ -25,6 +25,7 @@ A simple, no-fuss authentication library using AWS SDK with SRP-based login. Des
   - [Sign Up](#sign-up)
   - [Confirm Sign Up](#confirm-sign-up)
   - [Resend Sign Up Code](#resend-sign-up-code)
+  - [Delete User](#delete-user)
 - [Running Tests](#running-tests)
 - [References](#references)
 
@@ -261,6 +262,14 @@ import { resendSignUpCode } from "easy-auth";
 const codeDeliveryDetails = await resendSignUpCode({
   username: "email@domain.com",
 });
+```
+
+#### Delete User
+Permanently deletes the authenticated user's account from AWS Cognito. This action is irreversible and removes all associated user data. It’s typically used when a user wants to close their account.
+
+```ts
+import { deleteUser } from "easy-auth";
+await deleteUser();
 ```
 
 
