@@ -1,6 +1,8 @@
 # AWS Cognito Authentication Library
 A simple, no-fuss authentication library using AWS SDK with SRP-based login. Designed to make AWS Cognito integration straightforward and secure.
 
+> **Note:** The implementation of this library is inspired by AWS Amplify.
+
 ### Features
 -	🔒 Secure Authentication: Uses SRP (Secure Remote Password) for safe user logins.
 - ⚙️ AWS SDK Integration: Works seamlessly with AWS Cognito.
