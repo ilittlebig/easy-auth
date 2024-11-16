@@ -74,7 +74,7 @@ describe("clearTokens", () => {
       throw new Error("Storage error");
     });
 
-    expect(() => clearTokens())
+    await expect(() => clearTokens())
       .rejects
       .toThrow();
   });

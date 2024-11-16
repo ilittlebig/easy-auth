@@ -5,12 +5,15 @@
  * Created: 2024-10-16
  */
 
-import { AuthError } from "../classes";
+import { AuthError } from "./authError";
+import { DefaultStorage } from "./storage";
 import { authErrorStrings } from "../utils/errorUtils";
 import type { AuthConfig, CognitoConfig } from "../../types/auth";
+import type { KeyValueStorageInterface } from "../../types/auth/internal";
 
 class EasyAuthClass {
   private resourcesConfig: AuthConfig | {} = {};
+	keyValueStorage: KeyValueStorageInterface = new DefaultStorage();
 
   private validateConfig(config: AuthConfig): void {
     const cognitoConfig: CognitoConfig | undefined = config.Auth?.Cognito;
@@ -33,6 +36,10 @@ class EasyAuthClass {
     this.validateConfig(this.resourcesConfig as AuthConfig);
     return this.resourcesConfig as AuthConfig;
   };
+
+	setKeyValueStorage(storage: KeyValueStorageInterface) {
+		this.keyValueStorage = storage;
+	}
 
   /**
    * Example usage:

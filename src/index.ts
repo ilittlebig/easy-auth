@@ -6,6 +6,10 @@
  */
 
 import { EasyAuth } from "./internal/classes/easyAuth";
+import { DefaultStorage } from "./internal/classes/storage/defaultStorage";
+import { CookieStorage } from "./internal/classes/storage/cookieStorage";
+import { InMemoryStorage } from "./internal/classes/storage/inMemoryStorage";
+
 import { signIn } from "./api/signIn";
 import { signOut } from "./api/signOut";
 import { confirmSignIn } from "./api/confirmSignIn";
@@ -27,6 +31,9 @@ import { deleteUser } from "./api/deleteUser";
 export {
   // classes
   EasyAuth,
+	DefaultStorage,
+	CookieStorage,
+	InMemoryStorage,
 
   // api
   signIn,
