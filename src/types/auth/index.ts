@@ -5,6 +5,8 @@
  * Created: 2024-10-28
  */
 
+import { KeyValueStorageInterface } from "./internal";
+
 export * from "./inputs";
 export * from "./outputs";
 
@@ -14,14 +16,14 @@ export interface SignInDetails {
 }
 
 export interface CognitoConfig {
-  userPoolId: string;
-  userPoolClientId: string;
+	userPoolId: string;
+	userPoolClientId: string;
 }
 
 export interface AuthConfig {
-  Auth: {
-    Cognito: CognitoConfig;
-  };
+	Auth: {
+		Cognito: CognitoConfig;
+	};
 }
 
 export interface CognitoResponse {
@@ -33,3 +35,5 @@ export interface CognitoMFASettings {
   Enabled: true | false;
   PreferredMfa?: true | false;
 }
+
+export type { KeyValueStorageInterface }

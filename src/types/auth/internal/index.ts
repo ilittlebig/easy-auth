@@ -7,3 +7,4 @@
 
 export * from "./params";
 export * from "./tokens";
+export * from "./storage";

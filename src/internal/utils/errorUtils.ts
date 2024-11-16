@@ -79,6 +79,8 @@ export const authErrorStrings: { [key: string]: string } = {
   ClientSignOutErrorException: "An error occurred during the client sign out process.",
   GlobalSignOutErrorException: "An error occurred during the global sign out process.",
   EmptyVerifyTOTPCodeException: "Code cannot be empty.",
+	InvalidSameSiteValueException: `The sameSite value of cookieStorage must be "lax", "strict" or "none".`,
+	SameSiteNoneRequiresSequreException: "sameSite = None requires the Secure attribute in latest browser versions.",
 }
 
 /**

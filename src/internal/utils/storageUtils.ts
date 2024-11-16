@@ -7,6 +7,7 @@
 
 import { EasyAuth } from "../classes";
 import type { NewDeviceMetadataOutput } from "../../types/auth";
+import type { KeyValueStorageInterface } from "../../types/auth/internal";
 
 const STORAGE_NAME = "CognitoIdentityServiceProvider";
 
@@ -19,29 +20,6 @@ interface AuthKeys {
   deviceGroupKey: string;
   randomPassword: string;
   signInDetails: string;
-}
-
-interface KeyValueStorage {
-  getItem: (key: string) => string | null;
-  setItem: (key: string, value: string) => void;
-  removeItem: (key: string) => void;
-}
-
-const inMemoryStorage: { [key: string]: string } = {};
-
-/**
- *
- */
-
-const isLocalStorageAvailable = () => {
-  try {
-    const testKey = "__testKey";
-    localStorage.setItem(testKey, testKey);
-    localStorage.removeItem(testKey);
-    return true;
-  } catch (err) {
-    return false;
-  }
 }
 
 /**
@@ -120,25 +98,11 @@ export const getAuthKeys = (username?: string) => {
 }
 
 /**
- * Choose the correct functions for the available storage
+ *
  */
 
-export const getKeyValueStorage = (): KeyValueStorage => {
-  const useLocalStorage = isLocalStorageAvailable();
-
-  if (useLocalStorage) {
-    return {
-      getItem: (key: string) => (localStorage.getItem(key)),
-      setItem: (key: string, value: string) => localStorage.setItem(key, value),
-      removeItem: (key: string) => localStorage.removeItem(key)
-    };
-  } else {
-    return {
-      getItem: (key: string) => (inMemoryStorage[key] !== undefined ? inMemoryStorage[key] : null),
-      setItem: (key: string, value: string) => { inMemoryStorage[key] = value; },
-      removeItem: (key: string) => { delete inMemoryStorage[key]; }
-    };
-  }
+export const getKeyValueStorage = (): KeyValueStorageInterface => {
+	return EasyAuth.keyValueStorage;
 }
 
 /**

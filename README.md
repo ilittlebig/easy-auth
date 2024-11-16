@@ -28,6 +28,7 @@ A simple, no-fuss authentication library using AWS SDK with SRP-based login. Des
   - [Confirm Sign Up](#confirm-sign-up)
   - [Resend Sign Up Code](#resend-sign-up-code)
   - [Delete User](#delete-user)
+  - [Change Storage Provider](#change-storage-provider)
 - [Running Tests](#running-tests)
 - [References](#references)
 
@@ -274,6 +275,18 @@ import { deleteUser } from "easy-auth";
 await deleteUser();
 ```
 
+#### Change Storage Provider
+Select the default storage provider for managing token storage, such as `localStorage` or `inMemoryStorage`, which are stored locally, or opt for `cookieStorage`, where tokens are stored in cookies.
+
+```ts
+// Store tokens in cookies
+import { EasyAuth, CookieStorage } from "easy-auth";
+EasyAuth.setKeyValueStorage(new CookieStorage());
+
+// Store tokens in memory
+import { EasyAuth, InMemoryStorage } from "easy-auth";
+EasyAuth.setKeyValueStorage(new InMemoryStorage());
+```
 
 ## Running Tests
 To run the included unit tests:
