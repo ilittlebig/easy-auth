@@ -1,4 +1,4 @@
-import { AuthMFAType, CognitoResponse } from '../../types/auth';
+import { AuthMFAType, AuthSignInOutput, CognitoResponse } from '../../types/auth';
 /**
  *
  */
@@ -10,12 +10,7 @@ export declare const getActiveSignInState: (username: string) => string;
 /**
  *
  */
-export declare const getSignInResultFromError: (errorName: string) => {
-    isSignedIn: boolean;
-    nextStep: {
-        signInStep: string;
-    };
-} | undefined;
+export declare const getSignInResultFromError: (errorName: string) => AuthSignInOutput | undefined;
 /**
  *
  */

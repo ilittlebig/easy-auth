@@ -1,7 +1,7 @@
 {
   "name": "@ilittlebig/easy-auth",
   "description": "A simple, no-fuss authentication library using AWS SDK with SRP-based login. Designed to make AWS Cognito integration straightforward and secure.",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "author": "Elias Sjödin",
   "license": "ISC",
   "type": "module",
