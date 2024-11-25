@@ -1,15 +1,13 @@
 {
-  "name": "easy-auth",
+  "name": "@ilittlebig/easy-auth",
   "version": "0.0.0",
-  "private": true,
   "type": "module",
   "main": "dist/easy-auth.cjs.js",
   "module": "dist/easy-auth.es.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "vite build",
-    "test": "vitest run --coverage",
-    "postinstall": "npm run build"
+    "test": "vitest run --coverage"
   },
   "devDependencies": {
     "@types/node": "^22.7.9",
@@ -24,5 +22,23 @@
     "@types/js-cookie": "^3.0.6",
     "js-cookie": "^3.0.5",
     "sjcl-aws": "^1.0.8"
-  }
+  },
+  "description": "A simple, no-fuss authentication library using AWS SDK with SRP-based login. Designed to make AWS Cognito integration straightforward and secure.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ilittlebig/easy-auth.git"
+  },
+  "keywords": [
+    "javascript",
+    "aws",
+    "library",
+    "typescript",
+    "cognito"
+  ],
+  "author": "Elias Sjödin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ilittlebig/easy-auth/issues"
+  },
+  "homepage": "https://github.com/ilittlebig/easy-auth#readme"
 }
