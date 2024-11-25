@@ -2,7 +2,7 @@ var ke = Object.defineProperty;
 var Fe = (t, e, n) => e in t ? ke(t, e, { enumerable: !0, configurable: !0, writable: !0, value: n }) : t[e] = n;
 var f = (t, e, n) => Fe(t, typeof e != "symbol" ? e + "" : e, n);
 import W from "js-cookie";
-import { CognitoIdentityProviderClient as T, ConfirmDeviceCommand as Me, InitiateAuthCommand as ge, RespondToAuthChallengeCommand as O, AssociateSoftwareTokenCommand as _e, RevokeTokenCommand as be, GlobalSignOutCommand as Be, VerifySoftwareTokenCommand as me, ConfirmForgotPasswordCommand as Oe, ForgotPasswordCommand as Ve, ChangePasswordCommand as Ke, GetUserCommand as fe, SetUserMFAPreferenceCommand as $e, ListDevicesCommand as We, SignUpCommand as He, ConfirmSignUpCommand as Ge, ResendConfirmationCodeCommand as Le, DeleteUserCommand as qe } from "@aws-sdk/client-cognito-identity-provider";
+import { CognitoIdentityProviderClient as w, ConfirmDeviceCommand as Me, InitiateAuthCommand as me, RespondToAuthChallengeCommand as O, AssociateSoftwareTokenCommand as _e, RevokeTokenCommand as be, GlobalSignOutCommand as Be, VerifySoftwareTokenCommand as ge, ConfirmForgotPasswordCommand as Oe, ForgotPasswordCommand as Ve, ChangePasswordCommand as Ke, GetUserCommand as fe, SetUserMFAPreferenceCommand as $e, ListDevicesCommand as We, SignUpCommand as He, ConfirmSignUpCommand as Ge, ResendConfirmationCodeCommand as Le, DeleteUserCommand as qe } from "@aws-sdk/client-cognito-identity-provider";
 import C from "sjcl-aws";
 class p extends Error {
   constructor({ message: e, name: n }) {
@@ -130,7 +130,7 @@ const z = new ze(), B = (t) => {
   if (e.length !== 3)
     throw new p({
       name: "InvalidJWTTokenException",
-      message: g.InvalidJWTTokenException
+      message: m.InvalidJWTTokenException
     });
   try {
     const s = e[1].replace(/-/g, "+").replace(/_/g, "/"), o = atob(s), i = decodeURIComponent(o.split("").map((a) => "%" + ("00" + a.charCodeAt(0).toString(16)).slice(-2)).join("")), r = JSON.parse(i);
@@ -141,7 +141,7 @@ const z = new ze(), B = (t) => {
   } catch (n) {
     throw new p({
       name: "InvalidJWTTokenException",
-      message: g.InvalidJWTTokenPayloadException + ": " + n.message
+      message: m.InvalidJWTTokenPayloadException + ": " + n.message
     });
   }
 }, pe = "CognitoIdentityServiceProvider", Ye = (t, e) => Qe({
@@ -200,7 +200,7 @@ const z = new ze(), B = (t) => {
   if (!t)
     throw new p({
       name: "InvalidAuthTokensException",
-      message: g.InvalidAuthTokensException
+      message: m.InvalidAuthTokensException
     });
   X();
   const {
@@ -223,7 +223,7 @@ const z = new ze(), B = (t) => {
   if (!e.AccessToken)
     throw new p({
       name: "NoAccessTokenException",
-      message: g.NoAccessTokenException
+      message: m.NoAccessTokenException
     });
   const o = B(e.AccessToken), i = (o.payload.iat || 0) * 1e3, r = (/* @__PURE__ */ new Date()).getTime(), a = i > 0 ? i - r : 0;
   let c, l, d = n;
@@ -262,11 +262,11 @@ const z = new ze(), B = (t) => {
   128,
   C.codec.hex.toBits(e),
   ot
-), Te = (t) => {
+), we = (t) => {
   const e = Math.ceil(t / 4);
   return C.random.randomWords(e, 0);
 }, at = () => {
-  const t = Te(40);
+  const t = we(40);
   return C.codec.base64.fromBits(t);
 }, ct = (t) => C.codec.hex.fromBits(t), lt = (t) => {
   const e = C.codec.hex.toBits(t), n = C.hash.sha256.hash(e);
@@ -296,7 +296,7 @@ function ut(t, e, n, s, o, i) {
   }
   return o;
 }
-function gt(t, e, n, s, o, i) {
+function mt(t, e, n, s, o, i) {
   for (var r = e & 16383, a = e >> 14; --i >= 0; ) {
     var c = this[t] & 16383, l = this[t++] >> 14, d = a * c + l * r;
     c = r * c + ((d & 16383) << 14) + n[s] + o, o = (c >> 28) + (d >> 14) + a * l, n[s++] = c & 268435455;
@@ -304,7 +304,7 @@ function gt(t, e, n, s, o, i) {
   return o;
 }
 var ce = typeof navigator < "u";
-ce && ae && navigator.appName == "Microsoft Internet Explorer" ? (h.prototype.am = ut, F = 30) : ce && ae && navigator.appName != "Netscape" ? (h.prototype.am = ht, F = 26) : (h.prototype.am = gt, F = 28);
+ce && ae && navigator.appName == "Microsoft Internet Explorer" ? (h.prototype.am = ut, F = 30) : ce && ae && navigator.appName != "Netscape" ? (h.prototype.am = ht, F = 26) : (h.prototype.am = mt, F = 28);
 h.prototype.DB = F;
 h.prototype.DM = (1 << F) - 1;
 h.prototype.DV = 1 << F;
@@ -312,7 +312,7 @@ var ee = 52;
 h.prototype.FV = Math.pow(2, ee);
 h.prototype.F1 = ee - F;
 h.prototype.F2 = 2 * F - ee;
-var mt = "0123456789abcdefghijklmnopqrstuvwxyz", G = [], K, U;
+var gt = "0123456789abcdefghijklmnopqrstuvwxyz", G = [], K, U;
 K = 48;
 for (U = 0; U <= 9; ++U)
   G[K++] = U;
@@ -323,7 +323,7 @@ K = 65;
 for (U = 10; U < 36; ++U)
   G[K++] = U;
 function le(t) {
-  return mt.charAt(t);
+  return gt.charAt(t);
 }
 function ft(t, e) {
   var n = G[t.charCodeAt(e)];
@@ -370,7 +370,7 @@ function Ct() {
   for (var t = this.s & this.DM; this.t > 0 && this[this.t - 1] == t; )
     --this.t;
 }
-function Tt(t) {
+function wt(t) {
   if (this.s < 0)
     return "-" + this.negate().toString(t);
   var e;
@@ -392,7 +392,7 @@ function Tt(t) {
       a < e ? (s = (this[r] & (1 << a) - 1) << e - a, s |= this[--r] >> (a += this.DB - e)) : (s = this[r] >> (a -= e) & n, a <= 0 && (a += this.DB, --r)), s > 0 && (o = !0), o && (i += le(s));
   return o ? i : "0";
 }
-function wt() {
+function Tt() {
   var t = P();
   return h.ZERO.subTo(this, t), t;
 }
@@ -496,11 +496,11 @@ function kt(t, e, n) {
     c > 0 ? (s.lShiftTo(c, i), o.lShiftTo(c, n)) : (s.copyTo(i), o.copyTo(n));
     var l = i.t, d = i[l - 1];
     if (d != 0) {
-      var u = d * (1 << this.F1) + (l > 1 ? i[l - 2] >> this.F2 : 0), m = this.FV / u, S = (1 << this.F1) / u, I = 1 << this.F2, E = n.t, y = E - l, v = e ?? P();
+      var u = d * (1 << this.F1) + (l > 1 ? i[l - 2] >> this.F2 : 0), g = this.FV / u, S = (1 << this.F1) / u, I = 1 << this.F2, E = n.t, y = E - l, v = e ?? P();
       for (i.dlShiftTo(y, v), n.compareTo(v) >= 0 && (n[n.t++] = 1, n.subTo(v, n)), h.ONE.dlShiftTo(l, v), v.subTo(i, i); i.t < l; )
         i[i.t++] = 0;
       for (; --y >= 0; ) {
-        var R = n[--E] == d ? this.DM : Math.floor(n[E] * m + (n[E - 1] + I) * S);
+        var R = n[--E] == d ? this.DM : Math.floor(n[E] * g + (n[E - 1] + I) * S);
         if ((n[E] += i.am(0, R, n, y, 0, l)) < R)
           for (i.dlShiftTo(y, v), n.subTo(v, n); n[E] < --R; )
             n.subTo(v, n);
@@ -598,19 +598,19 @@ function qt(t, e, n) {
     for (i.sqrTo(a[1], u); d <= l; )
       a[d] = P(), i.mulTo(u, a[d - 2], a[d]), d += 2;
   }
-  var m = t.t - 1, S, I = !0, E = P(), y;
-  for (s = ne(t[m]) - 1; m >= 0; ) {
-    for (s >= c ? S = t[m] >> s - c & l : (S = (t[m] & (1 << s + 1) - 1) << c - s, m > 0 && (S |= t[m - 1] >> this.DB + s - c)), d = r; !(S & 1); )
+  var g = t.t - 1, S, I = !0, E = P(), y;
+  for (s = ne(t[g]) - 1; g >= 0; ) {
+    for (s >= c ? S = t[g] >> s - c & l : (S = (t[g] & (1 << s + 1) - 1) << c - s, g > 0 && (S |= t[g - 1] >> this.DB + s - c)), d = r; !(S & 1); )
       S >>= 1, --d;
-    if ((s -= d) < 0 && (s += this.DB, --m), I)
+    if ((s -= d) < 0 && (s += this.DB, --g), I)
       a[S].copyTo(o), I = !1;
     else {
       for (; d > 1; )
         i.sqrTo(o, E), i.sqrTo(E, o), d -= 2;
       d > 0 ? i.sqrTo(o, E) : (y = o, o = E, E = y), i.mulTo(E, a[S], o);
     }
-    for (; m >= 0 && !(t[m] & 1 << s); )
-      i.sqrTo(o, E), y = o, o = E, E = y, --s < 0 && (s = this.DB - 1, --m);
+    for (; g >= 0 && !(t[g] & 1 << s); )
+      i.sqrTo(o, E), y = o, o = E, E = y, --s < 0 && (s = this.DB - 1, --g);
   }
   var v = i.revert(o);
   return n && n(null, v), v;
@@ -632,9 +632,9 @@ h.prototype.squareTo = Rt;
 h.prototype.divRemTo = kt;
 h.prototype.invDigit = Mt;
 h.prototype.addTo = bt;
-h.prototype.toString = Tt;
+h.prototype.toString = wt;
 h.prototype.abs = At;
-h.prototype.negate = wt;
+h.prototype.negate = Tt;
 h.prototype.compareTo = yt;
 h.prototype.bitLength = vt;
 h.prototype.mod = Ft;
@@ -698,11 +698,11 @@ class se {
         this.largeAValue,
         i
       ), this.UValue.isZero()) throw new Error("U cannot be zero.");
-      const l = `${this.poolName}${e}:${n}`, d = j(l), u = `${_(r)}${d}`, m = N(Z(u), 16), S = this.g.modPow(m, this.N), I = i.subtract(
+      const l = `${this.poolName}${e}:${n}`, d = j(l), u = `${_(r)}${d}`, g = N(Z(u), 16), S = this.g.modPow(g, this.N), I = i.subtract(
         this.k.multiply(S)
       );
       if (!this.smallAValue) throw new Error("smallAValue is undefined");
-      const E = this.UValue.multiply(m), y = I.modPow(
+      const E = this.UValue.multiply(g), y = I.modPow(
         this.smallAValue.add(E),
         this.N
       ).mod(this.N);
@@ -716,7 +716,7 @@ class se {
      */
     f(this, "generateHashDevice", (e, n) => {
       this.randomPassword = at();
-      const s = `${e}${n}:${this.randomPassword}`, o = j(s), i = Te(16), r = ct(i);
+      const s = `${e}${n}:${this.randomPassword}`, o = j(s), i = we(16), r = ct(i);
       return this.saltToHashDevices = _(
         N(r, 16)
       ), new Promise((a, c) => {
@@ -739,21 +739,21 @@ class se {
 const de = () => {
   throw new p({
     name: "InvalidUserPoolIdException",
-    message: g.InvalidUserPoolIdException
+    message: m.InvalidUserPoolIdException
   });
-}, we = (t) => {
+}, Te = (t) => {
   (typeof t != "string" || !t.includes("_")) && de();
   const e = t.split("_").map((n) => n.trim());
   return (e.length !== 2 || e[0] === "" || e[1] === "") && de(), e;
-}, w = (t) => {
-  const [e] = we(t);
+}, T = (t) => {
+  const [e] = Te(t);
   return e;
 }, oe = (t) => {
-  const [, e] = we(t);
+  const [, e] = Te(t);
   return e;
 }, Ae = async (t, e, n) => {
   if (!e) return;
-  const s = oe(t), o = (e == null ? void 0 : e.DeviceKey) ?? "", i = (e == null ? void 0 : e.DeviceGroupKey) ?? "", r = w(t), a = new T({ region: r }), c = new se(s);
+  const s = oe(t), o = (e == null ? void 0 : e.DeviceKey) ?? "", i = (e == null ? void 0 : e.DeviceGroupKey) ?? "", r = T(t), a = new w({ region: r }), c = new se(s);
   try {
     c.generateHashDevice(i, o);
   } catch {
@@ -791,7 +791,7 @@ const de = () => {
     if (!n)
       throw new p({
         name: "NoSessionFoundException",
-        message: g.NoSessionFoundException
+        message: m.NoSessionFoundException
       });
     const s = B(n), o = t.getItem(e.idToken), i = o ? B(o) : void 0, r = t.getItem(e.refreshToken) ?? void 0, a = t.getItem(e.clockDrift) ?? "0", c = Number.parseInt(a), l = t.getItem(e.signInDetails), d = {
       accessToken: s,
@@ -823,15 +823,15 @@ const de = () => {
     if (!s)
       throw new p({
         name: "MissingRefreshTokenException",
-        message: g.MissingRefreshTokenException
+        message: m.MissingRefreshTokenException
       });
     const o = t.deviceMetadata;
     if (!o)
       throw new p({
         name: "MissingDeviceMetadataException",
-        message: g.MissingDeviceMetadataException
+        message: m.MissingDeviceMetadataException
       });
-    const i = (n = A.getConfig().Auth) == null ? void 0 : n.Cognito, { userPoolId: r, userPoolClientId: a } = i, c = w(r), l = new T({ region: c }), d = new ge({
+    const i = (n = A.getConfig().Auth) == null ? void 0 : n.Cognito, { userPoolId: r, userPoolClientId: a } = i, c = T(r), l = new w({ region: c }), d = new me({
       ClientId: a,
       AuthFlow: "REFRESH_TOKEN_AUTH",
       AuthParameters: {
@@ -840,15 +840,15 @@ const de = () => {
       }
     }), {
       AuthenticationResult: u
-    } = await l.send(d), m = B((u == null ? void 0 : u.AccessToken) ?? ""), S = u != null && u.IdToken ? B(u.IdToken) : void 0, I = m.payload.iat;
+    } = await l.send(d), g = B((u == null ? void 0 : u.AccessToken) ?? ""), S = u != null && u.IdToken ? B(u.IdToken) : void 0, I = g.payload.iat;
     if (!I)
       throw new p({
         name: "iatNotFoundException",
-        message: g.iatNotFoundException
+        message: m.iatNotFoundException
       });
     const E = I * 1e3 - (/* @__PURE__ */ new Date()).getTime();
     return {
-      accessToken: m,
+      accessToken: g,
       idToken: S,
       clockDrift: E,
       refreshToken: t.refreshToken,
@@ -890,7 +890,7 @@ const de = () => {
     userId: n
   }, o = t.signInDetails;
   return o && (s.signInDetails = o), s;
-}, J = (t) => typeof t == "string" && t.trim().length > 0, g = {
+}, J = (t) => typeof t == "string" && t.trim().length > 0, m = {
   InvalidConfigException: `
     Invalid or missing AWS Cognito configuration.
 
@@ -923,6 +923,7 @@ const de = () => {
   InvalidUserPoolIdException: "Invalid user pool id provided.",
   MissingChallengeNameException: "Challenge name is missing from the authentication response.",
   MissingChallengeParametersException: "Challenge parameters are missing from the authentication response.",
+  EmptyResetPasswordUsernameException: "Username cannot be empty to reset password.",
   MissingSecretCodeException: "SecretCode is missing from the AssociateSoftwareTokenCommand.",
   InvalidAuthTokensException: "Invalid authentication tokens.",
   InvalidChallengeResponseException: `
@@ -965,21 +966,21 @@ const de = () => {
   if (t && t.userId && t.username)
     throw new p({
       name: "UserAlreadyAuthenticatedException",
-      message: g.UserAlreadyAuthenticatedException
+      message: m.UserAlreadyAuthenticatedException
     });
 };
 function Xt(t) {
   if (!((t != null && t.accessToken || t != null && t.idToken) && (t != null && t.refreshToken)))
     throw new p({
       name: "UserUnauthenticatedException",
-      message: g.UserUnauthenticatedException
+      message: m.UserUnauthenticatedException
     });
 }
 function ye(t) {
   if (!(!!t && J(t.deviceKey) && J(t.deviceGroupKey) && J(t.randomPassword)))
     throw new p({
       name: "DeviceMetadataException",
-      message: g.DeviceMetadataException
+      message: m.DeviceMetadataException
     });
 }
 function x(t) {
@@ -987,7 +988,7 @@ function x(t) {
   if (!(e && e.payload && e.toString()))
     throw new p({
       name: "UserUnauthenticatedException",
-      message: g.UserUnauthenticatedException
+      message: m.UserUnauthenticatedException
     });
 }
 class bn {
@@ -1002,12 +1003,12 @@ class bn {
       if (!r || !["strict", "lax", "none"].includes(r))
         throw new p({
           name: "InvalidSameSiteValueException",
-          message: g.InvalidSameSiteValueException
+          message: m.InvalidSameSiteValueException
         });
       if (r === "none" && !this.secure)
         throw new p({
           name: "SameSiteNoneRequiresSequreException",
-          message: g.SameSiteNoneRequiresSequreException
+          message: m.SameSiteNoneRequiresSequreException
         });
       this.sameSite = r;
     }
@@ -1043,7 +1044,7 @@ class en {
       if (Object.keys(this.resourcesConfig).length === 0)
         throw new p({
           name: "InvalidConfigException",
-          message: g.InvalidConfigException
+          message: m.InvalidConfigException
         });
       return this.validateConfig(this.resourcesConfig), this.resourcesConfig;
     });
@@ -1070,7 +1071,7 @@ class en {
     if (!(n != null && n.userPoolId) || !(n != null && n.userPoolClientId))
       throw new p({
         name: "InvalidConfigException",
-        message: g.InvalidConfigException
+        message: m.InvalidConfigException
       });
   }
   setKeyValueStorage(e) {
@@ -1166,9 +1167,9 @@ const A = new en(), tn = async (t) => {
     randomPassword: d
   } = a, {
     SRP_B: u,
-    SALT: m,
+    SALT: g,
     SECRET_BLOCK: S
-  } = s, I = Se(), E = n.getPasswordAuthenticationKey(c, d, u, m), y = Ce(E, l, c, S, I), v = {
+  } = s, I = Se(), E = n.getPasswordAuthenticationKey(c, d, u, g), y = Ce(E, l, c, S, I), v = {
     USERNAME: (s == null ? void 0 : s.USERNAME) ?? t,
     PASSWORD_CLAIM_SECRET_BLOCK: S,
     TIMESTAMP: I,
@@ -1184,7 +1185,7 @@ const A = new en(), tn = async (t) => {
 }, un = async (t, e) => {
   const n = L(t);
   ye(n);
-  const { userPoolId: s, userPoolClientId: o } = e, i = w(s), r = new T({ region: i }), a = new se(n.deviceGroupKey), c = a.calculateA(), l = new O({
+  const { userPoolId: s, userPoolClientId: o } = e, i = T(s), r = new w({ region: i }), a = new se(n.deviceGroupKey), c = a.calculateA(), l = new O({
     ChallengeName: "DEVICE_SRP_AUTH",
     ChallengeResponses: {
       USERNAME: t,
@@ -1199,7 +1200,7 @@ const A = new en(), tn = async (t) => {
   if (!d)
     throw new p({
       name: "MissingChallengeParametersException",
-      message: g.MissingChallengeParametersException
+      message: m.MissingChallengeParametersException
     });
   return await hn({
     username: t,
@@ -1209,12 +1210,12 @@ const A = new en(), tn = async (t) => {
     session: u,
     cognitoConfig: e
   });
-}, gn = async ({
+}, mn = async ({
   username: t,
   password: e,
   cognitoConfig: n
 }) => {
-  const { userPoolId: s, userPoolClientId: o } = n, i = oe(s), r = w(s), a = new T({ region: r }), c = new se(i), l = c.calculateA(), d = new ge({
+  const { userPoolId: s, userPoolClientId: o } = n, i = oe(s), r = T(s), a = new w({ region: r }), c = new se(i), l = c.calculateA(), d = new me({
     AuthFlow: "USER_SRP_AUTH",
     AuthParameters: {
       USERNAME: t,
@@ -1223,31 +1224,31 @@ const A = new en(), tn = async (t) => {
     ClientId: o
   }), {
     ChallengeName: u,
-    ChallengeParameters: m,
+    ChallengeParameters: g,
     Session: S
   } = await a.send(d);
-  if (!(m && m.SRP_B && m.SALT && m.SECRET_BLOCK))
+  if (!(g && g.SRP_B && g.SALT && g.SECRET_BLOCK))
     throw new p({
       name: "MissingChallengeParametersException",
-      message: g.MissingChallengeParametersException
+      message: m.MissingChallengeParametersException
     });
-  const E = m.USERNAME ?? t;
+  const E = g.USERNAME ?? t;
   if (on(E), !u)
     throw new p({
       name: "MissingChallengeNameException",
-      message: g.MissingChallengeNameException
+      message: m.MissingChallengeNameException
     });
-  const y = await mn({
+  const y = await gn({
     challengeName: u,
     cognitoConfig: n,
     client: a,
     srp: c,
     password: e,
-    challengeParameters: m,
+    challengeParameters: g,
     session: S
   });
   return y.ChallengeName === "DEVICE_SRP_AUTH" ? un(E, n) : y;
-}, mn = async ({
+}, gn = async ({
   challengeName: t,
   cognitoConfig: e,
   client: n,
@@ -1259,16 +1260,16 @@ const A = new en(), tn = async (t) => {
   const { userPoolId: a, userPoolClientId: c } = e, l = oe(a), {
     SRP_B: d,
     SALT: u,
-    SECRET_BLOCK: m
+    SECRET_BLOCK: g
   } = i, S = i.USER_ID_FOR_SRP;
   if (!S)
     throw new p({
       name: "EmptyUserIdForSRPException",
-      message: g.EmptyUserIdForSRPException
+      message: m.EmptyUserIdForSRPException
     });
-  const I = Se(), E = s.getPasswordAuthenticationKey(S, o, d, u), y = Ce(E, l, S, m, I), v = {
+  const I = Se(), E = s.getPasswordAuthenticationKey(S, o, d, u), y = Ce(E, l, S, g, I), v = {
     USERNAME: S,
-    PASSWORD_CLAIM_SECRET_BLOCK: m,
+    PASSWORD_CLAIM_SECRET_BLOCK: g,
     TIMESTAMP: I,
     PASSWORD_CLAIM_SIGNATURE: y
   }, R = L(S);
@@ -1300,13 +1301,13 @@ const A = new en(), tn = async (t) => {
   }
 }), En = async (t) => {
   var u;
-  const { signInSession: e, username: n } = M.getState(), s = (u = A.getConfig().Auth) == null ? void 0 : u.Cognito, { userPoolId: o } = s, i = w(o);
+  const { signInSession: e, username: n } = M.getState(), s = (u = A.getConfig().Auth) == null ? void 0 : u.Cognito, { userPoolId: o } = s, i = T(o);
   if (!ln(t, "TOTP"))
     throw new p({
       name: "SignInException",
-      message: g.InvalidMFASetupTypeException + ": TOTP"
+      message: m.InvalidMFASetupTypeException + ": TOTP"
     });
-  const a = new T({ region: i }), c = new _e({
+  const a = new w({ region: i }), c = new _e({
     Session: e
   }), {
     SecretCode: l,
@@ -1315,7 +1316,7 @@ const A = new en(), tn = async (t) => {
   if (!l)
     throw new p({
       name: "MissingSecretCodeException",
-      message: g.MissingSecretCodeException
+      message: m.MissingSecretCodeException
     });
   return M.dispatch({
     type: "SET_SIGN_IN_SESSION",
@@ -1343,19 +1344,19 @@ const A = new en(), tn = async (t) => {
     name: "ChallengeNotHandledException",
     message: `No next step for challenge: ${t}`
   });
-}, Tn = async (t) => {
+}, wn = async (t) => {
   const { username: e, password: n } = t, s = {
     loginId: e,
     authFlowType: "USER_SRP_AUTH"
   };
-  D(!!e, "EmptyUsernameException", g.EmptyUsernameException), D(!!n, "EmptyPasswordException", g.EmptyPasswordException);
+  D(!!e, "EmptyUsernameException", m.EmptyUsernameException), D(!!n, "EmptyPasswordException", m.EmptyPasswordException);
   try {
     const o = A.getConfig().Auth.Cognito, {
       ChallengeName: i,
       ChallengeParameters: r,
       AuthenticationResult: a,
       Session: c
-    } = await gn({
+    } = await mn({
       username: e,
       password: n,
       cognitoConfig: o
@@ -1385,7 +1386,7 @@ const A = new en(), tn = async (t) => {
     if (!i)
       throw new p({
         name: "MissingChallengeNameException",
-        message: g.MissingChallengeNameException
+        message: m.MissingChallengeNameException
       });
     return Ne(
       i,
@@ -1401,36 +1402,36 @@ const A = new en(), tn = async (t) => {
   const e = (n = t.options) == null ? void 0 : n.authFlowType;
   switch (await Qt(), e) {
     default:
-      return Tn(t);
+      return wn(t);
   }
 }, On = async (t) => {
   var s;
   const e = (s = A.getConfig().Auth) == null ? void 0 : s.Cognito;
-  (t == null ? void 0 : t.isGlobal) ? await An(e) : await wn(e), X(), z.dispatch("auth", {
+  (t == null ? void 0 : t.isGlobal) ? await An(e) : await Tn(e), X(), z.dispatch("auth", {
     event: "signedOut"
   });
-}, wn = async (t) => {
+}, Tn = async (t) => {
   try {
     const e = ie();
     if (Xt(e), !xe(e.accessToken)) return;
-    const { userPoolId: s, userPoolClientId: o } = t, i = w(s), r = new T({ region: i }), a = new be({
+    const { userPoolId: s, userPoolClientId: o } = t, i = T(s), r = new w({ region: i }), a = new be({
       ClientId: o,
       Token: e.refreshToken
     });
     await r.send(a);
   } catch {
-    console.log(g.ClientSignOutErrorException);
+    console.log(m.ClientSignOutErrorException);
   }
 }, An = async (t) => {
   try {
     const e = ie();
     if (x(e), !xe(e.accessToken)) return;
-    const { userPoolId: s } = t, o = w(s), i = new T({ region: o }), r = new Be({
+    const { userPoolId: s } = t, o = T(s), i = new w({ region: o }), r = new Be({
       AccessToken: e.accessToken.toString()
     });
     await i.send(r);
   } catch {
-    console.log(g.GlobalSignOutErrorException);
+    console.log(m.GlobalSignOutErrorException);
   }
 }, xe = (t) => {
   var e;
@@ -1445,7 +1446,7 @@ const A = new en(), tn = async (t) => {
   cognitoConfig: s,
   options: o
 }) => {
-  const { userPoolId: i, userPoolClientId: r } = s, a = w(i), c = new T({ region: a }), l = new O({
+  const { userPoolId: i, userPoolClientId: r } = s, a = T(i), c = new w({ region: a }), l = new O({
     ChallengeName: "NEW_PASSWORD_REQUIRED",
     ChallengeResponses: {
       ...yn(o == null ? void 0 : o.requiredAttributes),
@@ -1462,7 +1463,7 @@ const A = new en(), tn = async (t) => {
   challengeResponse: n,
   cognitoConfig: s
 }) => {
-  const { userPoolId: o, userPoolClientId: i } = s, r = w(o), a = new T({ region: r }), c = new me({
+  const { userPoolId: o, userPoolClientId: i } = s, r = T(o), a = new w({ region: r }), c = new ge({
     UserCode: n,
     Session: e
   }), {
@@ -1487,7 +1488,7 @@ const A = new en(), tn = async (t) => {
   challengeResponse: n,
   cognitoConfig: s
 }) => {
-  const { userPoolId: o, userPoolClientId: i } = s, r = w(o), a = new T({ region: r }), c = new O({
+  const { userPoolId: o, userPoolClientId: i } = s, r = T(o), a = new w({ region: r }), c = new O({
     ChallengeName: "SOFTWARE_TOKEN_MFA",
     ChallengeResponses: {
       USERNAME: t,
@@ -1527,15 +1528,15 @@ const A = new en(), tn = async (t) => {
   if (D(
     !!e && typeof e == "string",
     "InvalidChallengeResponseException",
-    g.InvalidChallengeResponseException
+    m.InvalidChallengeResponseException
   ), D(
     !!s && !!i,
     "SignInException",
-    g.SignInException
+    m.SignInException
   ), !o)
     throw new p({
       name: "MissingChallengeNameException",
-      message: g.MissingChallengeNameException
+      message: m.MissingChallengeNameException
     });
   const a = A.getConfig().Auth.Cognito, {
     ChallengeName: c,
@@ -1577,17 +1578,17 @@ const A = new en(), tn = async (t) => {
   D(
     !!o,
     "EmptyConfirmResetPasswordUsernameException",
-    g.EmptyConfirmResetPasswordUsernameException
+    m.EmptyConfirmResetPasswordUsernameException
   ), D(
     !!i,
     "EmptyConfirmResetPasswordNewPasswordException",
-    g.EmptyConfirmResetPasswordNewPasswordException
+    m.EmptyConfirmResetPasswordNewPasswordException
   ), D(
     !!r,
     "EmptyConfirmResetPasswordConfirmationCodeException",
-    g.EmptyConfirmResetPasswordConfirmationCodeException
+    m.EmptyConfirmResetPasswordConfirmationCodeException
   );
-  const a = w(n), c = new T({ region: a }), l = new Oe({
+  const a = T(n), c = new w({ region: a }), l = new Oe({
     Username: o,
     ConfirmationCode: r,
     Password: i,
@@ -1600,9 +1601,9 @@ const A = new en(), tn = async (t) => {
   D(
     !!o,
     "EmptyResetPasswordUsernameException",
-    g.EmptyResetPasswordUsernameException
+    m.EmptyResetPasswordUsernameException
   );
-  const i = w(n), r = new T({ region: i }), a = new Ve({
+  const i = T(n), r = new w({ region: i }), a = new Ve({
     Username: o,
     ClientId: s
   }), l = (await r.send(a)).CodeDeliveryDetails;
@@ -1622,9 +1623,9 @@ const A = new en(), tn = async (t) => {
   x(s), D(
     !!e && !!n,
     "EmptyChangePasswordException",
-    g.EmptyChangePasswordException
+    m.EmptyChangePasswordException
   );
-  const o = A.getConfig().Auth.Cognito, { userPoolId: i } = o, r = w(i), a = new T({ region: r }), c = new Ke({
+  const o = A.getConfig().Auth.Cognito, { userPoolId: i } = o, r = T(i), a = new w({ region: r }), c = new Ke({
     PreviousPassword: e,
     ProposedPassword: n,
     AccessToken: s.accessToken.toString()
@@ -1633,7 +1634,7 @@ const A = new en(), tn = async (t) => {
 }, Hn = async () => {
   const t = await k();
   x(t);
-  const e = A.getConfig().Auth.Cognito, { userPoolId: n } = e, s = w(n), o = new T({ region: s }), i = new fe({
+  const e = A.getConfig().Auth.Cognito, { userPoolId: n } = e, s = T(n), o = new w({ region: s }), i = new fe({
     AccessToken: t.accessToken.toString()
   }), {
     PreferredMfaSetting: r,
@@ -1665,7 +1666,7 @@ const A = new en(), tn = async (t) => {
 }, Gn = async (t) => {
   const { sms: e, totp: n } = t, s = await k();
   x(s);
-  const o = A.getConfig().Auth.Cognito, { userPoolId: i } = o, r = w(i), a = new T({ region: r }), c = new $e({
+  const o = A.getConfig().Auth.Cognito, { userPoolId: i } = o, r = T(i), a = new w({ region: r }), c = new $e({
     AccessToken: s.accessToken.toString(),
     SoftwareTokenMfaSettings: ue(n),
     SMSMfaSettings: ue(e)
@@ -1674,7 +1675,7 @@ const A = new en(), tn = async (t) => {
 }, Nn = 60, Ln = async () => {
   const t = await k();
   x(t);
-  const e = A.getConfig().Auth.Cognito, { userPoolId: n } = e, s = w(n), o = new T({ region: s }), i = new We({
+  const e = A.getConfig().Auth.Cognito, { userPoolId: n } = e, s = T(n), o = new w({ region: s }), i = new We({
     AccessToken: t.accessToken.toString(),
     Limit: Nn
   });
@@ -1687,7 +1688,7 @@ const A = new en(), tn = async (t) => {
 }, qn = async () => {
   const t = await k();
   x(t);
-  const e = A.getConfig().Auth.Cognito, { userPoolId: n } = e, s = w(n), o = new T({ region: s }), i = new fe({
+  const e = A.getConfig().Auth.Cognito, { userPoolId: n } = e, s = T(n), o = new w({ region: s }), i = new fe({
     AccessToken: t.accessToken.toString()
   }), {
     UserAttributes: r
@@ -1698,9 +1699,9 @@ const A = new en(), tn = async (t) => {
   x(s), D(
     !!e,
     "EmptyVerifyTOTPCodeException",
-    g.EmptyVerifyTOTPCodeException
+    m.EmptyVerifyTOTPCodeException
   );
-  const o = A.getConfig().Auth.Cognito, { userPoolId: i } = o, r = w(i), a = new T({ region: r }), c = new me({
+  const o = A.getConfig().Auth.Cognito, { userPoolId: i } = o, r = T(i), a = new w({ region: r }), c = new ge({
     AccessToken: s.accessToken.toString(),
     UserCode: e,
     FriendlyDeviceName: n == null ? void 0 : n.deviceName
@@ -1717,13 +1718,13 @@ const A = new en(), tn = async (t) => {
   D(
     !!e,
     "EmptySignUpUsernameException",
-    g.EmptySignUpUsernameException
+    m.EmptySignUpUsernameException
   ), D(
     !!n,
     "EmptySignUpPasswordException",
-    g.EmptySignUpPasswordException
+    m.EmptySignUpPasswordException
   );
-  const o = A.getConfig().Auth.Cognito, { userPoolId: i, userPoolClientId: r } = o, a = w(i), c = new T({ region: a }), l = new He({
+  const o = A.getConfig().Auth.Cognito, { userPoolId: i, userPoolClientId: r } = o, a = T(i), c = new w({ region: a }), l = new He({
     ClientId: r,
     Username: e,
     Password: n,
@@ -1731,14 +1732,14 @@ const A = new en(), tn = async (t) => {
   }), {
     UserConfirmed: d,
     CodeDeliveryDetails: u,
-    UserSub: m
+    UserSub: g
   } = await c.send(l);
   return d ? {
     isSignUpComplete: !0,
     nextStep: {
       signUpStep: "DONE"
     },
-    userId: m
+    userId: g
   } : {
     isSignUpComplete: !1,
     nextStep: {
@@ -1749,20 +1750,20 @@ const A = new en(), tn = async (t) => {
         attributeName: u == null ? void 0 : u.AttributeName
       }
     },
-    userId: m
+    userId: g
   };
 }, jn = async (t) => {
   const { username: e, confirmationCode: n, options: s } = t;
   D(
     !!e,
     "EmptyConfirmSignUpUsernameException",
-    g.EmptyConfirmSignUpUsernameException
+    m.EmptyConfirmSignUpUsernameException
   ), D(
     !!n,
     "EmptyConfirmSignUpCodeException",
-    g.EmptyConfirmSignUpCodeException
+    m.EmptyConfirmSignUpCodeException
   );
-  const o = A.getConfig().Auth.Cognito, { userPoolId: i, userPoolClientId: r } = o, a = w(i), c = new T({ region: a }), l = new Ge({
+  const o = A.getConfig().Auth.Cognito, { userPoolId: i, userPoolClientId: r } = o, a = T(i), c = new w({ region: a }), l = new Ge({
     ClientId: r,
     Username: e,
     ConfirmationCode: n,
@@ -1779,9 +1780,9 @@ const A = new en(), tn = async (t) => {
   D(
     !!e,
     "EmptyResendSignUpCodeUsernameException",
-    g.EmptyResendSignUpCodeUsernameException
+    m.EmptyResendSignUpCodeUsernameException
   );
-  const n = A.getConfig().Auth.Cognito, { userPoolId: s, userPoolClientId: o } = n, i = w(s), r = new T({ region: i }), a = new Le({
+  const n = A.getConfig().Auth.Cognito, { userPoolId: s, userPoolClientId: o } = n, i = T(s), r = new w({ region: i }), a = new Le({
     Username: e,
     ClientId: o
   }), {
@@ -1795,7 +1796,7 @@ const A = new en(), tn = async (t) => {
 }, Yn = async () => {
   const t = await k();
   x(t);
-  const e = A.getConfig().Auth.Cognito, { userPoolId: n } = e, s = w(n), o = new T({ region: s }), i = new qe({
+  const e = A.getConfig().Auth.Cognito, { userPoolId: n } = e, s = T(n), o = new w({ region: s }), i = new qe({
     AccessToken: t.accessToken.toString()
   });
   await o.send(i);
