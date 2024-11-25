@@ -4,7 +4,7 @@ import path from "path";
 import dts from "vite-plugin-dts";
 
 export default defineConfig({
-  plugins: [dts({ outputDir: "dist" })],
+  plugins: [dts({ outDir: "dist" })],
   build: {
     outDir: "dist",
     lib: {

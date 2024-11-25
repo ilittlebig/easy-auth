@@ -1,9 +1,9 @@
 {
   "name": "@ilittlebig/easy-auth",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "type": "module",
-  "main": "dist/easy-auth.cjs.js",
-  "module": "dist/easy-auth.es.js",
+  "main": "dist/easy-auth.cjs",
+  "module": "dist/easy-auth.es",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "vite build",
