@@ -11,7 +11,7 @@ export default defineConfig({
       entry: path.resolve(__dirname, "./src/index.ts"),
       name: "EasyAuth",
       formats: ["es", "cjs"],
-      fileName: format => `easy-auth.${format}.js`
+      fileName: format => `easy-auth.${format}`
     },
     rollupOptions: {
       external: ["@aws-sdk/client-cognito-identity-provider", "aws-cognito-srp-client", "sjcl-aws"]
