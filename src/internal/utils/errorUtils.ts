@@ -51,6 +51,7 @@ export const authErrorStrings: { [key: string]: string } = {
   InvalidUserPoolIdException: "Invalid user pool id provided.",
   MissingChallengeNameException: "Challenge name is missing from the authentication response.",
   MissingChallengeParametersException: "Challenge parameters are missing from the authentication response.",
+  EmptyResetPasswordUsernameException: "Username cannot be empty to reset password.",
   MissingSecretCodeException: "SecretCode is missing from the AssociateSoftwareTokenCommand.",
   InvalidAuthTokensException: "Invalid authentication tokens.",
   InvalidChallengeResponseException: `
