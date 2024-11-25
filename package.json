@@ -1,6 +1,6 @@
 {
   "name": "@ilittlebig/easy-auth",
-  "version": "0.0.0",
+  "version": "0.0.2",
   "type": "module",
   "main": "dist/easy-auth.cjs.js",
   "module": "dist/easy-auth.es.js",
