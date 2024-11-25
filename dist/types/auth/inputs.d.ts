@@ -24,6 +24,13 @@ export interface GetCurrentSessionInput {
     forceRefresh?: boolean;
 }
 export interface SignInInput {
+    options?: {
+        authFlowType?: string;
+    };
+    username: string;
+    password: string;
+}
+export interface SignInWithSRPInput {
     username: string;
     password: string;
 }

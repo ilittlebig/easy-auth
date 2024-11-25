@@ -17,9 +17,17 @@ export interface AuthCodeDeliveryDetails {
     deliveryMedium?: AuthDeliveryMedium;
     attributeName?: AuthAttributeName;
 }
+export interface AuthSignInOutput {
+    isSignedIn: boolean;
+    nextStep: AuthNextSignInStep;
+}
 export interface AuthUserAttribute {
     Name: string;
     Value?: string;
+}
+export interface AuthNextResetPasswordStep {
+    resetPasswordStep: AuthResetPasswordStep;
+    codeDeliveryDetails: AuthCodeDeliveryDetails;
 }
 /**
  * Steps
@@ -53,15 +61,11 @@ export interface DoneSignInStep {
  */
 export interface ResetPasswordOutput {
     isPasswordReset: boolean;
-    nextStep: {
-        resetPasswordStep: AuthResetPasswordStep;
-        codeDeliveryDetails: AuthCodeDeliveryDetails;
-    };
+    nextStep: AuthNextResetPasswordStep;
 }
-export interface ConfirmSignInOutput {
-    isSignedIn: boolean;
-    nextStep: AuthNextSignInStep;
-}
+export type SignInOutput = AuthSignInOutput;
+export type SignInWithSRPOutput = AuthSignInOutput;
+export type ConfirmSignInOutput = AuthSignInOutput;
 export interface AuthUserOutput {
     userId: string;
     username: string;

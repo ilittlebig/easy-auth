@@ -6,7 +6,7 @@
  */
 
 import { signInStore } from "../stores/signInStore";
-import type { AuthMFAType, CognitoResponse } from "../../types/auth";
+import type { AuthMFAType, AuthSignInOutput, CognitoResponse } from "../../types/auth";
 
 /**
  *
@@ -30,7 +30,7 @@ export const getActiveSignInState = (username: string): string => {
  *
  */
 
-export const getSignInResultFromError = (errorName: string) => {
+export const getSignInResultFromError = (errorName: string): AuthSignInOutput | undefined => {
   if (errorName === "PasswordResetRequiredException") {
     return {
 			isSignedIn: false,

@@ -14,9 +14,9 @@ import { handleUserSRPAuthFlow } from "../internal/utils/authFlowUtils";
 import { cacheTokens } from "../internal/utils/tokenUtils";
 import { setActiveSignInState, cleanActiveSignInState } from "../internal/stores/signInStore";
 import { getNextStepFromChallenge } from "../internal/nextStepHandlers";
-import type { SignInInput, CognitoResponse } from "../types/auth";
+import type { SignInWithSRPInput, CognitoResponse, SignInWithSRPOutput } from "../types/auth";
 
-export const signInWithSRP = async (input: SignInInput) => {
+export const signInWithSRP = async (input: SignInWithSRPInput): Promise<SignInWithSRPOutput> => {
   const { username, password } = input;
   const signInDetails = {
     loginId: username,

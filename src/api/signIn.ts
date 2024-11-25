@@ -8,16 +8,9 @@
 
 import { signInWithSRP } from "./signInWithSRP";
 import { validateUserNotAuthenticated } from "../internal/utils/errorUtils";
+import type { SignInInput, SignInOutput } from "../types/auth";
 
-interface SignInInput {
-  options?: {
-    authFlowType?: string
-  };
-  username?: string;
-  password?: string;
-}
-
-export const signIn = async (input: SignInInput): Promise<unknown> => {
+export const signIn = async (input: SignInInput): Promise<SignInOutput> => {
   const authFlowType = input.options?.authFlowType;
   await validateUserNotAuthenticated();
   switch (authFlowType) {
