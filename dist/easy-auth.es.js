@@ -1,14 +1,15 @@
-var Me = Object.defineProperty;
-var _e = (t, e, n) => e in t ? Me(t, e, { enumerable: !0, configurable: !0, writable: !0, value: n }) : t[e] = n;
-var f = (t, e, n) => _e(t, typeof e != "symbol" ? e + "" : e, n);
-import { CognitoIdentityProviderClient as w, ConfirmDeviceCommand as Be, InitiateAuthCommand as fe, RespondToAuthChallengeCommand as O, AssociateSoftwareTokenCommand as be, RevokeTokenCommand as Oe, GlobalSignOutCommand as Ve, VerifySoftwareTokenCommand as pe, ConfirmForgotPasswordCommand as Ke, ForgotPasswordCommand as $e, ChangePasswordCommand as We, GetUserCommand as Ee, SetUserMFAPreferenceCommand as He, ListDevicesCommand as Ge, SignUpCommand as Le, ConfirmSignUpCommand as qe, ResendConfirmationCodeCommand as Ze, DeleteUserCommand as Je } from "@aws-sdk/client-cognito-identity-provider";
+var ke = Object.defineProperty;
+var Fe = (t, e, n) => e in t ? ke(t, e, { enumerable: !0, configurable: !0, writable: !0, value: n }) : t[e] = n;
+var f = (t, e, n) => Fe(t, typeof e != "symbol" ? e + "" : e, n);
+import W from "js-cookie";
+import { CognitoIdentityProviderClient as T, ConfirmDeviceCommand as Me, InitiateAuthCommand as ge, RespondToAuthChallengeCommand as O, AssociateSoftwareTokenCommand as _e, RevokeTokenCommand as be, GlobalSignOutCommand as Be, VerifySoftwareTokenCommand as me, ConfirmForgotPasswordCommand as Oe, ForgotPasswordCommand as Ve, ChangePasswordCommand as Ke, GetUserCommand as fe, SetUserMFAPreferenceCommand as $e, ListDevicesCommand as We, SignUpCommand as He, ConfirmSignUpCommand as Ge, ResendConfirmationCodeCommand as Le, DeleteUserCommand as qe } from "@aws-sdk/client-cognito-identity-provider";
 import C from "sjcl-aws";
 class p extends Error {
   constructor({ message: e, name: n }) {
     super(e), this.name = n;
   }
 }
-class je {
+class Ze {
   constructor() {
     f(this, "storage", /* @__PURE__ */ new Map());
   }
@@ -31,19 +32,19 @@ class je {
     this.storage.clear();
   }
 }
-const ze = () => {
+const Je = () => {
   try {
     if (typeof window < "u" && window.localStorage)
       return window.localStorage;
   } catch {
     console.log("localStorage not found, using inMemoryStorage as fallback");
   }
-  return new je();
+  return new Ze();
 };
-class Ye {
+class je {
   constructor() {
     f(this, "storage");
-    this.storage = ze();
+    this.storage = Je();
   }
   getItem(e) {
     return this.storage.getItem(e);
@@ -58,78 +59,7 @@ class Ye {
     this.storage.clear();
   }
 }
-/*! js-cookie v3.0.5 | MIT */
-function W(t) {
-  for (var e = 1; e < arguments.length; e++) {
-    var n = arguments[e];
-    for (var s in n)
-      t[s] = n[s];
-  }
-  return t;
-}
-var Qe = {
-  read: function(t) {
-    return t[0] === '"' && (t = t.slice(1, -1)), t.replace(/(%[\dA-F]{2})+/gi, decodeURIComponent);
-  },
-  write: function(t) {
-    return encodeURIComponent(t).replace(
-      /%(2[346BF]|3[AC-F]|40|5[BDE]|60|7[BCD])/g,
-      decodeURIComponent
-    );
-  }
-};
-function z(t, e) {
-  function n(o, i, r) {
-    if (!(typeof document > "u")) {
-      r = W({}, e, r), typeof r.expires == "number" && (r.expires = new Date(Date.now() + r.expires * 864e5)), r.expires && (r.expires = r.expires.toUTCString()), o = encodeURIComponent(o).replace(/%(2[346B]|5E|60|7C)/g, decodeURIComponent).replace(/[()]/g, escape);
-      var a = "";
-      for (var c in r)
-        r[c] && (a += "; " + c, r[c] !== !0 && (a += "=" + r[c].split(";")[0]));
-      return document.cookie = o + "=" + t.write(i, o) + a;
-    }
-  }
-  function s(o) {
-    if (!(typeof document > "u" || arguments.length && !o)) {
-      for (var i = document.cookie ? document.cookie.split("; ") : [], r = {}, a = 0; a < i.length; a++) {
-        var c = i[a].split("="), l = c.slice(1).join("=");
-        try {
-          var d = decodeURIComponent(c[0]);
-          if (r[d] = t.read(l, d), o === d)
-            break;
-        } catch {
-        }
-      }
-      return o ? r[o] : r;
-    }
-  }
-  return Object.create(
-    {
-      set: n,
-      get: s,
-      remove: function(o, i) {
-        n(
-          o,
-          "",
-          W({}, i, {
-            expires: -1
-          })
-        );
-      },
-      withAttributes: function(o) {
-        return z(this.converter, W({}, this.attributes, o));
-      },
-      withConverter: function(o) {
-        return z(W({}, this.converter, o), this.attributes);
-      }
-    },
-    {
-      attributes: { value: Object.freeze(e) },
-      converter: { value: Object.freeze(t) }
-    }
-  );
-}
-var H = z(Qe, { path: "/" });
-class Xe {
+class ze {
   constructor() {
     f(this, "listeners");
     this.listeners = /* @__PURE__ */ new Map();
@@ -195,7 +125,7 @@ class Xe {
     });
   }
 }
-const Q = new Xe(), b = (t) => {
+const z = new ze(), B = (t) => {
   const e = t.split(".");
   if (e.length !== 3)
     throw new p({
@@ -214,7 +144,7 @@ const Q = new Xe(), b = (t) => {
       message: g.InvalidJWTTokenPayloadException + ": " + n.message
     });
   }
-}, Se = "CognitoIdentityServiceProvider", et = (t, e) => tt({
+}, pe = "CognitoIdentityServiceProvider", Ye = (t, e) => Qe({
   accessToken: "accessToken",
   idToken: "idToken",
   clockDrift: "clockDrift",
@@ -223,7 +153,7 @@ const Q = new Xe(), b = (t) => {
   deviceGroupKey: "deviceGroupKey",
   randomPassword: "randomPassword",
   signInDetails: "signInDetails"
-})(`${t}`, e), tt = (t) => {
+})(`${t}`, e), Qe = (t) => {
   const e = Object.values(t);
   return (n, s) => e.reduce(
     (o, i) => ({
@@ -232,32 +162,32 @@ const Q = new Xe(), b = (t) => {
     }),
     {}
   );
-}, X = () => {
+}, Y = () => {
   var n;
   const t = (n = A.getConfig().Auth) == null ? void 0 : n.Cognito, { userPoolClientId: e } = t;
-  return `${Se}.${e}.LastAuthUser`;
-}, ee = () => {
-  const t = V(), e = X();
+  return `${pe}.${e}.LastAuthUser`;
+}, Q = () => {
+  const t = V(), e = Y();
   return t.getItem(e) ?? "username";
-}, G = (t) => {
+}, H = (t) => {
   var o;
-  const e = (o = A.getConfig().Auth) == null ? void 0 : o.Cognito, { userPoolClientId: n } = e, s = t ?? ee();
-  return et(
-    Se,
+  const e = (o = A.getConfig().Auth) == null ? void 0 : o.Cognito, { userPoolClientId: n } = e, s = t ?? Q();
+  return Ye(
+    pe,
     `${n}.${s}`
   );
-}, V = () => A.keyValueStorage, B = (t, e) => {
+}, V = () => A.keyValueStorage, b = (t, e) => {
   if (!e) return;
   V().setItem(t, e.toString());
-}, nt = (t, e) => {
+}, Xe = (t, e) => {
   if (!e) return;
   V().setItem(t, JSON.stringify(e));
-}, st = (t, e, n = B) => {
+}, et = (t, e, n = b) => {
   if (!e) return;
   const { deviceKey: s, deviceGroupKey: o, randomPassword: i } = e;
   n(t.deviceKey, s), n(t.deviceGroupKey, o), n(t.randomPassword, i);
-}, te = async () => {
-  const t = G(), e = X(), n = V();
+}, X = async () => {
+  const t = H(), e = Y(), n = V();
   await Promise.all([
     n.removeItem(t.accessToken),
     n.removeItem(t.idToken),
@@ -266,13 +196,13 @@ const Q = new Xe(), b = (t) => {
     n.removeItem(t.signInDetails),
     n.removeItem(e)
   ]);
-}, ot = (t) => {
+}, tt = (t) => {
   if (!t)
     throw new p({
       name: "InvalidAuthTokensException",
       message: g.InvalidAuthTokensException
     });
-  te();
+  X();
   const {
     accessToken: e,
     idToken: n,
@@ -281,10 +211,10 @@ const Q = new Xe(), b = (t) => {
     clockDrift: i,
     signInDetails: r
   } = t, a = t.username;
-  B(X(), a);
-  const c = G();
-  B(c.accessToken, e.toString()), B(c.idToken, n == null ? void 0 : n.toString()), B(c.refreshToken, s == null ? void 0 : s.toString()), st(c, o, B), nt(c.signInDetails, r), B(c.clockDrift, `${i}`);
-}, Ce = ({
+  b(Y(), a);
+  const c = H();
+  b(c.accessToken, e.toString()), b(c.idToken, n == null ? void 0 : n.toString()), b(c.refreshToken, s == null ? void 0 : s.toString()), et(c, o, b), Xe(c.signInDetails, r), b(c.clockDrift, `${i}`);
+}, Ee = ({
   username: t,
   authenticationResult: e,
   newDeviceMetadata: n,
@@ -295,9 +225,9 @@ const Q = new Xe(), b = (t) => {
       name: "NoAccessTokenException",
       message: g.NoAccessTokenException
     });
-  const o = b(e.AccessToken), i = (o.payload.iat || 0) * 1e3, r = (/* @__PURE__ */ new Date()).getTime(), a = i > 0 ? i - r : 0;
+  const o = B(e.AccessToken), i = (o.payload.iat || 0) * 1e3, r = (/* @__PURE__ */ new Date()).getTime(), a = i > 0 ? i - r : 0;
   let c, l, d = n;
-  e.RefreshToken && (l = e.RefreshToken), e.IdToken && (c = b(e.IdToken)), ot({
+  e.RefreshToken && (l = e.RefreshToken), e.IdToken && (c = B(e.IdToken)), tt({
     accessToken: o,
     idToken: c,
     refreshToken: l,
@@ -306,10 +236,10 @@ const Q = new Xe(), b = (t) => {
     username: t,
     signInDetails: s
   });
-}, it = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"], rt = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], at = "Caldera Derived Key", ct = "89ABCDEFabcdef", Z = (t) => t < 10 ? `0${t}` : t, we = () => {
-  const t = /* @__PURE__ */ new Date(), e = it[t.getUTCDay()], n = rt[t.getUTCMonth()], s = t.getUTCDate(), o = Z(t.getUTCHours()), i = Z(t.getUTCMinutes()), r = Z(t.getUTCSeconds()), a = t.getUTCFullYear();
+}, nt = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"], st = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], ot = "Caldera Derived Key", it = "89ABCDEFabcdef", q = (t) => t < 10 ? `0${t}` : t, Se = () => {
+  const t = /* @__PURE__ */ new Date(), e = nt[t.getUTCDay()], n = st[t.getUTCMonth()], s = t.getUTCDate(), o = q(t.getUTCHours()), i = q(t.getUTCMinutes()), r = q(t.getUTCSeconds()), a = t.getUTCFullYear();
   return `${e} ${n} ${s} ${o}:${i}:${r} UTC ${a}`;
-}, Te = (t, e, n, s, o) => {
+}, Ce = (t, e, n, s, o) => {
   try {
     const i = new C.misc.hmac(t);
     return i.update(C.codec.utf8String.toBits(e)), i.update(C.codec.utf8String.toBits(n)), i.update(C.codec.base64.toBits(s)), i.update(C.codec.utf8String.toBits(o)), C.codec.base64.fromBits(i.digest());
@@ -318,100 +248,100 @@ const Q = new Xe(), b = (t) => {
   }
 }, _ = (t) => {
   let e = t.toString(16);
-  const n = e.length % 2, s = ct.indexOf(e[0]);
+  const n = e.length % 2, s = it.indexOf(e[0]);
   return n === 1 ? e = `0${e}` : s !== -1 && (e = `00${e}`), e;
-}, Y = (t) => {
+}, j = (t) => {
   const e = C.codec.hex.fromBits(
     C.hash.sha256.hash(t)
   );
   return `${new Array(64 - e.length).join("0")}${e}`;
-}, J = (t) => Y(
+}, Z = (t) => j(
   C.codec.hex.toBits(t)
-), lt = (t, e) => C.misc.hkdf(
+), rt = (t, e) => C.misc.hkdf(
   C.codec.hex.toBits(t),
   128,
   C.codec.hex.toBits(e),
-  at
-), Ae = (t) => {
+  ot
+), Te = (t) => {
   const e = Math.ceil(t / 4);
   return C.random.randomWords(e, 0);
-}, dt = () => {
-  const t = Ae(40);
+}, at = () => {
+  const t = Te(40);
   return C.codec.base64.fromBits(t);
-}, ut = (t) => C.codec.hex.fromBits(t), ht = (t) => {
+}, ct = (t) => C.codec.hex.fromBits(t), lt = (t) => {
   const e = C.codec.hex.toBits(t), n = C.hash.sha256.hash(e);
   return C.codec.hex.fromBits(n);
-}, ce = (t) => {
+}, re = (t) => {
   const e = C.codec.hex.toBits(t);
   return C.codec.base64.fromBits(e);
 };
-function u(t, e) {
+function h(t, e) {
   t != null && this.fromString(t, e);
 }
 function P() {
-  return new u(null);
+  return new h(null);
 }
-var F, gt = 244837814094590, le = (gt & 16777215) == 15715070;
-function mt(t, e, n, s, o, i) {
+var F, dt = 244837814094590, ae = (dt & 16777215) == 15715070;
+function ht(t, e, n, s, o, i) {
   for (; --i >= 0; ) {
     var r = e * this[t++] + n[s] + o;
     o = Math.floor(r / 67108864), n[s++] = r & 67108863;
   }
   return o;
 }
-function ft(t, e, n, s, o, i) {
+function ut(t, e, n, s, o, i) {
   for (var r = e & 32767, a = e >> 15; --i >= 0; ) {
     var c = this[t] & 32767, l = this[t++] >> 15, d = a * c + l * r;
     c = r * c + ((d & 32767) << 15) + n[s] + (o & 1073741823), o = (c >>> 30) + (d >>> 15) + a * l + (o >>> 30), n[s++] = c & 1073741823;
   }
   return o;
 }
-function pt(t, e, n, s, o, i) {
+function gt(t, e, n, s, o, i) {
   for (var r = e & 16383, a = e >> 14; --i >= 0; ) {
     var c = this[t] & 16383, l = this[t++] >> 14, d = a * c + l * r;
     c = r * c + ((d & 16383) << 14) + n[s] + o, o = (c >> 28) + (d >> 14) + a * l, n[s++] = c & 268435455;
   }
   return o;
 }
-var de = typeof navigator < "u";
-de && le && navigator.appName == "Microsoft Internet Explorer" ? (u.prototype.am = ft, F = 30) : de && le && navigator.appName != "Netscape" ? (u.prototype.am = mt, F = 26) : (u.prototype.am = pt, F = 28);
-u.prototype.DB = F;
-u.prototype.DM = (1 << F) - 1;
-u.prototype.DV = 1 << F;
-var ne = 52;
-u.prototype.FV = Math.pow(2, ne);
-u.prototype.F1 = ne - F;
-u.prototype.F2 = 2 * F - ne;
-var Et = "0123456789abcdefghijklmnopqrstuvwxyz", L = [], K, U;
+var ce = typeof navigator < "u";
+ce && ae && navigator.appName == "Microsoft Internet Explorer" ? (h.prototype.am = ut, F = 30) : ce && ae && navigator.appName != "Netscape" ? (h.prototype.am = ht, F = 26) : (h.prototype.am = gt, F = 28);
+h.prototype.DB = F;
+h.prototype.DM = (1 << F) - 1;
+h.prototype.DV = 1 << F;
+var ee = 52;
+h.prototype.FV = Math.pow(2, ee);
+h.prototype.F1 = ee - F;
+h.prototype.F2 = 2 * F - ee;
+var mt = "0123456789abcdefghijklmnopqrstuvwxyz", G = [], K, U;
 K = 48;
 for (U = 0; U <= 9; ++U)
-  L[K++] = U;
+  G[K++] = U;
 K = 97;
 for (U = 10; U < 36; ++U)
-  L[K++] = U;
+  G[K++] = U;
 K = 65;
 for (U = 10; U < 36; ++U)
-  L[K++] = U;
-function ue(t) {
-  return Et.charAt(t);
+  G[K++] = U;
+function le(t) {
+  return mt.charAt(t);
 }
-function St(t, e) {
-  var n = L[t.charCodeAt(e)];
+function ft(t, e) {
+  var n = G[t.charCodeAt(e)];
   return n ?? -1;
 }
-function Ct(t) {
+function pt(t) {
   for (var e = this.t - 1; e >= 0; --e)
     t[e] = this[e];
   t.t = this.t, t.s = this.s;
 }
-function wt(t) {
+function Et(t) {
   this.t = 1, this.s = t < 0 ? -1 : 0, t > 0 ? this[0] = t : t < -1 ? this[0] = t + this.DV : this.t = 0;
 }
-function se(t) {
+function te(t) {
   var e = P();
   return e.fromInt(t), e;
 }
-function Tt(t, e) {
+function St(t, e) {
   var n;
   if (e == 16)
     n = 4;
@@ -427,20 +357,20 @@ function Tt(t, e) {
     throw new Error("Only radix 2, 4, 8, 16, 32 are supported");
   this.t = 0, this.s = 0;
   for (var s = t.length, o = !1, i = 0; --s >= 0; ) {
-    var r = St(t, s);
+    var r = ft(t, s);
     if (r < 0) {
       t.charAt(s) == "-" && (o = !0);
       continue;
     }
     o = !1, i == 0 ? this[this.t++] = r : i + n > this.DB ? (this[this.t - 1] |= (r & (1 << this.DB - i) - 1) << i, this[this.t++] = r >> this.DB - i) : this[this.t - 1] |= r << i, i += n, i >= this.DB && (i -= this.DB);
   }
-  this.clamp(), o && u.ZERO.subTo(this, this);
+  this.clamp(), o && h.ZERO.subTo(this, this);
 }
-function At() {
+function Ct() {
   for (var t = this.s & this.DM; this.t > 0 && this[this.t - 1] == t; )
     --this.t;
 }
-function vt(t) {
+function Tt(t) {
   if (this.s < 0)
     return "-" + this.negate().toString(t);
   var e;
@@ -458,18 +388,18 @@ function vt(t) {
     throw new Error("Only radix 2, 4, 8, 16, 32 are supported");
   var n = (1 << e) - 1, s, o = !1, i = "", r = this.t, a = this.DB - r * this.DB % e;
   if (r-- > 0)
-    for (a < this.DB && (s = this[r] >> a) > 0 && (o = !0, i = ue(s)); r >= 0; )
-      a < e ? (s = (this[r] & (1 << a) - 1) << e - a, s |= this[--r] >> (a += this.DB - e)) : (s = this[r] >> (a -= e) & n, a <= 0 && (a += this.DB, --r)), s > 0 && (o = !0), o && (i += ue(s));
+    for (a < this.DB && (s = this[r] >> a) > 0 && (o = !0, i = le(s)); r >= 0; )
+      a < e ? (s = (this[r] & (1 << a) - 1) << e - a, s |= this[--r] >> (a += this.DB - e)) : (s = this[r] >> (a -= e) & n, a <= 0 && (a += this.DB, --r)), s > 0 && (o = !0), o && (i += le(s));
   return o ? i : "0";
 }
-function yt() {
+function wt() {
   var t = P();
-  return u.ZERO.subTo(this, t), t;
+  return h.ZERO.subTo(this, t), t;
 }
-function It() {
+function At() {
   return this.s < 0 ? this.negate() : this;
 }
-function Pt(t) {
+function yt(t) {
   var e = this.s - t.s;
   if (e != 0)
     return e;
@@ -481,14 +411,14 @@ function Pt(t) {
       return e;
   return 0;
 }
-function oe(t) {
+function ne(t) {
   var e = 1, n;
   return (n = t >>> 16) != 0 && (t = n, e += 16), (n = t >> 8) != 0 && (t = n, e += 8), (n = t >> 4) != 0 && (t = n, e += 4), (n = t >> 2) != 0 && (t = n, e += 2), (n = t >> 1) != 0 && (t = n, e += 1), e;
 }
-function Dt() {
-  return this.t <= 0 ? 0 : this.DB * (this.t - 1) + oe(this[this.t - 1] ^ this.s & this.DM);
+function vt() {
+  return this.t <= 0 ? 0 : this.DB * (this.t - 1) + ne(this[this.t - 1] ^ this.s & this.DM);
 }
-function Ut(t, e) {
+function It(t, e) {
   var n;
   for (n = this.t - 1; n >= 0; --n)
     e[n + t] = this[n];
@@ -496,12 +426,12 @@ function Ut(t, e) {
     e[n] = 0;
   e.t = this.t + t, e.s = this.s;
 }
-function xt(t, e) {
+function Pt(t, e) {
   for (var n = t; n < this.t; ++n)
     e[n - t] = this[n];
   e.t = Math.max(this.t - t, 0), e.s = this.s;
 }
-function Nt(t, e) {
+function Dt(t, e) {
   var n = t % this.DB, s = this.DB - n, o = (1 << s) - 1, i = Math.floor(t / this.DB), r = this.s << n & this.DM, a;
   for (a = this.t - 1; a >= 0; --a)
     e[a + i + 1] = this[a] >> s | r, r = (this[a] & o) << n;
@@ -509,7 +439,7 @@ function Nt(t, e) {
     e[a] = 0;
   e[i] = r, e.t = this.t + i + 1, e.s = this.s, e.clamp();
 }
-function Rt(t, e) {
+function Ut(t, e) {
   e.s = this.s;
   var n = Math.floor(t / this.DB);
   if (n >= this.t) {
@@ -522,7 +452,7 @@ function Rt(t, e) {
     e[r - n - 1] |= (this[r] & i) << o, e[r - n] = this[r] >> s;
   s > 0 && (e[this.t - n - 1] |= (this.s & i) << o), e.t = this.t - n, e.clamp();
 }
-function kt(t, e) {
+function Nt(t, e) {
   for (var n = 0, s = 0, o = Math.min(t.t, this.t); n < o; )
     s += this[n] - t[n], e[n++] = s & this.DM, s >>= this.DB;
   if (t.t < this.t) {
@@ -536,15 +466,15 @@ function kt(t, e) {
   }
   e.s = s < 0 ? -1 : 0, s < -1 ? e[n++] = this.DV + s : s > 0 && (e[n++] = s), e.t = n, e.clamp();
 }
-function Ft(t, e) {
+function xt(t, e) {
   var n = this.abs(), s = t.abs(), o = n.t;
   for (e.t = o + s.t; --o >= 0; )
     e[o] = 0;
   for (o = 0; o < s.t; ++o)
     e[o + n.t] = n.am(0, s[o], e, o, 0, n.t);
-  e.s = 0, e.clamp(), this.s != t.s && u.ZERO.subTo(e, e);
+  e.s = 0, e.clamp(), this.s != t.s && h.ZERO.subTo(e, e);
 }
-function Mt(t) {
+function Rt(t) {
   for (var e = this.abs(), n = t.t = 2 * e.t; --n >= 0; )
     t[n] = 0;
   for (n = 0; n < e.t - 1; ++n) {
@@ -553,7 +483,7 @@ function Mt(t) {
   }
   t.t > 0 && (t[t.t - 1] += e.am(n, e[n], t, 2 * n, 0, 1)), t.s = 0, t.clamp();
 }
-function _t(t, e, n) {
+function kt(t, e, n) {
   var s = t.abs();
   if (!(s.t <= 0)) {
     var o = this.abs();
@@ -562,28 +492,28 @@ function _t(t, e, n) {
       return;
     }
     n == null && (n = P());
-    var i = P(), r = this.s, a = t.s, c = this.DB - oe(s[s.t - 1]);
+    var i = P(), r = this.s, a = t.s, c = this.DB - ne(s[s.t - 1]);
     c > 0 ? (s.lShiftTo(c, i), o.lShiftTo(c, n)) : (s.copyTo(i), o.copyTo(n));
     var l = i.t, d = i[l - 1];
     if (d != 0) {
-      var h = d * (1 << this.F1) + (l > 1 ? i[l - 2] >> this.F2 : 0), m = this.FV / h, S = (1 << this.F1) / h, I = 1 << this.F2, E = n.t, v = E - l, y = e ?? P();
-      for (i.dlShiftTo(v, y), n.compareTo(y) >= 0 && (n[n.t++] = 1, n.subTo(y, n)), u.ONE.dlShiftTo(l, y), y.subTo(i, i); i.t < l; )
+      var u = d * (1 << this.F1) + (l > 1 ? i[l - 2] >> this.F2 : 0), m = this.FV / u, S = (1 << this.F1) / u, I = 1 << this.F2, E = n.t, y = E - l, v = e ?? P();
+      for (i.dlShiftTo(y, v), n.compareTo(v) >= 0 && (n[n.t++] = 1, n.subTo(v, n)), h.ONE.dlShiftTo(l, v), v.subTo(i, i); i.t < l; )
         i[i.t++] = 0;
-      for (; --v >= 0; ) {
+      for (; --y >= 0; ) {
         var R = n[--E] == d ? this.DM : Math.floor(n[E] * m + (n[E - 1] + I) * S);
-        if ((n[E] += i.am(0, R, n, v, 0, l)) < R)
-          for (i.dlShiftTo(v, y), n.subTo(y, n); n[E] < --R; )
-            n.subTo(y, n);
+        if ((n[E] += i.am(0, R, n, y, 0, l)) < R)
+          for (i.dlShiftTo(y, v), n.subTo(v, n); n[E] < --R; )
+            n.subTo(v, n);
       }
-      e != null && (n.drShiftTo(l, e), r != a && u.ZERO.subTo(e, e)), n.t = l, n.clamp(), c > 0 && n.rShiftTo(c, n), r < 0 && u.ZERO.subTo(n, n);
+      e != null && (n.drShiftTo(l, e), r != a && h.ZERO.subTo(e, e)), n.t = l, n.clamp(), c > 0 && n.rShiftTo(c, n), r < 0 && h.ZERO.subTo(n, n);
     }
   }
 }
-function Bt(t) {
+function Ft(t) {
   var e = P();
-  return this.abs().divRemTo(t, null, e), this.s < 0 && e.compareTo(u.ZERO) > 0 && t.subTo(e, e), e;
+  return this.abs().divRemTo(t, null, e), this.s < 0 && e.compareTo(h.ZERO) > 0 && t.subTo(e, e), e;
 }
-function bt() {
+function Mt() {
   if (this.t < 1)
     return 0;
   var t = this[0];
@@ -592,10 +522,10 @@ function bt() {
   var e = t & 3;
   return e = e * (2 - (t & 15) * e) & 15, e = e * (2 - (t & 255) * e) & 255, e = e * (2 - ((t & 65535) * e & 65535)) & 65535, e = e * (2 - t * e % this.DV) % this.DV, e > 0 ? this.DV - e : -e;
 }
-function Ot(t) {
+function _t(t) {
   return this.compareTo(t) == 0;
 }
-function Vt(t, e) {
+function bt(t, e) {
   for (var n = 0, s = 0, o = Math.min(t.t, this.t); n < o; )
     s += this[n] + t[n], e[n++] = s & this.DM, s >>= this.DB;
   if (t.t < this.t) {
@@ -609,34 +539,34 @@ function Vt(t, e) {
   }
   e.s = s < 0 ? -1 : 0, s > 0 ? e[n++] = s : s < -1 && (e[n++] = this.DV + s), e.t = n, e.clamp();
 }
-function Kt(t) {
+function Bt(t) {
   var e = P();
   return this.addTo(t, e), e;
 }
-function $t(t) {
+function Ot(t) {
   var e = P();
   return this.subTo(t, e), e;
 }
-function Wt(t) {
+function Vt(t) {
   var e = P();
   return this.multiplyTo(t, e), e;
 }
-function Ht(t) {
+function Kt(t) {
   var e = P();
   return this.divRemTo(t, e, null), e;
 }
 function $(t) {
   this.m = t, this.mp = t.invDigit(), this.mpl = this.mp & 32767, this.mph = this.mp >> 15, this.um = (1 << t.DB - 15) - 1, this.mt2 = 2 * t.t;
 }
-function Gt(t) {
+function $t(t) {
   var e = P();
-  return t.abs().dlShiftTo(this.m.t, e), e.divRemTo(this.m, null, e), t.s < 0 && e.compareTo(u.ZERO) > 0 && this.m.subTo(e, e), e;
+  return t.abs().dlShiftTo(this.m.t, e), e.divRemTo(this.m, null, e), t.s < 0 && e.compareTo(h.ZERO) > 0 && this.m.subTo(e, e), e;
 }
-function Lt(t) {
+function Wt(t) {
   var e = P();
   return t.copyTo(e), this.reduce(e), e;
 }
-function qt(t) {
+function Ht(t) {
   for (; t.t <= this.mt2; )
     t[t.t++] = 0;
   for (var e = 0; e < this.m.t; ++e) {
@@ -646,30 +576,30 @@ function qt(t) {
   }
   t.clamp(), t.drShiftTo(this.m.t, t), t.compareTo(this.m) >= 0 && t.subTo(this.m, t);
 }
-function Zt(t, e) {
+function Gt(t, e) {
   t.squareTo(e), this.reduce(e);
 }
-function Jt(t, e, n) {
+function Lt(t, e, n) {
   t.multiplyTo(e, n), this.reduce(n);
 }
-$.prototype.convert = Gt;
-$.prototype.revert = Lt;
-$.prototype.reduce = qt;
-$.prototype.mulTo = Jt;
-$.prototype.sqrTo = Zt;
-function jt(t, e, n) {
-  var s = t.bitLength(), o = se(1), i = new $(e), r;
+$.prototype.convert = $t;
+$.prototype.revert = Wt;
+$.prototype.reduce = Ht;
+$.prototype.mulTo = Lt;
+$.prototype.sqrTo = Gt;
+function qt(t, e, n) {
+  var s = t.bitLength(), o = te(1), i = new $(e), r;
   if (s <= 0)
     return o;
   s < 18 ? r = 1 : s < 48 ? r = 3 : s < 144 ? r = 4 : s < 768 ? r = 5 : r = 6;
   var a = [], c = r - 1, l = (1 << r) - 1, d = 3;
   if (a[1] = i.convert(this), r > 1) {
-    var h = P();
-    for (i.sqrTo(a[1], h); d <= l; )
-      a[d] = P(), i.mulTo(h, a[d - 2], a[d]), d += 2;
+    var u = P();
+    for (i.sqrTo(a[1], u); d <= l; )
+      a[d] = P(), i.mulTo(u, a[d - 2], a[d]), d += 2;
   }
-  var m = t.t - 1, S, I = !0, E = P(), v;
-  for (s = oe(t[m]) - 1; m >= 0; ) {
+  var m = t.t - 1, S, I = !0, E = P(), y;
+  for (s = ne(t[m]) - 1; m >= 0; ) {
     for (s >= c ? S = t[m] >> s - c & l : (S = (t[m] & (1 << s + 1) - 1) << c - s, m > 0 && (S |= t[m - 1] >> this.DB + s - c)), d = r; !(S & 1); )
       S >>= 1, --d;
     if ((s -= d) < 0 && (s += this.DB, --m), I)
@@ -677,51 +607,51 @@ function jt(t, e, n) {
     else {
       for (; d > 1; )
         i.sqrTo(o, E), i.sqrTo(E, o), d -= 2;
-      d > 0 ? i.sqrTo(o, E) : (v = o, o = E, E = v), i.mulTo(E, a[S], o);
+      d > 0 ? i.sqrTo(o, E) : (y = o, o = E, E = y), i.mulTo(E, a[S], o);
     }
     for (; m >= 0 && !(t[m] & 1 << s); )
-      i.sqrTo(o, E), v = o, o = E, E = v, --s < 0 && (s = this.DB - 1, --m);
+      i.sqrTo(o, E), y = o, o = E, E = y, --s < 0 && (s = this.DB - 1, --m);
   }
-  var y = i.revert(o);
-  return n && n(null, y), y;
+  var v = i.revert(o);
+  return n && n(null, v), v;
 }
-function zt() {
-  return this.compareTo(u.ZERO) == 0;
+function Zt() {
+  return this.compareTo(h.ZERO) == 0;
 }
-u.prototype.copyTo = Ct;
-u.prototype.fromInt = wt;
-u.prototype.fromString = Tt;
-u.prototype.clamp = At;
-u.prototype.dlShiftTo = Ut;
-u.prototype.drShiftTo = xt;
-u.prototype.lShiftTo = Nt;
-u.prototype.rShiftTo = Rt;
-u.prototype.subTo = kt;
-u.prototype.multiplyTo = Ft;
-u.prototype.squareTo = Mt;
-u.prototype.divRemTo = _t;
-u.prototype.invDigit = bt;
-u.prototype.addTo = Vt;
-u.prototype.toString = vt;
-u.prototype.abs = It;
-u.prototype.negate = yt;
-u.prototype.compareTo = Pt;
-u.prototype.bitLength = Dt;
-u.prototype.mod = Bt;
-u.prototype.equals = Ot;
-u.prototype.add = Kt;
-u.prototype.subtract = $t;
-u.prototype.multiply = Wt;
-u.prototype.divide = Ht;
-u.prototype.modPow = jt;
-u.prototype.isZero = zt;
-u.ZERO = se(0);
-u.ONE = se(1);
-var x = function(t, e) {
-  return new u(t, e);
+h.prototype.copyTo = pt;
+h.prototype.fromInt = Et;
+h.prototype.fromString = St;
+h.prototype.clamp = Ct;
+h.prototype.dlShiftTo = It;
+h.prototype.drShiftTo = Pt;
+h.prototype.lShiftTo = Dt;
+h.prototype.rShiftTo = Ut;
+h.prototype.subTo = Nt;
+h.prototype.multiplyTo = xt;
+h.prototype.squareTo = Rt;
+h.prototype.divRemTo = kt;
+h.prototype.invDigit = Mt;
+h.prototype.addTo = bt;
+h.prototype.toString = Tt;
+h.prototype.abs = At;
+h.prototype.negate = wt;
+h.prototype.compareTo = yt;
+h.prototype.bitLength = vt;
+h.prototype.mod = Ft;
+h.prototype.equals = _t;
+h.prototype.add = Bt;
+h.prototype.subtract = Ot;
+h.prototype.multiply = Vt;
+h.prototype.divide = Kt;
+h.prototype.modPow = qt;
+h.prototype.isZero = Zt;
+h.ZERO = te(0);
+h.ONE = te(1);
+var N = function(t, e) {
+  return new h(t, e);
 };
-const Yt = "FFFFFFFFFFFFFFFFC90FDAA22168C234C4C6628B80DC1CD129024E088A67CC74020BBEA63B139B22514A08798E3404DDEF9519B3CD3A431B302B0A6DF25F14374FE1356D6D51C245E485B576625E7EC6F44C42E9A637ED6B0BFF5CB6F406B7EDEE386BFB5A899FA5AE9F24117C4B1FE649286651ECE45B3DC2007CB8A163BF0598DA48361C55D39A69163FA8FD24CF5F83655D23DCA3AD961C62F356208552BB9ED529077096966D670C354E4ABC9804F1746C08CA18217C32905E462E36CE3BE39E772C180E86039B2783A2EC07A28FB5C55DF06F4C52C9DE2BCBF6955817183995497CEA956AE515D2261898FA051015728E5A8AAAC42DAD33170D04507A33A85521ABDF1CBA64ECFB850458DBEF0A8AEA71575D060C7DB3970F85A6E1E4C7ABF5AE8CDB0933D71E8C94E04A25619DCEE3D2261AD2EE6BF12FFA06D98A0864D87602733EC86A64521F2B18177B200CBBE117577A615D6C770988C0BAD946E208E24FA074E5AB3143DB5BFCE0FD108E4B82D120A93AD2CAFFFFFFFFFFFFFFFF";
-class ie {
+const Jt = "FFFFFFFFFFFFFFFFC90FDAA22168C234C4C6628B80DC1CD129024E088A67CC74020BBEA63B139B22514A08798E3404DDEF9519B3CD3A431B302B0A6DF25F14374FE1356D6D51C245E485B576625E7EC6F44C42E9A637ED6B0BFF5CB6F406B7EDEE386BFB5A899FA5AE9F24117C4B1FE649286651ECE45B3DC2007CB8A163BF0598DA48361C55D39A69163FA8FD24CF5F83655D23DCA3AD961C62F356208552BB9ED529077096966D670C354E4ABC9804F1746C08CA18217C32905E462E36CE3BE39E772C180E86039B2783A2EC07A28FB5C55DF06F4C52C9DE2BCBF6955817183995497CEA956AE515D2261898FA051015728E5A8AAAC42DAD33170D04507A33A85521ABDF1CBA64ECFB850458DBEF0A8AEA71575D060C7DB3970F85A6E1E4C7ABF5AE8CDB0933D71E8C94E04A25619DCEE3D2261AD2EE6BF12FFA06D98A0864D87602733EC86A64521F2B18177B200CBBE117577A615D6C770988C0BAD946E208E24FA074E5AB3143DB5BFCE0FD108E4B82D120A93AD2CAFFFFFFFFFFFFFFFF";
+class se {
   constructor(e) {
     f(this, "poolName");
     f(this, "N");
@@ -737,7 +667,7 @@ class ie {
      *
      */
     f(this, "generateRandomSmallA", () => {
-      if (this.smallAValue = x(
+      if (this.smallAValue = N(
         C.codec.hex.fromBits(C.random.randomWords(8, 0)),
         16
       ).mod(this.N), !this.smallAValue) throw new Error("Failed to generate smallAValue");
@@ -747,37 +677,37 @@ class ie {
      *
      */
     f(this, "calculateA", (e = this.generateRandomSmallA()) => {
-      if (this.largeAValue = this.g.modPow(x(e, 16), this.N), this.largeAValue.mod(this.N).isZero()) throw new Error("Illegal parameter. A mod N cannot be 0.");
+      if (this.largeAValue = this.g.modPow(N(e, 16), this.N), this.largeAValue.mod(this.N).isZero()) throw new Error("Illegal parameter. A mod N cannot be 0.");
       return this.largeAValue.toString(16);
     });
     /**
      *
      */
-    f(this, "calculateU", (e, n) => x(
-      J(`${_(e)}${_(n)}`),
+    f(this, "calculateU", (e, n) => N(
+      Z(`${_(e)}${_(n)}`),
       16
     ));
     /**
      *
      */
     f(this, "getPasswordAuthenticationKey", (e, n, s, o) => {
-      let i = x(s, 16), r = x(o, 16);
+      let i = N(s, 16), r = N(o, 16);
       if (i.mod(this.N).isZero()) throw new Error("B cannot be zero.");
       if (!this.largeAValue) throw new Error("largeAValue is undefined");
       if (this.UValue = this.calculateU(
         this.largeAValue,
         i
       ), this.UValue.isZero()) throw new Error("U cannot be zero.");
-      const l = `${this.poolName}${e}:${n}`, d = Y(l), h = `${_(r)}${d}`, m = x(J(h), 16), S = this.g.modPow(m, this.N), I = i.subtract(
+      const l = `${this.poolName}${e}:${n}`, d = j(l), u = `${_(r)}${d}`, m = N(Z(u), 16), S = this.g.modPow(m, this.N), I = i.subtract(
         this.k.multiply(S)
       );
       if (!this.smallAValue) throw new Error("smallAValue is undefined");
-      const E = this.UValue.multiply(m), v = I.modPow(
+      const E = this.UValue.multiply(m), y = I.modPow(
         this.smallAValue.add(E),
         this.N
       ).mod(this.N);
-      return lt(
-        _(v),
+      return rt(
+        _(y),
         _(this.UValue)
       );
     });
@@ -785,61 +715,61 @@ class ie {
      *
      */
     f(this, "generateHashDevice", (e, n) => {
-      this.randomPassword = dt();
-      const s = `${e}${n}:${this.randomPassword}`, o = Y(s), i = Ae(16), r = ut(i);
+      this.randomPassword = at();
+      const s = `${e}${n}:${this.randomPassword}`, o = j(s), i = Te(16), r = ct(i);
       return this.saltToHashDevices = _(
-        x(r, 16)
+        N(r, 16)
       ), new Promise((a, c) => {
         (async () => {
           try {
-            const l = ht(this.saltToHashDevices + o), d = x(l, 16), h = this.g.modPow(d, this.N);
-            this.verifierDevices = _(h);
+            const l = lt(this.saltToHashDevices + o), d = N(l, 16), u = this.g.modPow(d, this.N);
+            this.verifierDevices = _(u);
           } catch (l) {
             c(l);
           }
         })();
       });
     });
-    this.poolName = e, this.N = x(Yt, 16), this.g = x("2", 16), this.k = x(
-      J(`00${this.N.toString(16)}0${this.g.toString(16)}`),
+    this.poolName = e, this.N = N(Jt, 16), this.g = N("2", 16), this.k = N(
+      Z(`00${this.N.toString(16)}0${this.g.toString(16)}`),
       16
     ), this.saltToHashDevices = "", this.verifierDevices = "", this.randomPassword = "";
   }
 }
-const he = () => {
+const de = () => {
   throw new p({
     name: "InvalidUserPoolIdException",
     message: g.InvalidUserPoolIdException
   });
-}, ve = (t) => {
-  (typeof t != "string" || !t.includes("_")) && he();
+}, we = (t) => {
+  (typeof t != "string" || !t.includes("_")) && de();
   const e = t.split("_").map((n) => n.trim());
-  return (e.length !== 2 || e[0] === "" || e[1] === "") && he(), e;
-}, T = (t) => {
-  const [e] = ve(t);
+  return (e.length !== 2 || e[0] === "" || e[1] === "") && de(), e;
+}, w = (t) => {
+  const [e] = we(t);
   return e;
-}, re = (t) => {
-  const [, e] = ve(t);
+}, oe = (t) => {
+  const [, e] = we(t);
   return e;
-}, ye = async (t, e, n) => {
+}, Ae = async (t, e, n) => {
   if (!e) return;
-  const s = re(t), o = (e == null ? void 0 : e.DeviceKey) ?? "", i = (e == null ? void 0 : e.DeviceGroupKey) ?? "", r = T(t), a = new w({ region: r }), c = new ie(s);
+  const s = oe(t), o = (e == null ? void 0 : e.DeviceKey) ?? "", i = (e == null ? void 0 : e.DeviceGroupKey) ?? "", r = w(t), a = new T({ region: r }), c = new se(s);
   try {
     c.generateHashDevice(i, o);
   } catch {
     return;
   }
   const l = {
-    Salt: ce(c.saltToHashDevices),
-    PasswordVerifier: ce(c.verifierDevices)
+    Salt: re(c.saltToHashDevices),
+    PasswordVerifier: re(c.verifierDevices)
   };
   try {
-    const d = c.randomPassword, h = new Be({
+    const d = c.randomPassword, u = new Me({
       AccessToken: n,
       DeviceKey: o,
       DeviceSecretVerifierConfig: l
     });
-    return await a.send(h), {
+    return await a.send(u), {
       deviceKey: o,
       deviceGroupKey: i,
       randomPassword: d
@@ -847,43 +777,43 @@ const he = () => {
   } catch {
     return;
   }
-}, q = (t) => {
-  const e = V(), n = G(t), s = e.getItem(n.deviceKey), o = e.getItem(n.deviceGroupKey), i = e.getItem(n.randomPassword);
+}, L = (t) => {
+  const e = V(), n = H(t), s = e.getItem(n.deviceKey), o = e.getItem(n.deviceGroupKey), i = e.getItem(n.randomPassword);
   return i ? {
     deviceKey: s,
     deviceGroupKey: o,
     randomPassword: i
   } : void 0;
-}, ae = () => {
+}, ie = () => {
   const t = V();
   try {
-    const e = G(), n = t.getItem(e.accessToken);
+    const e = H(), n = t.getItem(e.accessToken);
     if (!n)
       throw new p({
         name: "NoSessionFoundException",
         message: g.NoSessionFoundException
       });
-    const s = b(n), o = t.getItem(e.idToken), i = o ? b(o) : void 0, r = t.getItem(e.refreshToken) ?? void 0, a = t.getItem(e.clockDrift) ?? "0", c = Number.parseInt(a), l = t.getItem(e.signInDetails), d = {
+    const s = B(n), o = t.getItem(e.idToken), i = o ? B(o) : void 0, r = t.getItem(e.refreshToken) ?? void 0, a = t.getItem(e.clockDrift) ?? "0", c = Number.parseInt(a), l = t.getItem(e.signInDetails), d = {
       accessToken: s,
       idToken: i,
       refreshToken: r,
-      deviceMetadata: q() ?? void 0,
+      deviceMetadata: L() ?? void 0,
       clockDrift: c,
-      username: ee(),
+      username: Q(),
       signInDetails: void 0
     };
     return l && (d.signInDetails = JSON.parse(l)), d;
   } catch {
     return null;
   }
-}, Qt = (t) => {
-  if ((t.message !== "Network error" || t.message !== "The Internet connection appears to be offline.") && te(), Q.dispatch("auth", {
+}, jt = (t) => {
+  if ((t.message !== "Network error" || t.message !== "The Internet connection appears to be offline.") && X(), z.dispatch("auth", {
     event: "tokenRefreshFailure",
     data: { err: t }
   }), t.name.startsWith("NotAuthorizedException"))
     return null;
   throw t;
-}, Xt = async ({
+}, zt = async ({
   tokens: t,
   username: e
 }) => {
@@ -901,7 +831,7 @@ const he = () => {
         name: "MissingDeviceMetadataException",
         message: g.MissingDeviceMetadataException
       });
-    const i = (n = A.getConfig().Auth) == null ? void 0 : n.Cognito, { userPoolId: r, userPoolClientId: a } = i, c = T(r), l = new w({ region: c }), d = new fe({
+    const i = (n = A.getConfig().Auth) == null ? void 0 : n.Cognito, { userPoolId: r, userPoolClientId: a } = i, c = w(r), l = new T({ region: c }), d = new ge({
       ClientId: a,
       AuthFlow: "REFRESH_TOKEN_AUTH",
       AuthParameters: {
@@ -909,8 +839,8 @@ const he = () => {
         DEVICE_KEY: o.deviceKey
       }
     }), {
-      AuthenticationResult: h
-    } = await l.send(d), m = b((h == null ? void 0 : h.AccessToken) ?? ""), S = h != null && h.IdToken ? b(h.IdToken) : void 0, I = m.payload.iat;
+      AuthenticationResult: u
+    } = await l.send(d), m = B((u == null ? void 0 : u.AccessToken) ?? ""), S = u != null && u.IdToken ? B(u.IdToken) : void 0, I = m.payload.iat;
     if (!I)
       throw new p({
         name: "iatNotFoundException",
@@ -925,22 +855,22 @@ const he = () => {
       username: e
     };
   } catch (s) {
-    return Qt(s);
+    return jt(s);
   }
-}, ge = (t, e) => Date.now() + e > t, k = async (t) => {
+}, he = (t, e) => Date.now() + e > t, k = async (t) => {
   var r, a, c, l;
-  let e = ae();
-  const n = ee();
+  let e = ie();
+  const n = Q();
   if (e === null)
     return null;
-  const s = e != null && e.idToken ? ge(
+  const s = e != null && e.idToken ? he(
     (((a = (r = e.idToken) == null ? void 0 : r.payload) == null ? void 0 : a.exp) ?? 0) * 1e3,
     e.clockDrift ?? 0
-  ) : !0, o = e != null && e.accessToken ? ge(
+  ) : !0, o = e != null && e.accessToken ? he(
     (((l = (c = e.accessToken) == null ? void 0 : c.payload) == null ? void 0 : l.exp) ?? 0) * 1e3,
     e.clockDrift ?? 0
   ) : !0;
-  return ((t == null ? void 0 : t.forceRefresh) || s || o) && (e = await Xt({
+  return ((t == null ? void 0 : t.forceRefresh) || s || o) && (e = await zt({
     tokens: e,
     username: n
   }), e === null) ? null : {
@@ -948,10 +878,10 @@ const he = () => {
     idToken: e == null ? void 0 : e.idToken,
     signInDetails: e == null ? void 0 : e.signInDetails
   };
-}, en = async () => {
+}, Yt = async () => {
   var i;
   const t = await k({ forceRefresh: !1 });
-  N(t);
+  x(t);
   const {
     "cognito:username": e,
     sub: n
@@ -960,7 +890,7 @@ const he = () => {
     userId: n
   }, o = t.signInDetails;
   return o && (s.signInDetails = o), s;
-}, j = (t) => typeof t == "string" && t.trim().length > 0, g = {
+}, J = (t) => typeof t == "string" && t.trim().length > 0, g = {
   InvalidConfigException: `
     Invalid or missing AWS Cognito configuration.
 
@@ -1026,10 +956,10 @@ const he = () => {
 }, D = (t, e, n) => {
   if (!t)
     throw new p({ name: e, message: n });
-}, tn = async () => {
+}, Qt = async () => {
   let t = null;
   try {
-    t = await en();
+    t = await Yt();
   } catch {
   }
   if (t && t.userId && t.username)
@@ -1038,21 +968,21 @@ const he = () => {
       message: g.UserAlreadyAuthenticatedException
     });
 };
-function nn(t) {
+function Xt(t) {
   if (!((t != null && t.accessToken || t != null && t.idToken) && (t != null && t.refreshToken)))
     throw new p({
       name: "UserUnauthenticatedException",
       message: g.UserUnauthenticatedException
     });
 }
-function Ie(t) {
-  if (!(!!t && j(t.deviceKey) && j(t.deviceGroupKey) && j(t.randomPassword)))
+function ye(t) {
+  if (!(!!t && J(t.deviceKey) && J(t.deviceGroupKey) && J(t.randomPassword)))
     throw new p({
       name: "DeviceMetadataException",
       message: g.DeviceMetadataException
     });
 }
-function N(t) {
+function x(t) {
   const e = t == null ? void 0 : t.accessToken;
   if (!(e && e.payload && e.toString()))
     throw new p({
@@ -1060,7 +990,7 @@ function N(t) {
       message: g.UserUnauthenticatedException
     });
 }
-class On {
+class bn {
   constructor(e = {}) {
     f(this, "path");
     f(this, "domain");
@@ -1083,16 +1013,16 @@ class On {
     }
   }
   getItem(e) {
-    return H.get(e) ?? null;
+    return W.get(e) ?? null;
   }
   setItem(e, n) {
-    H.set(e, n, this.getData());
+    W.set(e, n, this.getData());
   }
   removeItem(e) {
-    H.remove(e, this.getData());
+    W.remove(e, this.getData());
   }
   clear() {
-    const e = H.get();
+    const e = W.get();
     Object.keys(e).forEach((n) => this.removeItem(n));
   }
   getData() {
@@ -1105,10 +1035,10 @@ class On {
     };
   }
 }
-class sn {
+class en {
   constructor() {
     f(this, "resourcesConfig", {});
-    f(this, "keyValueStorage", new Ye());
+    f(this, "keyValueStorage", new je());
     f(this, "getConfig", () => {
       if (Object.keys(this.resourcesConfig).length === 0)
         throw new p({
@@ -1147,17 +1077,17 @@ class sn {
     this.keyValueStorage = e;
   }
 }
-const A = new sn(), on = async (t) => {
+const A = new en(), tn = async (t) => {
   const e = await k(t);
-  N(e);
+  x(e);
   const n = e.accessToken.payload.sub;
   return { tokens: e, sub: n };
-}, Pe = () => ({
+}, ve = () => ({
   username: "",
   challengeName: void 0,
   signInSession: void 0,
   signInDetails: void 0
-}), rn = (t, e) => {
+}), nn = (t, e) => {
   switch (e.type) {
     case "SET_CHALLENGE_NAME":
       return {
@@ -1177,12 +1107,12 @@ const A = new sn(), on = async (t) => {
     case "SET_SIGN_IN_STATE":
       return { ...e.value };
     case "SET_INITIAL_STATE":
-      return Pe();
+      return ve();
     default:
       return t;
   }
-}, an = (t) => {
-  const e = Pe();
+}, sn = (t) => {
+  const e = ve();
   let n = t(e, { type: "SET_INITIAL_STATE" });
   return {
     getState: () => n,
@@ -1190,37 +1120,37 @@ const A = new sn(), on = async (t) => {
       n = t(n, s);
     }
   };
-}, De = (t) => {
+}, Ie = (t) => {
   M.dispatch({
     type: "SET_SIGN_IN_STATE",
     value: t
   });
-}, Ue = () => {
+}, Pe = () => {
   M.dispatch({
     type: "SET_INITIAL_STATE"
   });
-}, M = an(rn), cn = (t) => {
+}, M = sn(nn), on = (t) => {
   const { dispatch: e } = M;
   e({ type: "SET_USERNAME", value: t });
-}, ln = (t) => M.getState().username ?? t, dn = (t) => {
+}, rn = (t) => M.getState().username ?? t, an = (t) => {
   if (t === "PasswordResetRequiredException")
     return {
       isSignedIn: !1,
       nextStep: { signInStep: "RESET_PASSWORD" }
     };
-}, xe = (t) => {
+}, De = (t) => {
   if (t === "SMS_MFA") return "SMS";
   if (t === "SOFTWARE_TOKEN_MFA") return "TOTP";
-}, Ne = (t) => {
+}, Ue = (t) => {
   if (t)
-    return t.map(xe).filter(Boolean);
-}, un = (t) => t ? JSON.parse(t) : [], hn = (t, e) => {
-  const { MFAS_CAN_SETUP: n } = t, s = un(n), o = Ne(s);
+    return t.map(De).filter(Boolean);
+}, cn = (t) => t ? JSON.parse(t) : [], ln = (t, e) => {
+  const { MFAS_CAN_SETUP: n } = t, s = cn(n), o = Ue(s);
   return o == null ? void 0 : o.includes(e);
-}, gn = (t, e) => ({
+}, dn = (t, e) => ({
   sharedSecret: t,
   getSetupUri: (n, s) => `otpauth://totp/${n}:${s ?? e}?secret=${t}&issuer=${n}`
-}), mn = async ({
+}), hn = async ({
   username: t,
   client: e,
   srp: n,
@@ -1228,33 +1158,33 @@ const A = new sn(), on = async (t) => {
   session: o,
   cognitoConfig: i
 }) => {
-  const { userPoolClientId: r } = i, a = q(t);
-  Ie(a);
+  const { userPoolClientId: r } = i, a = L(t);
+  ye(a);
   const {
     deviceKey: c,
     deviceGroupKey: l,
     randomPassword: d
   } = a, {
-    SRP_B: h,
+    SRP_B: u,
     SALT: m,
     SECRET_BLOCK: S
-  } = s, I = we(), E = n.getPasswordAuthenticationKey(c, d, h, m), v = Te(E, l, c, S, I), y = {
+  } = s, I = Se(), E = n.getPasswordAuthenticationKey(c, d, u, m), y = Ce(E, l, c, S, I), v = {
     USERNAME: (s == null ? void 0 : s.USERNAME) ?? t,
     PASSWORD_CLAIM_SECRET_BLOCK: S,
     TIMESTAMP: I,
-    PASSWORD_CLAIM_SIGNATURE: v,
+    PASSWORD_CLAIM_SIGNATURE: y,
     DEVICE_KEY: c
   }, R = new O({
     ChallengeName: "DEVICE_PASSWORD_VERIFIER",
-    ChallengeResponses: y,
+    ChallengeResponses: v,
     ClientId: r,
     Session: o
   });
   return await e.send(R);
-}, fn = async (t, e) => {
-  const n = q(t);
-  Ie(n);
-  const { userPoolId: s, userPoolClientId: o } = e, i = T(s), r = new w({ region: i }), a = new ie(n.deviceGroupKey), c = a.calculateA(), l = new O({
+}, un = async (t, e) => {
+  const n = L(t);
+  ye(n);
+  const { userPoolId: s, userPoolClientId: o } = e, i = w(s), r = new T({ region: i }), a = new se(n.deviceGroupKey), c = a.calculateA(), l = new O({
     ChallengeName: "DEVICE_SRP_AUTH",
     ChallengeResponses: {
       USERNAME: t,
@@ -1264,27 +1194,27 @@ const A = new sn(), on = async (t) => {
     ClientId: o
   }), {
     ChallengeParameters: d,
-    Session: h
+    Session: u
   } = await r.send(l);
   if (!d)
     throw new p({
       name: "MissingChallengeParametersException",
       message: g.MissingChallengeParametersException
     });
-  return await mn({
+  return await hn({
     username: t,
     client: r,
     srp: a,
     challengeParameters: d,
-    session: h,
+    session: u,
     cognitoConfig: e
   });
-}, pn = async ({
+}, gn = async ({
   username: t,
   password: e,
   cognitoConfig: n
 }) => {
-  const { userPoolId: s, userPoolClientId: o } = n, i = re(s), r = T(s), a = new w({ region: r }), c = new ie(i), l = c.calculateA(), d = new fe({
+  const { userPoolId: s, userPoolClientId: o } = n, i = oe(s), r = w(s), a = new T({ region: r }), c = new se(i), l = c.calculateA(), d = new ge({
     AuthFlow: "USER_SRP_AUTH",
     AuthParameters: {
       USERNAME: t,
@@ -1292,7 +1222,7 @@ const A = new sn(), on = async (t) => {
     },
     ClientId: o
   }), {
-    ChallengeName: h,
+    ChallengeName: u,
     ChallengeParameters: m,
     Session: S
   } = await a.send(d);
@@ -1302,13 +1232,13 @@ const A = new sn(), on = async (t) => {
       message: g.MissingChallengeParametersException
     });
   const E = m.USERNAME ?? t;
-  if (cn(E), !h)
+  if (on(E), !u)
     throw new p({
       name: "MissingChallengeNameException",
       message: g.MissingChallengeNameException
     });
-  const v = await En({
-    challengeName: h,
+  const y = await mn({
+    challengeName: u,
     cognitoConfig: n,
     client: a,
     srp: c,
@@ -1316,8 +1246,8 @@ const A = new sn(), on = async (t) => {
     challengeParameters: m,
     session: S
   });
-  return v.ChallengeName === "DEVICE_SRP_AUTH" ? fn(E, n) : v;
-}, En = async ({
+  return y.ChallengeName === "DEVICE_SRP_AUTH" ? un(E, n) : y;
+}, mn = async ({
   challengeName: t,
   cognitoConfig: e,
   client: n,
@@ -1326,9 +1256,9 @@ const A = new sn(), on = async (t) => {
   challengeParameters: i,
   session: r
 }) => {
-  const { userPoolId: a, userPoolClientId: c } = e, l = re(a), {
+  const { userPoolId: a, userPoolClientId: c } = e, l = oe(a), {
     SRP_B: d,
-    SALT: h,
+    SALT: u,
     SECRET_BLOCK: m
   } = i, S = i.USER_ID_FOR_SRP;
   if (!S)
@@ -1336,21 +1266,21 @@ const A = new sn(), on = async (t) => {
       name: "EmptyUserIdForSRPException",
       message: g.EmptyUserIdForSRPException
     });
-  const I = we(), E = s.getPasswordAuthenticationKey(S, o, d, h), v = Te(E, l, S, m, I), y = {
+  const I = Se(), E = s.getPasswordAuthenticationKey(S, o, d, u), y = Ce(E, l, S, m, I), v = {
     USERNAME: S,
     PASSWORD_CLAIM_SECRET_BLOCK: m,
     TIMESTAMP: I,
-    PASSWORD_CLAIM_SIGNATURE: v
-  }, R = q(S);
-  R && R.deviceKey && (y.DEVICE_KEY = R.deviceKey);
-  const Fe = new O({
+    PASSWORD_CLAIM_SIGNATURE: y
+  }, R = L(S);
+  R && R.deviceKey && (v.DEVICE_KEY = R.deviceKey);
+  const Re = new O({
     ChallengeName: t,
-    ChallengeResponses: y,
+    ChallengeResponses: v,
     ClientId: c,
     Session: r
   });
-  return await n.send(Fe);
-}, Sn = (t) => {
+  return await n.send(Re);
+}, fn = (t) => {
   if (!t) return [];
   const e = "userAttributes.";
   let n;
@@ -1362,21 +1292,21 @@ const A = new sn(), on = async (t) => {
   return Array.isArray(n) ? n.map(
     (s) => s.startsWith(e) ? s.replace(e, "") : s
   ) : [];
-}, Cn = (t) => ({
+}, pn = (t) => ({
   isSignedIn: !1,
   nextStep: {
     signInStep: "CONFIRM_SIGN_IN_WITH_NEW_PASSWORD_REQUIRED",
-    missingAttributes: Sn(t.requiredAttributes)
+    missingAttributes: fn(t.requiredAttributes)
   }
-}), wn = async (t) => {
-  var h;
-  const { signInSession: e, username: n } = M.getState(), s = (h = A.getConfig().Auth) == null ? void 0 : h.Cognito, { userPoolId: o } = s, i = T(o);
-  if (!hn(t, "TOTP"))
+}), En = async (t) => {
+  var u;
+  const { signInSession: e, username: n } = M.getState(), s = (u = A.getConfig().Auth) == null ? void 0 : u.Cognito, { userPoolId: o } = s, i = w(o);
+  if (!ln(t, "TOTP"))
     throw new p({
       name: "SignInException",
       message: g.InvalidMFASetupTypeException + ": TOTP"
     });
-  const a = new w({ region: i }), c = new be({
+  const a = new T({ region: i }), c = new _e({
     Session: e
   }), {
     SecretCode: l,
@@ -1394,26 +1324,26 @@ const A = new sn(), on = async (t) => {
     isSignedIn: !1,
     nextStep: {
       signInStep: "CONTINUE_SIGN_IN_WITH_TOTP_SETUP",
-      totpSetupDetails: gn(l, n)
+      totpSetupDetails: dn(l, n)
     }
   };
-}, Tn = () => ({
+}, Sn = () => ({
   isSignedIn: !1,
   nextStep: {
     signInStep: "CONFIRM_SIGN_IN_WITH_TOTP_CODE"
   }
-}), An = {
-  NEW_PASSWORD_REQUIRED: Cn,
-  MFA_SETUP: wn,
-  SOFTWARE_TOKEN_MFA: Tn
-}, Re = (t, e) => {
-  const n = An[t ?? ""];
+}), Cn = {
+  NEW_PASSWORD_REQUIRED: pn,
+  MFA_SETUP: En,
+  SOFTWARE_TOKEN_MFA: Sn
+}, Ne = (t, e) => {
+  const n = Cn[t ?? ""];
   if (n) return n(e);
   throw new p({
     name: "ChallengeNotHandledException",
     message: `No next step for challenge: ${t}`
   });
-}, vn = async (t) => {
+}, Tn = async (t) => {
   const { username: e, password: n } = t, s = {
     loginId: e,
     authFlowType: "USER_SRP_AUTH"
@@ -1425,29 +1355,29 @@ const A = new sn(), on = async (t) => {
       ChallengeParameters: r,
       AuthenticationResult: a,
       Session: c
-    } = await pn({
+    } = await gn({
       username: e,
       password: n,
       cognitoConfig: o
-    }), l = ln(e);
-    if (De({
+    }), l = rn(e);
+    if (Ie({
       signInSession: c,
       username: l,
       challengeName: i,
       signInDetails: s
     }), a)
-      return Ue(), Ce({
+      return Pe(), Ee({
         username: l,
         authenticationResult: a,
-        newDeviceMetadata: await ye(
+        newDeviceMetadata: await Ae(
           o.userPoolId,
           a.NewDeviceMetadata,
           a.AccessToken
         ),
         signInDetails: s
-      }), Q.dispatch("auth", {
+      }), z.dispatch("auth", {
         event: "signedIn",
-        data: await on()
+        data: await tn()
       }), {
         isSignedIn: !0,
         nextStep: { signInStep: "DONE" }
@@ -1457,33 +1387,33 @@ const A = new sn(), on = async (t) => {
         name: "MissingChallengeNameException",
         message: g.MissingChallengeNameException
       });
-    return Re(
+    return Ne(
       i,
       r
     );
   } catch (o) {
-    const i = dn(o.name);
+    const i = an(o.name);
     if (i) return i;
     throw o;
   }
-}, Vn = async (t) => {
+}, Bn = async (t) => {
   var n;
   const e = (n = t.options) == null ? void 0 : n.authFlowType;
-  switch (await tn(), e) {
+  switch (await Qt(), e) {
     default:
-      return vn(t);
+      return Tn(t);
   }
-}, Kn = async (t) => {
+}, On = async (t) => {
   var s;
   const e = (s = A.getConfig().Auth) == null ? void 0 : s.Cognito;
-  (t == null ? void 0 : t.isGlobal) ? await In(e) : await yn(e), te(), Q.dispatch("auth", {
+  (t == null ? void 0 : t.isGlobal) ? await An(e) : await wn(e), X(), z.dispatch("auth", {
     event: "signedOut"
   });
-}, yn = async (t) => {
+}, wn = async (t) => {
   try {
-    const e = ae();
-    if (nn(e), !ke(e.accessToken)) return;
-    const { userPoolId: s, userPoolClientId: o } = t, i = T(s), r = new w({ region: i }), a = new Oe({
+    const e = ie();
+    if (Xt(e), !xe(e.accessToken)) return;
+    const { userPoolId: s, userPoolClientId: o } = t, i = w(s), r = new T({ region: i }), a = new be({
       ClientId: o,
       Token: e.refreshToken
     });
@@ -1491,34 +1421,34 @@ const A = new sn(), on = async (t) => {
   } catch {
     console.log(g.ClientSignOutErrorException);
   }
-}, In = async (t) => {
+}, An = async (t) => {
   try {
-    const e = ae();
-    if (N(e), !ke(e.accessToken)) return;
-    const { userPoolId: s } = t, o = T(s), i = new w({ region: o }), r = new Ve({
+    const e = ie();
+    if (x(e), !xe(e.accessToken)) return;
+    const { userPoolId: s } = t, o = w(s), i = new T({ region: o }), r = new Be({
       AccessToken: e.accessToken.toString()
     });
     await i.send(r);
   } catch {
     console.log(g.GlobalSignOutErrorException);
   }
-}, ke = (t) => {
+}, xe = (t) => {
   var e;
   return !!((e = t == null ? void 0 : t.payload) != null && e.origin_jti);
-}, Pn = (t) => {
+}, yn = (t) => {
   const e = "userAttributes.";
   return t ? Object.entries(t).reduce((n, [s, o]) => (o && (n[`${e}${s}`] = o), n), {}) : {};
-}, Dn = async ({
+}, vn = async ({
   username: t,
   signInSession: e,
   challengeResponse: n,
   cognitoConfig: s,
   options: o
 }) => {
-  const { userPoolId: i, userPoolClientId: r } = s, a = T(i), c = new w({ region: a }), l = new O({
+  const { userPoolId: i, userPoolClientId: r } = s, a = w(i), c = new T({ region: a }), l = new O({
     ChallengeName: "NEW_PASSWORD_REQUIRED",
     ChallengeResponses: {
-      ...Pn(o == null ? void 0 : o.requiredAttributes),
+      ...yn(o == null ? void 0 : o.requiredAttributes),
       NEW_PASSWORD: n,
       USERNAME: t
     },
@@ -1526,13 +1456,13 @@ const A = new sn(), on = async (t) => {
     Session: e
   });
   return await c.send(l);
-}, Un = async ({
+}, In = async ({
   username: t,
   signInSession: e,
   challengeResponse: n,
   cognitoConfig: s
 }) => {
-  const { userPoolId: o, userPoolClientId: i } = s, r = T(o), a = new w({ region: r }), c = new pe({
+  const { userPoolId: o, userPoolClientId: i } = s, r = w(o), a = new T({ region: r }), c = new me({
     UserCode: n,
     Session: e
   }), {
@@ -1551,13 +1481,13 @@ const A = new sn(), on = async (t) => {
     Session: l
   });
   return a.send(d);
-}, xn = async ({
+}, Pn = async ({
   username: t,
   signInSession: e,
   challengeResponse: n,
   cognitoConfig: s
 }) => {
-  const { userPoolId: o, userPoolClientId: i } = s, r = T(o), a = new w({ region: r }), c = new O({
+  const { userPoolId: o, userPoolClientId: i } = s, r = w(o), a = new T({ region: r }), c = new O({
     ChallengeName: "SOFTWARE_TOKEN_MFA",
     ChallengeResponses: {
       USERNAME: t,
@@ -1567,11 +1497,11 @@ const A = new sn(), on = async (t) => {
     Session: e
   });
   return a.send(c);
-}, Nn = {
-  NEW_PASSWORD_REQUIRED: Dn,
-  MFA_SETUP: Un,
-  SOFTWARE_TOKEN_MFA: xn
-}, Rn = async ({
+}, Dn = {
+  NEW_PASSWORD_REQUIRED: vn,
+  MFA_SETUP: In,
+  SOFTWARE_TOKEN_MFA: Pn
+}, Un = async ({
   username: t,
   challengeName: e,
   signInSession: n,
@@ -1579,7 +1509,7 @@ const A = new sn(), on = async (t) => {
   cognitoConfig: o,
   options: i
 }) => {
-  const r = Nn[e];
+  const r = Dn[e];
   if (!r)
     throw new p({
       name: "UnknownChallengeException",
@@ -1592,7 +1522,7 @@ const A = new sn(), on = async (t) => {
     cognitoConfig: o,
     options: i
   });
-}, $n = async (t) => {
+}, Vn = async (t) => {
   const { challengeResponse: e, options: n } = t, { username: s, challengeName: o, signInSession: i, signInDetails: r } = M.getState();
   if (D(
     !!e && typeof e == "string",
@@ -1611,8 +1541,8 @@ const A = new sn(), on = async (t) => {
     ChallengeName: c,
     ChallengeParameters: l,
     AuthenticationResult: d,
-    Session: h
-  } = await Rn({
+    Session: u
+  } = await Un({
     username: s,
     challengeName: o,
     signInSession: i,
@@ -1620,15 +1550,15 @@ const A = new sn(), on = async (t) => {
     cognitoConfig: a,
     options: n
   });
-  return De({
+  return Ie({
     username: s,
     challengeName: c,
-    signInSession: h,
+    signInSession: u,
     signInDetails: r
-  }), d ? (Ue(), Ce({
+  }), d ? (Pe(), Ee({
     username: s,
     authenticationResult: d,
-    newDeviceMetadata: await ye(
+    newDeviceMetadata: await Ae(
       a.userPoolId,
       d.NewDeviceMetadata,
       d.AccessToken
@@ -1637,11 +1567,11 @@ const A = new sn(), on = async (t) => {
   }), {
     isSignedIn: !0,
     nextStep: { signInStep: "DONE" }
-  }) : Re(
+  }) : Ne(
     c,
     l
   );
-}, Wn = async (t) => {
+}, Kn = async (t) => {
   var d;
   const e = (d = A.getConfig().Auth) == null ? void 0 : d.Cognito, { userPoolId: n, userPoolClientId: s } = e, { username: o, newPassword: i, confirmationCode: r } = t;
   D(
@@ -1657,14 +1587,14 @@ const A = new sn(), on = async (t) => {
     "EmptyConfirmResetPasswordConfirmationCodeException",
     g.EmptyConfirmResetPasswordConfirmationCodeException
   );
-  const a = T(n), c = new w({ region: a }), l = new Ke({
+  const a = w(n), c = new T({ region: a }), l = new Oe({
     Username: o,
     ConfirmationCode: r,
     Password: i,
     ClientId: s
   });
   await c.send(l);
-}, Hn = async (t) => {
+}, $n = async (t) => {
   var d;
   const e = (d = A.getConfig().Auth) == null ? void 0 : d.Cognito, { userPoolId: n, userPoolClientId: s } = e, o = t.username;
   D(
@@ -1672,7 +1602,7 @@ const A = new sn(), on = async (t) => {
     "EmptyResetPasswordUsernameException",
     g.EmptyResetPasswordUsernameException
   );
-  const i = T(n), r = new w({ region: i }), a = new $e({
+  const i = w(n), r = new T({ region: i }), a = new Ve({
     Username: o,
     ClientId: s
   }), l = (await r.send(a)).CodeDeliveryDetails;
@@ -1687,33 +1617,33 @@ const A = new sn(), on = async (t) => {
       }
     }
   };
-}, Gn = async (t) => {
+}, Wn = async (t) => {
   const { previousPassword: e, proposedPassword: n } = t, s = await k();
-  N(s), D(
+  x(s), D(
     !!e && !!n,
     "EmptyChangePasswordException",
     g.EmptyChangePasswordException
   );
-  const o = A.getConfig().Auth.Cognito, { userPoolId: i } = o, r = T(i), a = new w({ region: r }), c = new We({
+  const o = A.getConfig().Auth.Cognito, { userPoolId: i } = o, r = w(i), a = new T({ region: r }), c = new Ke({
     PreviousPassword: e,
     ProposedPassword: n,
     AccessToken: s.accessToken.toString()
   });
   await a.send(c);
-}, Ln = async () => {
+}, Hn = async () => {
   const t = await k();
-  N(t);
-  const e = A.getConfig().Auth.Cognito, { userPoolId: n } = e, s = T(n), o = new w({ region: s }), i = new Ee({
+  x(t);
+  const e = A.getConfig().Auth.Cognito, { userPoolId: n } = e, s = w(n), o = new T({ region: s }), i = new fe({
     AccessToken: t.accessToken.toString()
   }), {
     PreferredMfaSetting: r,
     UserMFASettingList: a
   } = await o.send(i);
   return {
-    preferredMFASetting: xe(r),
-    userMFASettingList: Ne(a)
+    preferredMFASetting: De(r),
+    userMFASettingList: Ue(a)
   };
-}, me = (t) => {
+}, ue = (t) => {
   if (t === "ENABLED")
     return {
       Enabled: !0
@@ -1732,45 +1662,45 @@ const A = new sn(), on = async (t) => {
       Enabled: !0,
       PreferredMfa: !1
     };
-}, qn = async (t) => {
+}, Gn = async (t) => {
   const { sms: e, totp: n } = t, s = await k();
-  N(s);
-  const o = A.getConfig().Auth.Cognito, { userPoolId: i } = o, r = T(i), a = new w({ region: r }), c = new He({
+  x(s);
+  const o = A.getConfig().Auth.Cognito, { userPoolId: i } = o, r = w(i), a = new T({ region: r }), c = new $e({
     AccessToken: s.accessToken.toString(),
-    SoftwareTokenMfaSettings: me(n),
-    SMSMfaSettings: me(e)
+    SoftwareTokenMfaSettings: ue(n),
+    SMSMfaSettings: ue(e)
   });
   await a.send(c);
-}, kn = 60, Zn = async () => {
+}, Nn = 60, Ln = async () => {
   const t = await k();
-  N(t);
-  const e = A.getConfig().Auth.Cognito, { userPoolId: n } = e, s = T(n), o = new w({ region: s }), i = new Ge({
+  x(t);
+  const e = A.getConfig().Auth.Cognito, { userPoolId: n } = e, s = w(n), o = new T({ region: s }), i = new We({
     AccessToken: t.accessToken.toString(),
-    Limit: kn
+    Limit: Nn
   });
   return await o.send(i);
-}, Fn = (t) => {
+}, xn = (t) => {
   const e = {};
   return t == null || t.map(({ Name: n, Value: s }) => {
     n && (e[n] = s);
   }), e;
-}, Jn = async () => {
+}, qn = async () => {
   const t = await k();
-  N(t);
-  const e = A.getConfig().Auth.Cognito, { userPoolId: n } = e, s = T(n), o = new w({ region: s }), i = new Ee({
+  x(t);
+  const e = A.getConfig().Auth.Cognito, { userPoolId: n } = e, s = w(n), o = new T({ region: s }), i = new fe({
     AccessToken: t.accessToken.toString()
   }), {
     UserAttributes: r
   } = await o.send(i);
-  return Fn(r);
-}, jn = async (t) => {
+  return xn(r);
+}, Zn = async (t) => {
   const { code: e, options: n } = t, s = await k();
-  N(s), D(
+  x(s), D(
     !!e,
     "EmptyVerifyTOTPCodeException",
     g.EmptyVerifyTOTPCodeException
   );
-  const o = A.getConfig().Auth.Cognito, { userPoolId: i } = o, r = T(i), a = new w({ region: r }), c = new pe({
+  const o = A.getConfig().Auth.Cognito, { userPoolId: i } = o, r = w(i), a = new T({ region: r }), c = new me({
     AccessToken: s.accessToken.toString(),
     UserCode: e,
     FriendlyDeviceName: n == null ? void 0 : n.deviceName
@@ -1779,10 +1709,10 @@ const A = new sn(), on = async (t) => {
     status: l.Status,
     session: l.Session
   };
-}, Mn = (t) => Object.entries(t).map(([e, n]) => ({
+}, Rn = (t) => Object.entries(t).map(([e, n]) => ({
   Name: e,
   Value: n
-})), zn = async (t) => {
+})), Jn = async (t) => {
   const { username: e, password: n, options: s } = t;
   D(
     !!e,
@@ -1793,14 +1723,14 @@ const A = new sn(), on = async (t) => {
     "EmptySignUpPasswordException",
     g.EmptySignUpPasswordException
   );
-  const o = A.getConfig().Auth.Cognito, { userPoolId: i, userPoolClientId: r } = o, a = T(i), c = new w({ region: a }), l = new Le({
+  const o = A.getConfig().Auth.Cognito, { userPoolId: i, userPoolClientId: r } = o, a = w(i), c = new T({ region: a }), l = new He({
     ClientId: r,
     Username: e,
     Password: n,
-    UserAttributes: (s == null ? void 0 : s.userAttributes) && Mn(s == null ? void 0 : s.userAttributes)
+    UserAttributes: (s == null ? void 0 : s.userAttributes) && Rn(s == null ? void 0 : s.userAttributes)
   }), {
     UserConfirmed: d,
-    CodeDeliveryDetails: h,
+    CodeDeliveryDetails: u,
     UserSub: m
   } = await c.send(l);
   return d ? {
@@ -1814,14 +1744,14 @@ const A = new sn(), on = async (t) => {
     nextStep: {
       signUpStep: "CONFIRM_SIGN_UP",
       codeDeliveryDetails: {
-        deliveryMedium: h == null ? void 0 : h.DeliveryMedium,
-        destination: h == null ? void 0 : h.Destination,
-        attributeName: h == null ? void 0 : h.AttributeName
+        deliveryMedium: u == null ? void 0 : u.DeliveryMedium,
+        destination: u == null ? void 0 : u.Destination,
+        attributeName: u == null ? void 0 : u.AttributeName
       }
     },
     userId: m
   };
-}, Yn = async (t) => {
+}, jn = async (t) => {
   const { username: e, confirmationCode: n, options: s } = t;
   D(
     !!e,
@@ -1832,7 +1762,7 @@ const A = new sn(), on = async (t) => {
     "EmptyConfirmSignUpCodeException",
     g.EmptyConfirmSignUpCodeException
   );
-  const o = A.getConfig().Auth.Cognito, { userPoolId: i, userPoolClientId: r } = o, a = T(i), c = new w({ region: a }), l = new qe({
+  const o = A.getConfig().Auth.Cognito, { userPoolId: i, userPoolClientId: r } = o, a = w(i), c = new T({ region: a }), l = new Ge({
     ClientId: r,
     Username: e,
     ConfirmationCode: n,
@@ -1844,14 +1774,14 @@ const A = new sn(), on = async (t) => {
       signUpStep: "DONE"
     }
   };
-}, Qn = async (t) => {
+}, zn = async (t) => {
   const { username: e } = t;
   D(
     !!e,
     "EmptyResendSignUpCodeUsernameException",
     g.EmptyResendSignUpCodeUsernameException
   );
-  const n = A.getConfig().Auth.Cognito, { userPoolId: s, userPoolClientId: o } = n, i = T(s), r = new w({ region: i }), a = new Ze({
+  const n = A.getConfig().Auth.Cognito, { userPoolId: s, userPoolClientId: o } = n, i = w(s), r = new T({ region: i }), a = new Le({
     Username: e,
     ClientId: o
   }), {
@@ -1862,34 +1792,34 @@ const A = new sn(), on = async (t) => {
     deliveryMedium: c == null ? void 0 : c.DeliveryMedium,
     attributeName: c == null ? void 0 : c.AttributeName
   };
-}, Xn = async () => {
+}, Yn = async () => {
   const t = await k();
-  N(t);
-  const e = A.getConfig().Auth.Cognito, { userPoolId: n } = e, s = T(n), o = new w({ region: s }), i = new Je({
+  x(t);
+  const e = A.getConfig().Auth.Cognito, { userPoolId: n } = e, s = w(n), o = new T({ region: s }), i = new qe({
     AccessToken: t.accessToken.toString()
   });
   await o.send(i);
 };
 export {
-  On as CookieStorage,
-  Ye as DefaultStorage,
+  bn as CookieStorage,
+  je as DefaultStorage,
   A as EasyAuth,
-  je as InMemoryStorage,
-  Wn as confirmResetPassword,
-  $n as confirmSignIn,
-  Yn as confirmSignUp,
-  Xn as deleteUser,
-  on as getCurrentSession,
-  en as getCurrentUser,
-  Zn as getDevices,
-  Ln as getMFAPreference,
-  Jn as getUserAttributes,
-  Qn as resendSignUpCode,
-  Hn as resetPassword,
-  Vn as signIn,
-  Kn as signOut,
-  zn as signUp,
-  qn as updateMFAPreference,
-  Gn as updatePassword,
-  jn as verifyTOTP
+  Ze as InMemoryStorage,
+  Kn as confirmResetPassword,
+  Vn as confirmSignIn,
+  jn as confirmSignUp,
+  Yn as deleteUser,
+  tn as getCurrentSession,
+  Yt as getCurrentUser,
+  Ln as getDevices,
+  Hn as getMFAPreference,
+  qn as getUserAttributes,
+  zn as resendSignUpCode,
+  $n as resetPassword,
+  Bn as signIn,
+  On as signOut,
+  Jn as signUp,
+  Gn as updateMFAPreference,
+  Wn as updatePassword,
+  Zn as verifyTOTP
 };
