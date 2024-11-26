@@ -33,27 +33,9 @@ A simple, no-fuss authentication library using AWS SDK with SRP-based login. Des
 - [References](#references)
 
 ### Installation
-> **Note:** This library is not yet published to npm. You will need to clone the repository, build it, and link it locally to use it.
-
-1. Clone the repo:
+1. Run this command:
 ```bash
-git clone https://github.com/ilittlebig/easy-auth.git
-```
-
-2. Navigate into the project folder and build it:
-```bash
-cd easy-auth
-npm run build
-```
-
-3. Link the package locally:
-```bash
-npm link
-```
-
-5. In your project, link to the library:
-```bash
-npm link easy-auth
+npm install @ilittlebig/easy-auth
 ```
 
 ### Usage
