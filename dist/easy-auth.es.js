@@ -1805,6 +1805,7 @@ export {
   bn as CookieStorage,
   je as DefaultStorage,
   A as EasyAuth,
+  z as Hub,
   Ze as InMemoryStorage,
   Kn as confirmResetPassword,
   Vn as confirmSignIn,
