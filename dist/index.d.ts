@@ -1,4 +1,5 @@
 import { EasyAuth } from './internal/classes/easyAuth';
+import { Hub } from './internal/classes/hub';
 import { DefaultStorage } from './internal/classes/storage/defaultStorage';
 import { CookieStorage } from './internal/classes/storage/cookieStorage';
 import { InMemoryStorage } from './internal/classes/storage/inMemoryStorage';
@@ -19,5 +20,5 @@ import { signUp } from './api/signUp';
 import { confirmSignUp } from './api/confirmSignUp';
 import { resendSignUpCode } from './api/resendSignUpCode';
 import { deleteUser } from './api/deleteUser';
-export { EasyAuth, DefaultStorage, CookieStorage, InMemoryStorage, signIn, signOut, confirmSignIn, confirmResetPassword, resetPassword, getCurrentUser, getCurrentSession, updatePassword, getMFAPreference, updateMFAPreference, getDevices, getUserAttributes, verifyTOTP, signUp, confirmSignUp, resendSignUpCode, deleteUser, };
+export { Hub, EasyAuth, DefaultStorage, CookieStorage, InMemoryStorage, signIn, signOut, confirmSignIn, confirmResetPassword, resetPassword, getCurrentUser, getCurrentSession, updatePassword, getMFAPreference, updateMFAPreference, getDevices, getUserAttributes, verifyTOTP, signUp, confirmSignUp, resendSignUpCode, deleteUser, };
 export * from './types';
